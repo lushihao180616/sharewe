@@ -1,10 +1,11 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.AddressMapper;
 import com.lushihao.sharewe.dao.BuildingMapper;
 import com.lushihao.sharewe.entity.Address;
 import com.lushihao.sharewe.service.AddressService;
-import com.lushihao.sharewe.util.LSHResponseUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,11 +26,10 @@ public class AddressServiceImpl implements AddressService {
 
 		int sql_back = addressMapper.createAddress(address);
 		if (sql_back == 0) {
-			map.put("address_list", null);
-			return LSHResponseUtils.responseParam(false, map);
+			return LSHResponseUtils.getResponse(new LSHResponse("创建失败"));
 		} else {
 			map.put("address_list", findByOpenId(address.getOpenId()));
-			return LSHResponseUtils.responseParam(true, map);
+			return LSHResponseUtils.getResponse(new LSHResponse(map));
 		}
 	}
 
@@ -38,11 +38,10 @@ public class AddressServiceImpl implements AddressService {
 
 		int sql_back = addressMapper.updateAddress(address);
 		if (sql_back == 0) {
-			map.put("address_list", null);
-			return LSHResponseUtils.responseParam(false, map);
+			return LSHResponseUtils.getResponse(new LSHResponse("更新失败"));
 		} else {
 			map.put("address_list", findByOpenId(address.getOpenId()));
-			return LSHResponseUtils.responseParam(true, map);
+			return LSHResponseUtils.getResponse(new LSHResponse(map));
 		}
 	}
 
@@ -51,15 +50,14 @@ public class AddressServiceImpl implements AddressService {
 
 		int sql_back = addressMapper.deleteAddress(address);
 		if (sql_back == 0) {
-			map.put("address_list", null);
-			return LSHResponseUtils.responseParam(false, map);
+			return LSHResponseUtils.getResponse(new LSHResponse("删除失败"));
 		} else {
 			map.put("address_list", findByOpenId(address.getOpenId()));
-			return LSHResponseUtils.responseParam(true, map);
+			return LSHResponseUtils.getResponse(new LSHResponse(map));
 		}
 	}
 
-	public List<Map<String, Object>> findByOpenId(String openId) {
+	private List<Map<String, Object>> findByOpenId(String openId) {
 		List<Map<String, Object>> address_list = addressMapper.findByOpenId(openId);
 		return address_list;
 	}

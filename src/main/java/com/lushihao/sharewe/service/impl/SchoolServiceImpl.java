@@ -1,9 +1,10 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.SchoolMapper;
 import com.lushihao.sharewe.entity.School;
 import com.lushihao.sharewe.service.SchoolService;
-import com.lushihao.sharewe.util.LSHResponseUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +23,7 @@ public class SchoolServiceImpl implements SchoolService {
 
 		List<School> list = schoolDao.findByProvinceId(provinceId);
 		map.put("school_list", list);
-		return LSHResponseUtils.responseParam(true, map);
+		return LSHResponseUtils.getResponse(new LSHResponse(map));
 	}
 
 }

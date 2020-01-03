@@ -1,8 +1,9 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointExchangeMapper;
 import com.lushihao.sharewe.service.PointExchangeService;
-import com.lushihao.sharewe.util.LSHResponseUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ public class PointExchangeServiceImpl implements PointExchangeService {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("pointExchange_list", pointExchangeList);
-		return LSHResponseUtils.responseParam(true, map);
+		return LSHResponseUtils.getResponse(new LSHResponse(map));
 	}
 
 }

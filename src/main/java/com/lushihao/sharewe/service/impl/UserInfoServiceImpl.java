@@ -1,7 +1,8 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.lshutils.http.LSHHttpUtils;
-import com.lushihao.lshutils.string.LSHStringUtils;
+import com.lushihao.myutils.http.LSHHttpUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.BuildingMapper;
 import com.lushihao.sharewe.dao.ProvinceMapper;
 import com.lushihao.sharewe.dao.SchoolMapper;
@@ -10,7 +11,6 @@ import com.lushihao.sharewe.entity.AllUserInfo;
 import com.lushihao.sharewe.entity.UserInfo;
 import com.lushihao.sharewe.service.AddressService;
 import com.lushihao.sharewe.service.UserInfoService;
-import com.lushihao.sharewe.util.LSHResponseUtils;
 import com.lushihao.sharewe.util.LSHUserInfoUtils;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             map.put("secret", SECRET);
             map.put("js_code", code);
             map.put("grant_type", "authorization_code");
-            String wxResponse = LSHHttpUtils.post(url, map, 60, 60, LSHStringUtils.UTF8);
+            String wxResponse = LSHHttpUtils.post(url, map, 60, 60, LSHHttpUtils.UTF8);
             JSONObject wxResponseJson = JSONObject.fromObject(wxResponse);
             String session_key = wxResponseJson.getString("session_key");
             String openId = wxResponseJson.getString("openid");
@@ -75,32 +75,32 @@ public class UserInfoServiceImpl implements UserInfoService {
                 }
             }
         }
-        return LSHResponseUtils.responseParam(false, null);
+        return LSHResponseUtils.getResponse(new LSHResponse((String) null));
     }
 
     /**
      * 通过OpenId获取用户信息
      */
     @SuppressWarnings("unused")
-    public String findByOpenId(String openId) {
+    private String findByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 
         // 获取基本信息
         AllUserInfo allUserInfo = userInfoMapper.findByOpenId(openId);
 
         boolean flag;
-        if (allUserInfo != null) {
-            flag = true;
-        } else {
-            flag = false;
-        }
+//        if (allUserInfo != null) {
+//            flag = true;
+//        } else {
+//            flag = false;
+//        }
         map.put("userinfo", allUserInfo.getUserinfo());
         map.put("province_list", allUserInfo.getProvinceList());
         map.put("school_list", allUserInfo.getSchoolList());
         map.put("building_list", allUserInfo.getBuildingList());
         map.put("dormitory_list", allUserInfo.getDormitoryList());
         map.put("address_list", allUserInfo.getAddressList());
-        return LSHResponseUtils.responseParam(flag, map);
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
     }
 
     /**
@@ -109,7 +109,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     public String updateUserInfo(UserInfo userInfo) {
         int sql_back = userInfoMapper.updateUserInfo(userInfo);
         if (sql_back == 0) {
-            return LSHResponseUtils.responseParam(false, null);
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
         } else {
             return findByOpenId(userInfo.getOpenId());
         }

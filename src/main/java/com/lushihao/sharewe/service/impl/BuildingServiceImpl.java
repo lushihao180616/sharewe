@@ -1,9 +1,10 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.BuildingMapper;
 import com.lushihao.sharewe.entity.Building;
 import com.lushihao.sharewe.service.BuildingService;
-import com.lushihao.sharewe.util.LSHResponseUtils;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class BuildingServiceImpl implements BuildingService {
 		
 		List<Building> list = buildingDao.findDormitoryBySchoolId(schoolId);
 		map.put("dormitory_list", list);
-		return LSHResponseUtils.responseParam(true, map);
+		return LSHResponseUtils.getResponse(new LSHResponse(map));
 	}
 
 }

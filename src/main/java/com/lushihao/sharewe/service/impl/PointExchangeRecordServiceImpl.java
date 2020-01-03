@@ -1,9 +1,10 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointExchangeRecordMapper;
 import com.lushihao.sharewe.entity.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeRecordService;
-import com.lushihao.sharewe.util.LSHResponseUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,9 +25,9 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
 		pointExchangeRecord.setVerificationCode(UUID.randomUUID().toString().substring(0,8));
 		int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(pointExchangeRecord);
 		if (sql_back == 0) {
-			return LSHResponseUtils.responseParam(false, map);
+			return LSHResponseUtils.getResponse(new LSHResponse("创建失败"));
 		} else {
-			return LSHResponseUtils.responseParam(true, map);
+			return LSHResponseUtils.getResponse(new LSHResponse(map));
 		}
 	}
 
@@ -36,7 +37,7 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
 
 		List<Map<String,Object>> list = pointExchangeRecordMapper.selectPointExchangeRecord(openId);
 		map.put("record_list", list);
-		return LSHResponseUtils.responseParam(true, map);
+		return LSHResponseUtils.getResponse(new LSHResponse(map));
 	}
 
 }

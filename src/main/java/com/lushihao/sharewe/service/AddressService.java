@@ -13,5 +13,4 @@ public interface AddressService {
 
 	String deleteAddress(Address address);
 	
-	List<Map<String, Object>> findByOpenId(String openId);
 }
