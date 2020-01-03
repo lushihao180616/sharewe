@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lushihao.sharewe.dao.BuildingMapper">
+    <select id="findById" parameterType="int" resultType="Building">
+        SELECT * FROM building WHERE id=#{id}
+    </select>
+    <select id="findBySchoolId" parameterType="int" resultType="Building">
+        SELECT * FROM building WHERE school_id=#{school_id}
+    </select>
+    <select id="findDormitoryBySchoolId" parameterType="int" resultType="Building">
+        SELECT * FROM building WHERE school_id=#{school_id} AND type=0
+    </select>
+</mapper>

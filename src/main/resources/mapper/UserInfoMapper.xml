@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lushihao.sharewe.dao.UserInfoMapper">
+    <resultMap type="AllUserInfo" id="resultUserMap">
+    	<association property="userinfo" javaType="UserInfo">
+    		<id property="openId" column="openid" />
+    		<result property="nickName" column="nickname" />
+    		<result property="gender" column="gender" />
+    		<result property="province_id" column="province_id" />
+    		<result property="school_id" column="school_id" />
+    		<result property="building_id" column="building_id" />
+    		<result property="phoneNumber" column="phonenumber" />
+    		<result property="avatarUrl" column="avatarurl" />
+    		<result property="point" column="point" />
+    	</association>
+    	
+		<collection property="provinceList" ofType="Province" select="getProvince" column="{id=province_id}" />
+		<collection property="schoolList" ofType="School" select="getSchool" column="{id=province_id}" />
+		<collection property="buildingList" ofType="Building" select="getBuilding" column="{id=school_id}" />
+		<collection property="dormitoryList" ofType="Building" select="getDormitory" column="{id=school_id}" />
+		<collection property="addressList" ofType="Address" select="getAddress" column="openid" />
+    </resultMap>
+    <select id="findByOpenId" parameterType="string" resultMap="resultUserMap">
+        SELECT 
+        	ui.openid,
+        	ui.nickname,
+        	ui.gender,
+        	ui.province_id,
+        	ui.school_id,
+        	ui.building_id,
+        	ui.phonenumber,
+        	ui.avatarurl,
+        	ui.point
+        FROM 
+        	userinfo ui
+        WHERE 
+        	ui.openid=#{openId}
+    </select>
+    <select id="getProvince" parameterType="java.util.Map" resultType="Province">
+        SELECT 
+        	pv.id,
+        	pv.name
+        FROM 
+        	province pv
+    </select>
+    <select id="getSchool" parameterType="java.util.Map" resultType="School">
+        SELECT 
+        	sc.id,
+        	sc.name,
+        	sc.province_id,
+        	sc.province_name
+        FROM 
+        	school sc
+        WHERE 
+        	<choose>
+	        	<when test="id!=0">
+	        		sc.province_id=#{id}
+	        	</when>
+	        	<otherwise>
+	        		sc.province_id=110000
+	        	</otherwise>
+        	</choose>
+    </select>
+    <select id="getBuilding" parameterType="java.util.Map" resultType="Building">
+        SELECT 
+        	bd.id,
+        	bd.name,
+        	bd.type,
+        	bd.school_id,
+        	bd.school_name
+        FROM 
+        	building bd
+        WHERE
+            <choose>
+	        	<when test="id!=0">
+        			bd.school_id=#{id}
+	        	</when>
+	        	<otherwise>
+	        		bd.school_id=1
+	        	</otherwise>
+        	</choose>
+    </select>
+    <select id="getDormitory" parameterType="java.util.Map" resultType="Building">
+        SELECT 
+        	bd.id,
+        	bd.name,
+        	bd.type,
+        	bd.school_id,
+        	bd.school_name
+        FROM 
+        	building bd
+        WHERE bd.type=0 AND
+            <choose>
+	        	<when test="id!=0">
+        			bd.school_id=#{id}
+	        	</when>
+	        	<otherwise>
+	        		bd.school_id=1
+	        	</otherwise>
+        	</choose>
+    </select>
+    <select id="getAddress" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT 
+        	ad.id,
+        	ad.building_id,
+        	ad.roomcode,
+        	ad.name,
+        	ad.phoneNumber,
+        	ad.openId,
+        	bd.name building_name,
+        	CONCAT(bd.name, ' / ', ad.roomcode) buildingName_roomCode
+        FROM 
+        	address ad
+        LEFT JOIN 
+        	building bd
+        ON
+        	ad.building_id=bd.id
+        WHERE
+        	ad.openId=#{openid}
+    </select>
+    
+    <insert id="createUserInfo" parameterType="UserInfo">
+        INSERT INTO
+        	userinfo(openid,nickname,gender,avatarurl)
+        VALUES
+        	(#{openId},#{nickName},#{gender},#{avatarUrl})
+        ON DUPLICATE KEY UPDATE
+	        nickname = #{nickName},
+	        gender = #{gender},
+	        avatarurl = #{avatarUrl}
+	</insert>
+	<update id="updateUserInfo" parameterType="UserInfo">
+        update userinfo set nickname=#{nickName},gender=#{gender},province_id=#{province_id},school_id=#{school_id},building_id=#{building_id},phonenumber=#{phoneNumber},avatarurl=#{avatarUrl} where openid=#{openId}
+	</update>
+</mapper>

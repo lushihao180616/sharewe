@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lushihao.sharewe.dao.PurchaseItemMapper">
+	<insert id="batchCreatePurchaseItems" parameterType="java.util.List" useGeneratedKeys="false">
+		INSERT INTO purchaseitem (name,num,remarks,purchaseid) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.name},
+				#{item.num},
+				#{item.remarks},
+				#{item.purchaseId}
+			)
+		</foreach>		
+    </insert>
+   	<delete id="batchDeletePurchaseItems" parameterType="int">
+        DELETE FROM purchaseitem WHERE purchaseid=#{purchaseId}
+    </delete>
+    <select id="findPurchaseItemsByPurchaseId" parameterType="int" resultType="PurchaseItem">
+        SELECT * FROM purchaseitem where purchaseid = #{purchaseId}
+    </select>
+</mapper>
