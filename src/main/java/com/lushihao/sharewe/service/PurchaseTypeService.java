@@ -4,5 +4,5 @@ import net.sf.json.JSONArray;
 
 public interface PurchaseTypeService {
 
-	JSONArray findAllPurchaseTypes();
+	String findAllPurchaseTypes();
 }

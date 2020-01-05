@@ -15,26 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/building")
 public class BuildingController {
 
-	@Resource
-	private BuildingService buildingService;
-	
-	@RequestMapping(value = "/getbyschool")
-	public @ResponseBody String getBuilding(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody String data) {
-		
-		JSONObject wxRequestJson = JSONObject.fromObject(data);
-		int school_id = wxRequestJson.getInt("school_id");
-		
-		return buildingService.findBySchoolId(school_id).toString();
-	}
-	
-	@RequestMapping(value = "/getDormitory")
-	public @ResponseBody String getDormitory(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody String data) {
-		
-		JSONObject wxRequestJson = JSONObject.fromObject(data);
-		int schoolId = wxRequestJson.getInt("schoolId");
-		
-		return buildingService.findDormitoryBySchoolId(schoolId);
-	}
+    @Resource
+    private BuildingService buildingService;
+
+    @RequestMapping(value = "/getDormitory")
+    public @ResponseBody
+    String getDormitory(HttpServletRequest request, HttpServletResponse response,
+                        @RequestBody String data) {
+
+        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        int schoolId = wxRequestJson.getInt("schoolId");
+
+        return buildingService.findDormitoryBySchoolId(schoolId);
+    }
 }

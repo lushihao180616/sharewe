@@ -16,28 +16,28 @@ import java.util.UUID;
 @Service
 public class PointExchangeRecordServiceImpl implements PointExchangeRecordService {
 
-	@Resource
-	private PointExchangeRecordMapper pointExchangeRecordMapper;
-	
-	public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord) {
-		Map<String,Object> map = new HashMap<>();
-		
-		pointExchangeRecord.setVerificationCode(UUID.randomUUID().toString().substring(0,8));
-		int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(pointExchangeRecord);
-		if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse("创建失败"));
-		} else {
-			return LSHResponseUtils.getResponse(new LSHResponse(map));
-		}
-	}
+    @Resource
+    private PointExchangeRecordMapper pointExchangeRecordMapper;
 
-	@Override
-	public String selectPointExchangeRecord(String openId) {
-		Map<String, Object> map = new HashMap<>();
+    public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord) {
+        Map<String, Object> map = new HashMap<>();
 
-		List<Map<String,Object>> list = pointExchangeRecordMapper.selectPointExchangeRecord(openId);
-		map.put("record_list", list);
-		return LSHResponseUtils.getResponse(new LSHResponse(map));
-	}
+        pointExchangeRecord.setVerificationCode(UUID.randomUUID().toString().substring(0, 8));
+        int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(pointExchangeRecord);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    @Override
+    public String selectPointExchangeRecord(String openId) {
+        Map<String, Object> map = new HashMap<>();
+
+        List<Map<String, Object>> list = pointExchangeRecordMapper.selectPointExchangeRecord(openId);
+        map.put("record_list", list);
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
+    }
 
 }

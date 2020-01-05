@@ -68,7 +68,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     public String updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
         int sql_back = userInfoMapper.updateUserInfo(userInfo);
-        if(deleteAddress){
+        if (deleteAddress) {
             addressMapper.deleteAllAddress(userInfo.getOpenId());
         }
         if (sql_back == 0) {

@@ -17,122 +17,55 @@ import java.util.*;
 public class PurchaseServiceImpl implements PurchaseService {
 
     @Resource
-    private PurchaseMapper purchaseDao;
+    private PurchaseMapper purchaseMapper;
     @Resource
-    private AddressMapper addressDao;
+    private AddressMapper addressMapper;
     @Resource
-    private UserInfoMapper userInfoDao;
+    private UserInfoMapper userInfoMapper;
     @Resource
-    private BuildingMapper buildingDao;
+    private BuildingMapper buildingMapper;
     @Resource
-    private PurchaseTypeMapper purchaseTypeDao;
+    private PurchaseTypeMapper purchaseTypeMapper;
     @Resource
-    private PurchaseStatusMapper purchaseStatusDao;
+    private PurchaseStatusMapper purchaseStatusMapper;
     @Resource
-    private PurchaseItemMapper purchaseItemDao;
+    private PurchaseItemMapper purchaseItemMapper;
 
     public String sendPurchase(Purchase purchase) {
         int sql_back;
         if (purchase.getId() == 0) {
-            sql_back = purchaseDao.createPurchase(purchase);
+            sql_back = purchaseMapper.createPurchase(purchase);
         } else {
-            sql_back = purchaseDao.updatePurchase(purchase);
+            sql_back = purchaseMapper.updatePurchase(purchase);
         }
         if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
         } else {
             for (PurchaseItem purchaseItem : purchase.getPurchaseItems()) {
                 purchaseItem.setPurchaseId(purchase.getId());
             }
             if (purchase.getId() != 0) {
-                purchaseItemDao.batchDeletePurchaseItems(purchase.getId());
+                purchaseItemMapper.batchDeletePurchaseItems(purchase.getId());
             }
-            int batch_sql_back = purchaseItemDao.batchCreatePurchaseItems(purchase.getPurchaseItems());
+            int batch_sql_back = purchaseItemMapper.batchCreatePurchaseItems(purchase.getPurchaseItems());
             if (batch_sql_back == purchase.getPurchaseItems().size()) {
-				return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+                return LSHResponseUtils.getResponse(new LSHResponse((String) null));
             } else {
-				return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+                return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
             }
         }
     }
 
-    @SuppressWarnings("deprecation")
     public String getPurchases(int num, int page) {
         Date lastGetDate = new Date();
         lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
-        List<Purchase> purchase_list = purchaseDao.findPurchases(num, (page - 1) * num, lastGetDate);
+        List<Purchase> purchase_list = purchaseMapper.findPurchases(num, (page - 1) * num, lastGetDate);
 
         return transform(purchase_list);
     }
 
     public String getPurchase(Purchase purchase) {
-        int sql_back = purchaseDao.getPurchase(purchase);
-        if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
-			return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    public String filterPurchases(int num, int page, int buildingId, int typeId) {
-        Date lastGetDate = new Date();
-        lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
-        List<Purchase> purchase_list = purchaseDao.filterPurchases(num, (page - 1) * num, lastGetDate, buildingId,
-                typeId);
-
-        return transform(purchase_list);
-    }
-
-    public String getSendPurchase(String sendUserOpenId, int statusId) {
-        List<Purchase> purchase_list = purchaseDao.getSendPurchase(sendUserOpenId, statusId);
-        return transform(purchase_list);
-    }
-
-    public String getGetPurchase(String getUserOpenId, int statusId) {
-        List<Purchase> purchase_list = purchaseDao.getGetPurchase(getUserOpenId, statusId);
-        return transform(purchase_list);
-    }
-
-    public String romovePurchase(int purchaseId) {
-        int sql_back1 = purchaseItemDao.batchDeletePurchaseItems(purchaseId);
-        int sql_back2 = purchaseDao.deletePurchase(purchaseId);
-        if (sql_back1 == 0 || sql_back2 == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
-			return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
-        }
-    }
-
-    public String sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
-        int sql_back = purchaseDao.sendCanclePurchase(purchaseId, sendUserCancle);
-        if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
-			return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
-        }
-    }
-
-    public String getCanclePurchase(int purchaseId) {
-        int sql_back = purchaseDao.getCanclePurchase(purchaseId);
-        if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
-			return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
-        }
-    }
-
-    public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
-        int sql_back = purchaseDao.getCompletePurchase(purchaseId, getUserComplete);
-        if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
-			return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
-        }
-    }
-
-    public String sendCompletePurchase(int purchaseId) {
-        int sql_back = purchaseDao.sendCompletePurchase(purchaseId);
+        int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse((String) null));
         } else {
@@ -140,26 +73,88 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
-    /**
-     * ���������ת�������ǰ̨ʶ������
-     */
+    public String filterPurchases(int num, int page, int buildingId, int typeId) {
+        Date lastGetDate = new Date();
+        lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
+        List<Purchase> purchase_list = purchaseMapper.filterPurchases(num, (page - 1) * num, lastGetDate, buildingId,
+                typeId);
+
+        return transform(purchase_list);
+    }
+
+    public String getSendPurchase(String sendUserOpenId, int statusId) {
+        List<Purchase> purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId);
+        return transform(purchase_list);
+    }
+
+    public String getGetPurchase(String getUserOpenId, int statusId) {
+        List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId);
+        return transform(purchase_list);
+    }
+
+    public String romovePurchase(int purchaseId) {
+        int sql_back1 = purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
+        int sql_back2 = purchaseMapper.deletePurchase(purchaseId);
+        if (sql_back1 == 0 || sql_back2 == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    public String sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
+        int sql_back = purchaseMapper.sendCanclePurchase(purchaseId, sendUserCancle);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    public String getCanclePurchase(int purchaseId) {
+        int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
+        int sql_back = purchaseMapper.getCompletePurchase(purchaseId, getUserComplete);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    public String sendCompletePurchase(int purchaseId) {
+        int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
     public String transform(List<Purchase> purchase_list) {
         List<Object> list = new ArrayList<>();
         Map<String, Object> item_map;
         for (Purchase purchase : purchase_list) {
             item_map = new HashMap<>();
 
-            Address address = addressDao.findById(purchase.getAddressId());
-            List<PurchaseItem> purchase_items = purchaseItemDao.findPurchaseItemsByPurchaseId(purchase.getId());
+            Address address = addressMapper.findById(purchase.getAddressId());
+            List<PurchaseItem> purchase_items = purchaseItemMapper.findPurchaseItemsByPurchaseId(purchase.getId());
             item_map.put("id", purchase.getId());
-            item_map.put("type", purchaseTypeDao.findById(purchase.getTypeId()));
+            item_map.put("type", purchaseTypeMapper.findById(purchase.getTypeId()));
             item_map.put("address", address);
-            item_map.put("building", buildingDao.findById(address.getBuilding_id()));
-            item_map.put("status", purchaseStatusDao.findById(purchase.getStatusId()));
+            item_map.put("building", buildingMapper.findById(address.getBuilding_id()));
+            item_map.put("status", purchaseStatusMapper.findById(purchase.getStatusId()));
             item_map.put("reward", purchase.getReward());
-            item_map.put("sendUserInfo", userInfoDao.findByOpenId(purchase.getSendUserOpenId()));
+            item_map.put("sendUserInfo", userInfoMapper.findByOpenId(purchase.getSendUserOpenId()));
             if (purchase.getGetUserOpenId() != null) {
-                item_map.put("getUserInfo", userInfoDao.findByOpenId(purchase.getGetUserOpenId()));
+                item_map.put("getUserInfo", userInfoMapper.findByOpenId(purchase.getGetUserOpenId()));
             }
             item_map.put("deadTime", LSHDateUtils.date2String(purchase.getDeadTime(), LSHDateUtils.YYYY_MM_DD_HH_MM_SS1));
             item_map.put("sendTime", LSHDateUtils.date2String(purchase.getSendTime(), LSHDateUtils.YYYY_MM_DD_HH_MM_SS1));
