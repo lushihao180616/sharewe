@@ -5,6 +5,7 @@ import com.lushihao.myutils.http.LSHHttpUtils;
 import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
+import com.lushihao.sharewe.dao.AddressMapper;
 import com.lushihao.sharewe.dao.UserInfoMapper;
 import com.lushihao.sharewe.entity.AllUserInfo;
 import com.lushihao.sharewe.entity.UserInfo;
@@ -21,6 +22,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
     private UserInfoMapper userInfoMapper;
+    @Resource
+    private AddressMapper addressMapper;
 
     /**
      * 处理获取用户信息方法
@@ -61,21 +64,29 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     /**
+     * 更新数据
+     */
+    public String updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
+        int sql_back = userInfoMapper.updateUserInfo(userInfo);
+        if(deleteAddress){
+            addressMapper.deleteAllAddress(userInfo.getOpenId());
+        }
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        } else {
+            return findByOpenId(userInfo.getOpenId());
+        }
+    }
+
+    /**
      * 通过OpenId获取用户信息
      */
-    @SuppressWarnings("unused")
     public String findByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 
         // 获取基本信息
         AllUserInfo allUserInfo = userInfoMapper.findByOpenId(openId);
 
-        boolean flag;
-//        if (allUserInfo != null) {
-//            flag = true;
-//        } else {
-//            flag = false;
-//        }
         map.put("userinfo", allUserInfo.getUserinfo());
         map.put("province_list", allUserInfo.getProvinceList());
         map.put("school_list", allUserInfo.getSchoolList());
@@ -83,18 +94,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         map.put("dormitory_list", allUserInfo.getDormitoryList());
         map.put("address_list", allUserInfo.getAddressList());
         return LSHResponseUtils.getResponse(new LSHResponse(map));
-    }
-
-    /**
-     * 更新数据
-     */
-    public String updateUserInfo(UserInfo userInfo) {
-        int sql_back = userInfoMapper.updateUserInfo(userInfo);
-        if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
-            return findByOpenId(userInfo.getOpenId());
-        }
     }
 
 }

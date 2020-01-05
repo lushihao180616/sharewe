@@ -5,7 +5,7 @@
     <select id="findById" parameterType="int" resultType="School">
         SELECT * FROM school WHERE id=#{id}
     </select>
-    <select id="findByProvinceId" parameterType="int" resultMap="School">
+    <select id="findByProvinceId" parameterType="int" resultType="School">
         SELECT
             s.id id,
             s.name name,

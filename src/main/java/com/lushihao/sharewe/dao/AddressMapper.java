@@ -33,4 +33,6 @@ public interface AddressMapper {
 	 * ɾ����ַ
 	 */
 	int deleteAddress(Address address);
+
+	int deleteAllAddress(String openId);
 }

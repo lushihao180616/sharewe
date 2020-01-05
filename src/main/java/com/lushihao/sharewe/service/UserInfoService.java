@@ -16,5 +16,5 @@ public interface UserInfoService {
     /**
      * 更新数据
      */
-    String updateUserInfo(UserInfo userInfo);
+    String updateUserInfo(UserInfo userInfo, boolean deleteAddress);
 }

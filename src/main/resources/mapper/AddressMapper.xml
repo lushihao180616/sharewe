@@ -33,4 +33,7 @@
 	<delete id="deleteAddress" parameterType="Address">
         DELETE FROM address WHERE id=#{id}
     </delete>
+	<delete id="deleteAllAddress" parameterType="String">
+        DELETE FROM address WHERE openid=#{openId}
+    </delete>
 </mapper>

@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.lushihao.sharewe.entity.UserInfo;
 import com.lushihao.sharewe.service.UserInfoService;
+import io.netty.handler.codec.json.JsonObjectDecoder;
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class UserInfoController {
     @RequestMapping(value = "/saveUserInfo")
     public @ResponseBody
     String saveUserInfo(HttpServletRequest request, HttpServletResponse response,
-                         @RequestBody String data) {
+                        @RequestBody String data) {
         // 获取前端传入的参数
         JSONObject wxRequestJson = JSONObject.fromObject(data);
         String code = wxRequestJson.getString("code");
@@ -52,8 +53,9 @@ public class UserInfoController {
         // 获取前端传入的参数
         JSONObject wxRequestJson = JSONObject.fromObject(data);
         UserInfo userInfo = (UserInfo) JSONObject.toBean(wxRequestJson, UserInfo.class);
+        boolean deleteAddress = wxRequestJson.getBoolean("deleteAddress");
 
-        return userInfoService.updateUserInfo(userInfo);
+        return userInfoService.updateUserInfo(userInfo, deleteAddress);
     }
 
 }
