@@ -1,5 +1,6 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointExchangeRecordMapper;
@@ -20,15 +21,17 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
     private PointExchangeRecordMapper pointExchangeRecordMapper;
 
     @Override
-    public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord) {
+    public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point) {
         Map<String, Object> map = new HashMap<>();
 
-        pointExchangeRecord.setVerificationCode(UUID.randomUUID().toString().substring(0, 8));
-        int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(pointExchangeRecord);
+        pointExchangeRecord.setVerificationCode(UUID.randomUUID().toString().substring(0, 6));
+        Map<String, Object> param = LSHMapUtils.entityToMap(pointExchangeRecord);
+        param.put("point", point);
+        int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(param);
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse((String) null));
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return LSHResponseUtils.getResponse(new LSHResponse(map));
         }
     }
 

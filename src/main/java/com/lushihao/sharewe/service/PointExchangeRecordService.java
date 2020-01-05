@@ -4,7 +4,7 @@ import com.lushihao.sharewe.entity.PointExchangeRecord;
 
 public interface PointExchangeRecordService {
 
-	String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord);
+	String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point);
 
 	String selectPointExchangeRecord(String openId);
 

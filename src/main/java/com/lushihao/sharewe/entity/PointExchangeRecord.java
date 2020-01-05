@@ -1,21 +1,9 @@
 package com.lushihao.sharewe.entity;
 
 public class PointExchangeRecord {
-	/**
-	 * ������
-	 */
 	private String pointExchangeId;
-	/**
-	 * �����û�
-	 */
 	private String openId;
-	/**
-	 * ��֤��
-	 */
 	private String verificationCode;
-	/**
-	 * �Ƿ�ʹ��
-	 */
 	private boolean ifUsed;
 
 	public String getPointExchangeId() {

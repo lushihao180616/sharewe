@@ -35,11 +35,12 @@ public class PointController {
     public @ResponseBody
     String setPointExchangeRecord(HttpServletRequest request, HttpServletResponse response,
                                   @RequestBody String data) {
-
+        JSONObject jsonObject = LSHJsonUtils.string2JsonObj(data);
         PointExchangeRecord pointExchangeRecord = LSHJsonUtils.json2Bean(data,
                 PointExchangeRecord.class);
+        int point = jsonObject.getInteger("point");
 
-        return pointExchangeRecordService.createPointExchangeRecord(pointExchangeRecord);
+        return pointExchangeRecordService.createPointExchangeRecord(pointExchangeRecord, point);
     }
 
     @RequestMapping(value = "/getPointExchangeRecord")
