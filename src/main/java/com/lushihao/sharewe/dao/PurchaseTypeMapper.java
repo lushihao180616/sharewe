@@ -9,7 +9,7 @@ import java.util.List;
 public interface PurchaseTypeMapper {
 	/**
 	 * ͨ��Id��ȡʡ��
-	 */
+			*/
 	PurchaseType findById(int id);
 
 	/**

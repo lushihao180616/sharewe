@@ -13,10 +13,10 @@ import java.util.List;
 public class PurchaseTypeServiceImpl implements PurchaseTypeService {
 	
 	@Resource
-	PurchaseTypeMapper purchaseTypeDao;
+	PurchaseTypeMapper purchaseTypeMapper;
 	
 	public JSONArray findAllPurchaseTypes() {
-		List<PurchaseType> list = purchaseTypeDao.findAll();
+		List<PurchaseType> list = purchaseTypeMapper.findAll();
 		JSONArray backArray = JSONArray.fromObject(list);
 		return backArray;
 	}

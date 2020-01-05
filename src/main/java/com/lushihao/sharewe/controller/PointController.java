@@ -13,7 +13,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RestController("/point")
+@RestController
+@RequestMapping("/point")
 public class PointController {
 
 	@Resource

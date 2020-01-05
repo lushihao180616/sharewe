@@ -12,7 +12,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserInfoController {
 
     @Resource
@@ -20,7 +21,7 @@ public class UserInfoController {
 
     @RequestMapping(value = "/saveUserInfo")
     public @ResponseBody
-    String parseUserInfo(HttpServletRequest request, HttpServletResponse response,
+    String saveUserInfo(HttpServletRequest request, HttpServletResponse response,
                          @RequestBody String data) {
         // 获取前端传入的参数
         JSONObject wxRequestJson = JSONObject.fromObject(data);
@@ -28,8 +29,7 @@ public class UserInfoController {
         String encryptedData = wxRequestJson.getString("encryptedData");
         String iv = wxRequestJson.getString("iv");
 
-        String back = userInfoService.handleGetUserInfo(code, encryptedData, iv);
-        return back;
+        return userInfoService.handleGetUserInfo(code, encryptedData, iv);
     }
 
     @RequestMapping(value = "/getUserinfoByOpenid")

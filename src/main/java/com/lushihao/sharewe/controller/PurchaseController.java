@@ -18,7 +18,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/purchase")
+@RestController
+@RequestMapping("/purchase")
 public class PurchaseController {
 
 	@Resource

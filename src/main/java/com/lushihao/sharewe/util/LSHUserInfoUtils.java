@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.util;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -41,7 +42,7 @@ public class LSHUserInfoUtils {
             byte[] resultByte = cipher.doFinal(dataByte);
             if (null != resultByte && resultByte.length > 0) {
                 String result = new String(resultByte, "UTF-8");
-                return JSONObject.fromObject(result);
+                return LSHJsonUtils.string2JsonObj(result);
             }
         } catch (Exception e) {
             e.printStackTrace();

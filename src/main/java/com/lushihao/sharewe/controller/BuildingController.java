@@ -11,7 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RestController("/building")
+@RestController
+@RequestMapping("/building")
 public class BuildingController {
 
 	@Resource

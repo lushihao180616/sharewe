@@ -5,8 +5,16 @@
     <select id="findById" parameterType="int" resultType="School">
         SELECT * FROM school WHERE id=#{id}
     </select>
-    <select id="findByProvinceId" parameterType="int" resultType="School">
-        SELECT * FROM school WHERE province_id=#{province_id}
+    <select id="findByProvinceId" parameterType="int" resultMap="School">
+        SELECT
+            s.id id,
+            s.name name,
+            s.province_id province_id,
+            s.province_name province_name
+        FROM
+            school s
+        WHERE
+            province_id=#{province_id}
     </select>
     <select id="findAll" resultType="School">
         SELECT * FROM school

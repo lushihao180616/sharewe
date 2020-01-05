@@ -1,18 +1,15 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.http.LSHHttpUtils;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
-import com.lushihao.sharewe.dao.BuildingMapper;
-import com.lushihao.sharewe.dao.ProvinceMapper;
-import com.lushihao.sharewe.dao.SchoolMapper;
 import com.lushihao.sharewe.dao.UserInfoMapper;
 import com.lushihao.sharewe.entity.AllUserInfo;
 import com.lushihao.sharewe.entity.UserInfo;
-import com.lushihao.sharewe.service.AddressService;
 import com.lushihao.sharewe.service.UserInfoService;
 import com.lushihao.sharewe.util.LSHUserInfoUtils;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,14 +21,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
     private UserInfoMapper userInfoMapper;
-    @Resource
-    private ProvinceMapper provinceMapper;
-    @Resource
-    private SchoolMapper schoolMapper;
-    @Resource
-    private BuildingMapper buildingMapper;
-    @Resource
-    private AddressService addressService;
 
     /**
      * 处理获取用户信息方法
@@ -39,21 +28,14 @@ public class UserInfoServiceImpl implements UserInfoService {
     public String handleGetUserInfo(String code, String encryptedData, String iv) {
         // 微信小程序appid和秘钥，用来获取或解析用户信息
         final String APPID = "wx15c0ebc110fd5eb5";
-        final String SECRET = "15d1c4700159e5c147fb1d27ed49d880";
+        final String SECRET = "5a1a14595cad33adb86caa3af477653a";
 
         // 第一次请求，通过code获取session_key和openid
         if (code != null) {
-//            String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + APPID + "&secret=" + SECRET
-//                    + "&js_code=" + code + "&grant_type=authorization_code";
-//            String wxResponse = UrlUtil.getURLContent(url);
-            String url = "https://api.weixin.qq.com/sns/jscode2session";
-            Map<String, String> map = new HashMap<>();
-            map.put("appid", APPID);
-            map.put("secret", SECRET);
-            map.put("js_code", code);
-            map.put("grant_type", "authorization_code");
-            String wxResponse = LSHHttpUtils.post(url, map, 60, 60, LSHHttpUtils.UTF8);
-            JSONObject wxResponseJson = JSONObject.fromObject(wxResponse);
+            String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + APPID + "&secret=" + SECRET
+                    + "&js_code=" + code + "&grant_type=authorization_code";
+            String wxResponse = LSHHttpUtils.request(url, 10000, 10000, LSHHttpUtils.HttpMethod.POST);
+            JSONObject wxResponseJson = LSHJsonUtils.string2JsonObj(wxResponse);
             String session_key = wxResponseJson.getString("session_key");
             String openId = wxResponseJson.getString("openid");
 
@@ -82,7 +64,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * 通过OpenId获取用户信息
      */
     @SuppressWarnings("unused")
-    private String findByOpenId(String openId) {
+    public String findByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 
         // 获取基本信息

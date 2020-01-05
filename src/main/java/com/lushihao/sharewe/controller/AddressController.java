@@ -12,7 +12,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RestController("/address")
+@RestController
+@RequestMapping("/address")
 public class AddressController {
 
 	@Resource
