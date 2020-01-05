@@ -31,6 +31,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Resource
     private PurchaseItemMapper purchaseItemMapper;
 
+    @Override
     public String sendPurchase(Purchase purchase) {
         int sql_back;
         if (purchase.getId() == 0) {
@@ -56,6 +57,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    @Override
     public String getPurchases(int num, int page) {
         Date lastGetDate = new Date();
         lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
@@ -64,6 +66,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
+    @Override
     public String getPurchase(Purchase purchase) {
         int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
@@ -73,6 +76,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    @Override
     public String filterPurchases(int num, int page, int buildingId, int typeId) {
         Date lastGetDate = new Date();
         lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
@@ -82,16 +86,19 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
+    @Override
     public String getSendPurchase(String sendUserOpenId, int statusId) {
         List<Purchase> purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId);
         return transform(purchase_list);
     }
 
+    @Override
     public String getGetPurchase(String getUserOpenId, int statusId) {
         List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId);
         return transform(purchase_list);
     }
 
+    @Override
     public String romovePurchase(int purchaseId) {
         int sql_back1 = purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
         int sql_back2 = purchaseMapper.deletePurchase(purchaseId);
@@ -102,6 +109,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    @Override
     public String sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
         int sql_back = purchaseMapper.sendCanclePurchase(purchaseId, sendUserCancle);
         if (sql_back == 0) {
@@ -111,6 +119,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    @Override
     public String getCanclePurchase(int purchaseId) {
         int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
         if (sql_back == 0) {
@@ -120,6 +129,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    @Override
     public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
         int sql_back = purchaseMapper.getCompletePurchase(purchaseId, getUserComplete);
         if (sql_back == 0) {
@@ -129,6 +139,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    @Override
     public String sendCompletePurchase(int purchaseId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
@@ -138,7 +149,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
-    public String transform(List<Purchase> purchase_list) {
+    private String transform(List<Purchase> purchase_list) {
         List<Object> list = new ArrayList<>();
         Map<String, Object> item_map;
         for (Purchase purchase : purchase_list) {

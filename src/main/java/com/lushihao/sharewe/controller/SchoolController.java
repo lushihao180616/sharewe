@@ -1,7 +1,8 @@
 package com.lushihao.sharewe.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.service.SchoolService;
-import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,8 +23,8 @@ public class SchoolController {
     public @ResponseBody
     String userinfo(HttpServletRequest request, HttpServletResponse response, @RequestBody String data) {
 
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int provinceId = wxRequestJson.getInt("provinceId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int provinceId = wxRequestJson.getInteger("provinceId");
 
         return schoolService.findSchoolByProvinceId(provinceId);
     }

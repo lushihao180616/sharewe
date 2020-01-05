@@ -19,6 +19,7 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
     @Resource
     private PointExchangeRecordMapper pointExchangeRecordMapper;
 
+    @Override
     public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord) {
         Map<String, Object> map = new HashMap<>();
 

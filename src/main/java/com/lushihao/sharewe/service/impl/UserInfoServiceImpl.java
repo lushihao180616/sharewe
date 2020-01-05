@@ -28,6 +28,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     /**
      * 处理获取用户信息方法
      */
+    @Override
     public String handleGetUserInfo(String code, String encryptedData, String iv) {
         // 微信小程序appid和秘钥，用来获取或解析用户信息
         final String APPID = "wx15c0ebc110fd5eb5";
@@ -66,6 +67,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     /**
      * 更新数据
      */
+    @Override
     public String updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
         int sql_back = userInfoMapper.updateUserInfo(userInfo);
         if (deleteAddress) {
@@ -81,6 +83,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     /**
      * 通过OpenId获取用户信息
      */
+    @Override
     public String findByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 

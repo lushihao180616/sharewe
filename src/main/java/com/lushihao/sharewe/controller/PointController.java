@@ -1,9 +1,10 @@
 package com.lushihao.sharewe.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.entity.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeRecordService;
 import com.lushihao.sharewe.service.PointExchangeService;
-import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,8 +36,7 @@ public class PointController {
     String setPointExchangeRecord(HttpServletRequest request, HttpServletResponse response,
                                   @RequestBody String data) {
 
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        PointExchangeRecord pointExchangeRecord = (PointExchangeRecord) JSONObject.toBean(wxRequestJson,
+        PointExchangeRecord pointExchangeRecord = LSHJsonUtils.json2Bean(data,
                 PointExchangeRecord.class);
 
         return pointExchangeRecordService.createPointExchangeRecord(pointExchangeRecord);
@@ -47,7 +47,7 @@ public class PointController {
     String getPointExchangeRecord(HttpServletRequest request, HttpServletResponse response,
                                   @RequestBody String data) {
 
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String openId = wxRequestJson.getString("openId");
 
         return pointExchangeRecordService.selectPointExchangeRecord(openId);

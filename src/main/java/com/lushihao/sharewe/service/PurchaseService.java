@@ -28,6 +28,4 @@ public interface PurchaseService {
 	
 	String sendCompletePurchase(int purchaseId);
 
-	String transform(List<Purchase> purchase_list);
-
 }

@@ -1,7 +1,8 @@
 package com.lushihao.sharewe.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.service.BuildingService;
-import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,8 +24,8 @@ public class BuildingController {
     String getDormitory(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
 
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int schoolId = wxRequestJson.getInt("schoolId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int schoolId = wxRequestJson.getInteger("schoolId");
 
         return buildingService.findDormitoryBySchoolId(schoolId);
     }

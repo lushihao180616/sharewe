@@ -1,9 +1,9 @@
 package com.lushihao.sharewe.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.entity.UserInfo;
 import com.lushihao.sharewe.service.UserInfoService;
-import io.netty.handler.codec.json.JsonObjectDecoder;
-import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +24,8 @@ public class UserInfoController {
     public @ResponseBody
     String saveUserInfo(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
-        // 获取前端传入的参数
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String code = wxRequestJson.getString("code");
         String encryptedData = wxRequestJson.getString("encryptedData");
         String iv = wxRequestJson.getString("iv");
@@ -39,7 +39,7 @@ public class UserInfoController {
                                 @RequestBody String data) {
 
         // 获取前端传入的参数
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String openId = wxRequestJson.getString("openId");
 
         return userInfoService.findByOpenId(openId);
@@ -51,8 +51,8 @@ public class UserInfoController {
                           @RequestBody String data) {
 
         // 获取前端传入的参数
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        UserInfo userInfo = (UserInfo) JSONObject.toBean(wxRequestJson, UserInfo.class);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        UserInfo userInfo = LSHJsonUtils.json2Bean(data, UserInfo.class);
         boolean deleteAddress = wxRequestJson.getBoolean("deleteAddress");
 
         return userInfoService.updateUserInfo(userInfo, deleteAddress);

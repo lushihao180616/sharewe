@@ -22,6 +22,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Resource
     private BuildingMapper buildingMapper;
 
+    @Override
     public String findSchoolByProvinceId(int provinceId) {
         Map<String, Object> map = new HashMap<>();
 

@@ -18,6 +18,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Resource
     private BuildingMapper buildingMapper;
 
+    @Override
     public String findDormitoryBySchoolId(int schoolId) {
         Map<String, Object> map = new HashMap<>();
 

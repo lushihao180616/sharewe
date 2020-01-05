@@ -1,12 +1,13 @@
 package com.lushihao.sharewe.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.Purchase;
 import com.lushihao.sharewe.entity.PurchaseItem;
 import com.lushihao.sharewe.service.PurchaseService;
 import com.lushihao.sharewe.service.PurchaseTypeService;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,14 +34,14 @@ public class PurchaseController {
     String sendPurchase(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
         List<PurchaseItem> purchaseItems_list = new ArrayList<>();
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String sendTime = wxRequestJson.getString("sendTime");
         String deadTime = wxRequestJson.getString("deadTime");
         JSONArray purchaseItems = wxRequestJson.getJSONArray("purchaseItems");
         for (int i = 0; i < purchaseItems.size(); i++) {
             JSONObject json = purchaseItems.getJSONObject(i);
             json.remove("name_num");
-            PurchaseItem purchaseItem = (PurchaseItem) JSONObject.toBean(json, PurchaseItem.class);
+            PurchaseItem purchaseItem = LSHJsonUtils.json2Bean(json, PurchaseItem.class);
             purchaseItems_list.add(purchaseItem);
         }
         wxRequestJson.remove("purchaseItems");
@@ -50,7 +51,7 @@ public class PurchaseController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Purchase purchase = (Purchase) JSONObject.toBean(wxRequestJson, Purchase.class);
+        Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
         purchase.setPurchaseItems(purchaseItems_list);
         return purchaseService.sendPurchase(purchase);
     }
@@ -59,9 +60,9 @@ public class PurchaseController {
     public @ResponseBody
     String getPurchases(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int num = wxRequestJson.getInt("num");
-        int page = wxRequestJson.getInt("page");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int num = wxRequestJson.getInteger("num");
+        int page = wxRequestJson.getInteger("page");
         return purchaseService.getPurchases(num, page);
     }
 
@@ -69,14 +70,14 @@ public class PurchaseController {
     public @ResponseBody
     String getPurchase(HttpServletRequest request, HttpServletResponse response,
                        @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String getTime = wxRequestJson.getString("getTime");
         try {
             wxRequestJson.put("getTime", LSHDateUtils.string2Date(getTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Purchase purchase = (Purchase) JSONObject.toBean(wxRequestJson, Purchase.class);
+        Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
         return purchaseService.getPurchase(purchase);
     }
 
@@ -84,11 +85,11 @@ public class PurchaseController {
     public @ResponseBody
     String filterPurchases(HttpServletRequest request, HttpServletResponse response,
                            @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int num = wxRequestJson.getInt("num");
-        int page = wxRequestJson.getInt("page");
-        int buildingId = wxRequestJson.getInt("buildingId");
-        int typeId = wxRequestJson.getInt("typeId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int num = wxRequestJson.getInteger("num");
+        int page = wxRequestJson.getInteger("page");
+        int buildingId = wxRequestJson.getInteger("buildingId");
+        int typeId = wxRequestJson.getInteger("typeId");
 
         return purchaseService.filterPurchases(num, page, buildingId, typeId);
     }
@@ -97,9 +98,9 @@ public class PurchaseController {
     public @ResponseBody
     String getSendPurchase(HttpServletRequest request, HttpServletResponse response,
                            @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String sendUserOpenId = wxRequestJson.getString("sendUserOpenId");
-        int statusId = wxRequestJson.getInt("statusId");
+        int statusId = wxRequestJson.getInteger("statusId");
 
         return purchaseService.getSendPurchase(sendUserOpenId, statusId);
     }
@@ -108,9 +109,9 @@ public class PurchaseController {
     public @ResponseBody
     String getGetPurchase(HttpServletRequest request, HttpServletResponse response,
                           @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
-        int statusId = wxRequestJson.getInt("statusId");
+        int statusId = wxRequestJson.getInteger("statusId");
 
         return purchaseService.getGetPurchase(getUserOpenId, statusId);
     }
@@ -119,8 +120,8 @@ public class PurchaseController {
     public @ResponseBody
     String removePurchase(HttpServletRequest request, HttpServletResponse response,
                           @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int purchaseId = wxRequestJson.getInt("purchaseId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
 
         return purchaseService.romovePurchase(purchaseId);
     }
@@ -129,8 +130,8 @@ public class PurchaseController {
     public @ResponseBody
     String sendCanclePurchase(HttpServletRequest request, HttpServletResponse response,
                               @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int purchaseId = wxRequestJson.getInt("purchaseId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
         boolean sendUserCancle = wxRequestJson.getBoolean("sendUserCancle");
 
         return purchaseService.sendCanclePurchase(purchaseId, sendUserCancle);
@@ -140,8 +141,8 @@ public class PurchaseController {
     public @ResponseBody
     String getCanclePurchase(HttpServletRequest request, HttpServletResponse response,
                              @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int purchaseId = wxRequestJson.getInt("purchaseId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
 
         return purchaseService.getCanclePurchase(purchaseId);
     }
@@ -150,8 +151,8 @@ public class PurchaseController {
     public @ResponseBody
     String getCompletePurchase(HttpServletRequest request, HttpServletResponse response,
                                @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int purchaseId = wxRequestJson.getInt("purchaseId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
         boolean getUserComplete = wxRequestJson.getBoolean("getUserComplete");
 
         return purchaseService.getCompletePurchase(purchaseId, getUserComplete);
@@ -161,8 +162,8 @@ public class PurchaseController {
     public @ResponseBody
     String sendCompletePurchase(HttpServletRequest request, HttpServletResponse response,
                                 @RequestBody String data) {
-        JSONObject wxRequestJson = JSONObject.fromObject(data);
-        int purchaseId = wxRequestJson.getInt("purchaseId");
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
 
         return purchaseService.sendCompletePurchase(purchaseId);
     }

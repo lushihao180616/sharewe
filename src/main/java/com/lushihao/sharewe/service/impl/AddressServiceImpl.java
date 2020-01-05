@@ -16,49 +16,50 @@ import java.util.Map;
 @Service
 public class AddressServiceImpl implements AddressService {
 
-	@Resource
-	private AddressMapper addressMapper;
-	@Resource
-	private BuildingMapper buildingMapper;
+    @Resource
+    private AddressMapper addressMapper;
 
-	public String createAddress(Address address) {
-		Map<String, Object> map = new HashMap<>();
+	@Override
+    public String createAddress(Address address) {
+        Map<String, Object> map = new HashMap<>();
 
-		int sql_back = addressMapper.createAddress(address);
-		if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse("创建失败"));
-		} else {
-			map.put("address_list", findByOpenId(address.getOpenId()));
-			return LSHResponseUtils.getResponse(new LSHResponse(map));
-		}
-	}
+        int sql_back = addressMapper.createAddress(address);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("创建失败"));
+        } else {
+            map.put("address_list", findByOpenId(address.getOpenId()));
+            return LSHResponseUtils.getResponse(new LSHResponse(map));
+        }
+    }
 
-	public String updateAddress(Address address) {
-		Map<String, Object> map = new HashMap<>();
+	@Override
+    public String updateAddress(Address address) {
+        Map<String, Object> map = new HashMap<>();
 
-		int sql_back = addressMapper.updateAddress(address);
-		if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse("更新失败"));
-		} else {
-			map.put("address_list", findByOpenId(address.getOpenId()));
-			return LSHResponseUtils.getResponse(new LSHResponse(map));
-		}
-	}
+        int sql_back = addressMapper.updateAddress(address);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("更新失败"));
+        } else {
+            map.put("address_list", findByOpenId(address.getOpenId()));
+            return LSHResponseUtils.getResponse(new LSHResponse(map));
+        }
+    }
 
-	public String deleteAddress(Address address) {
-		Map<String, Object> map = new HashMap<>();
+    @Override
+    public String deleteAddress(Address address) {
+        Map<String, Object> map = new HashMap<>();
 
-		int sql_back = addressMapper.deleteAddress(address);
-		if (sql_back == 0) {
-			return LSHResponseUtils.getResponse(new LSHResponse("删除失败"));
-		} else {
-			map.put("address_list", findByOpenId(address.getOpenId()));
-			return LSHResponseUtils.getResponse(new LSHResponse(map));
-		}
-	}
+        int sql_back = addressMapper.deleteAddress(address);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("删除失败"));
+        } else {
+            map.put("address_list", findByOpenId(address.getOpenId()));
+            return LSHResponseUtils.getResponse(new LSHResponse(map));
+        }
+    }
 
-	private List<Map<String, Object>> findByOpenId(String openId) {
-		List<Map<String, Object>> address_list = addressMapper.findByOpenId(openId);
-		return address_list;
-	}
+    private List<Map<String, Object>> findByOpenId(String openId) {
+        List<Map<String, Object>> address_list = addressMapper.findByOpenId(openId);
+        return address_list;
+    }
 }

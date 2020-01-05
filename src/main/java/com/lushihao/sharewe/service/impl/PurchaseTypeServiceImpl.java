@@ -18,7 +18,8 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
 	
 	@Resource
 	PurchaseTypeMapper purchaseTypeMapper;
-	
+
+	@Override
 	public String findAllPurchaseTypes() {
 		Map<String, Object> map = new HashMap<>();
 		List<PurchaseType> list = purchaseTypeMapper.findAll();

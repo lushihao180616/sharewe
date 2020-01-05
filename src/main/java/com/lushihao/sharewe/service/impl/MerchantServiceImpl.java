@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 @Service
 public class MerchantServiceImpl implements MerchantService {
 
-	@Resource
-	private MerchantMapper merchantDao;
+    @Resource
+    private MerchantMapper merchantMapper;
 
 }
