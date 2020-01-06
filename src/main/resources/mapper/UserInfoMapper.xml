@@ -108,11 +108,12 @@
         	ad.name,
         	ad.phoneNumber,
         	ad.openId,
+        	ad.usedcount,
         	bd.name building_name,
         	CONCAT(bd.name, ' / ', ad.roomcode) buildingName_roomCode
-        FROM 
+        FROM
         	address ad
-        LEFT JOIN 
+        LEFT JOIN
         	building bd
         ON
         	ad.building_id=bd.id

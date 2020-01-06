@@ -9,10 +9,13 @@ import com.lushihao.sharewe.entity.Purchase;
 import com.lushihao.sharewe.entity.PurchaseItem;
 import com.lushihao.sharewe.service.PurchaseService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
 
+@EnableTransactionManagement
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
@@ -32,10 +35,14 @@ public class PurchaseServiceImpl implements PurchaseService {
     private PurchaseItemMapper purchaseItemMapper;
 
     @Override
+    @Transactional
     public String sendPurchase(Purchase purchase) {
         int sql_back;
         if (purchase.getId() == 0) {
             sql_back = purchaseMapper.createPurchase(purchase);
+            if (sql_back > 0) {
+                addressMapper.updateAddressUsedCount(purchase.getAddressId());
+            }
         } else {
             sql_back = purchaseMapper.updatePurchase(purchase);
         }

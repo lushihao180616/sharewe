@@ -13,6 +13,7 @@
         	ad.name,
         	ad.phoneNumber,
         	ad.openId,
+        	ad.usedcount,
         	bd.name building_name,
         	CONCAT(bd.name, ' / ', ad.roomcode) buildingName_roomCode
         FROM 
@@ -27,13 +28,16 @@
     <insert id="createAddress" parameterType="Address">
 		INSERT INTO address (building_id,roomcode,name,phonenumber,openid) VALUES (#{building_id},#{roomcode},#{name},#{phoneNumber},#{openId})
 	</insert>
-	<update id="updateAddress" parameterType="Address">
+    <update id="updateAddress" parameterType="Address">
         UPDATE address SET building_id=#{building_id},roomcode=#{roomcode},name=#{name},phonenumber=#{phoneNumber},openid=#{openId} WHERE id=#{id}
 	</update>
-	<delete id="deleteAddress" parameterType="Address">
+    <delete id="deleteAddress" parameterType="Address">
         DELETE FROM address WHERE id=#{id}
     </delete>
-	<delete id="deleteAllAddress" parameterType="String">
+    <delete id="deleteAllAddress" parameterType="String">
         DELETE FROM address WHERE openid=#{openId}
     </delete>
+    <update id="updateAddressUsedCount" parameterType="int">
+        UPDATE address SET usedcount=usedcount + 1 WHERE id=#{id}
+	</update>
 </mapper>

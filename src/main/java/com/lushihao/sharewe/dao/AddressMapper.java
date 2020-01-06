@@ -8,31 +8,17 @@ import java.util.Map;
 
 @Mapper
 public interface AddressMapper {
-	/**
-	 * ͨ��Id��ȡ��ַ
-	 */
 	Address findById(int id);
 
-	/**
-	 * ͨ��openId��ȡ��ַ
-	 */
 	List<Map<String,Object>> findByOpenId(String openId);
 
-	/**
-	 * ������ַ
-	 */
 	int createAddress(Address address);
 
-	/**
-	 * ���µ�ַ
-	 * @return
-	 */
 	int updateAddress(Address address);
 
-	/**
-	 * ɾ����ַ
-	 */
 	int deleteAddress(Address address);
 
 	int deleteAllAddress(String openId);
+
+    int updateAddressUsedCount(int id);
 }

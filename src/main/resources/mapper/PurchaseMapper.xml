@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sharewe.dao.PurchaseMapper">
+<mapper namespace="com.lushihao.sharewe.dao.PurchaseMapper">
 	<insert id="createPurchase" parameterType="Purchase"     
         useGeneratedKeys="true" keyProperty="id">    
-        INSERT INTO purchase (typeid,addressid,buildingid,statusid,reward,senduseropenid,deadtime,sendtime) VALUES (#{typeId},#{addressId},#{buildingId},#{statusId},#{reward},#{sendUserOpenId},#{deadTime},#{sendTime})    
+        INSERT INTO purchase (typeid,addressid,buildingid,statusid,reward,senduseropenid,deadtime,sendtime) VALUES (#{typeId},#{addressId},#{buildingId},#{statusId},#{reward},#{sendUserOpenId},#{deadTime},#{sendTime})
 	</insert>
     <update id="updatePurchase" parameterType="Purchase">
 		UPDATE purchase SET typeid=#{typeId},addressid=#{addressId},buildingid=#{buildingId},statusid=#{statusId},reward=#{reward},senduseropenid=#{sendUserOpenId},deadtime=#{deadTime},sendtime=#{sendTime},getuseropenid=null,gettime=null,sendusercancle=null where id=#{id}
