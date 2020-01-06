@@ -5,7 +5,6 @@ import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PurchaseTypeMapper;
 import com.lushihao.sharewe.entity.PurchaseType;
 import com.lushihao.sharewe.service.PurchaseTypeService;
-import net.sf.json.JSONArray;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
