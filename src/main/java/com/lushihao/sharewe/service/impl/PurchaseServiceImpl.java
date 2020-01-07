@@ -162,6 +162,13 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * 接收任务者点击完成按钮
+     *
+     * @param purchaseId
+     * @param getUserComplete
+     * @return
+     */
     @Override
     @Transactional
     public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
@@ -173,12 +180,18 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * 发送任务者点击完成按钮
+     *
+     * @param purchaseId
+     * @return
+     */
     @Override
     @Transactional
     public String sendCompletePurchase(int purchaseId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }

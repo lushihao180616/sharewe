@@ -30,8 +30,10 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
     @Transactional
     public String findAllPurchaseTypes() {
         Map<String, Object> map = new HashMap<>();
+
         List<PurchaseType> list = purchaseTypeMapper.findAll();
         map.put("purchaseType_list", list);
+
         return LSHResponseUtils.getResponse(new LSHResponse(map));
     }
 }

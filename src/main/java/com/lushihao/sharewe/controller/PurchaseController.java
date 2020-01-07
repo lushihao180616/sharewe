@@ -153,6 +153,13 @@ public class PurchaseController {
         return purchaseService.sendCanclePurchase(purchaseId, sendUserCancle);
     }
 
+    /**
+     * 接收任务者点击取消按钮
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getCanclePurchase")
     public @ResponseBody
     String getCanclePurchase(HttpServletRequest request, HttpServletResponse response,
@@ -163,6 +170,14 @@ public class PurchaseController {
         return purchaseService.getCanclePurchase(purchaseId);
     }
 
+    /**
+     * 接收任务者点击完成按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getCompletePurchase")
     public @ResponseBody
     String getCompletePurchase(HttpServletRequest request, HttpServletResponse response,
@@ -174,6 +189,14 @@ public class PurchaseController {
         return purchaseService.getCompletePurchase(purchaseId, getUserComplete);
     }
 
+    /**
+     * 发送任务者点击完成按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/sendCompletePurchase")
     public @ResponseBody
     String sendCompletePurchase(HttpServletRequest request, HttpServletResponse response,
@@ -184,6 +207,14 @@ public class PurchaseController {
         return purchaseService.sendCompletePurchase(purchaseId);
     }
 
+    /**
+     * 获取任务类型
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getPurchaseTypes")
     public @ResponseBody
     String getPurchaseTypes(HttpServletRequest request, HttpServletResponse response,

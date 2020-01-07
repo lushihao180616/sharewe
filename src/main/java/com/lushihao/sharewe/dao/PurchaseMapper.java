@@ -62,12 +62,19 @@ public interface PurchaseMapper {
     int getCanclePurchase(int purchaseId);
 
     /**
-     * ���������û��������
+     * 接收任务者点击完成按钮
+     *
+     * @param purchaseId
+     * @param sendUserCancle
+     * @return
      */
     int getCompletePurchase(int purchaseId, boolean sendUserCancle);
 
     /**
-     * ���������û�ͬ���������
+     * 发送任务者点击完成按钮
+     *
+     * @param purchaseId
+     * @return
      */
     int sendCompletePurchase(int purchaseId);
 }
