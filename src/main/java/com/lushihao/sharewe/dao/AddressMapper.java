@@ -9,7 +9,8 @@ import java.util.Map;
 @Mapper
 public interface AddressMapper {
     /**
-	 * 通过唯一标识获取地址
+     * 通过唯一标识获取地址
+     *
      * @param id
      * @return
      */

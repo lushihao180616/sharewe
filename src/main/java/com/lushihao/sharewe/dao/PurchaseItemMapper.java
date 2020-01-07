@@ -18,9 +18,7 @@ public interface PurchaseItemMapper {
 	int batchDeletePurchaseItems(int purchaseId);
 
 	/**
-	 * ͨ������������ȡ������Ʒ�б�
+	 * ͨ通过任务获取任务单元列表
 	 */
 	List<PurchaseItem> findPurchaseItemsByPurchaseId(int purchaseId);
-
-	int batchUpdatePurchaseItems(List<PurchaseItem> purchaseItems);
 }

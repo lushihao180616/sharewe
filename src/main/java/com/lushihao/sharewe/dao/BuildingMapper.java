@@ -9,6 +9,7 @@ import java.util.List;
 public interface BuildingMapper {
     /**
      * 通过建筑物id获取建筑物
+     *
      * @param id
      * @return
      */
