@@ -17,16 +17,21 @@ import java.util.Map;
 @Service
 @EnableTransactionManagement
 public class PurchaseTypeServiceImpl implements PurchaseTypeService {
-	
-	@Resource
-	PurchaseTypeMapper purchaseTypeMapper;
 
-	@Override
-	@Transactional
-	public String findAllPurchaseTypes() {
-		Map<String, Object> map = new HashMap<>();
-		List<PurchaseType> list = purchaseTypeMapper.findAll();
-		map.put("purchaseType_list", list);
-		return LSHResponseUtils.getResponse(new LSHResponse(map));
-	}
+    @Resource
+    PurchaseTypeMapper purchaseTypeMapper;
+
+    /**
+     * 获取任务类型列表
+     *
+     * @return
+     */
+    @Override
+    @Transactional
+    public String findAllPurchaseTypes() {
+        Map<String, Object> map = new HashMap<>();
+        List<PurchaseType> list = purchaseTypeMapper.findAll();
+        map.put("purchaseType_list", list);
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
+    }
 }

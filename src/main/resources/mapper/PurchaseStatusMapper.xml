@@ -5,7 +5,4 @@
     <select id="findById" parameterType="int" resultType="PurchaseStatus">
         SELECT * FROM purchasestatus WHERE id=#{id}
     </select>
-    <select id="findAll" resultType="PurchaseStatus">
-        SELECT * FROM purchasestatus
-    </select>
 </mapper>

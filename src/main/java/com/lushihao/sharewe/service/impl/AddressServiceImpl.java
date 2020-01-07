@@ -82,6 +82,12 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * 通过用户标识获取地址列表
+     *
+     * @param openId
+     * @return
+     */
     @Transactional
     List<Map<String, Object>> findByOpenId(String openId) {
         List<Map<String, Object>> address_list = addressMapper.findByOpenId(openId);
