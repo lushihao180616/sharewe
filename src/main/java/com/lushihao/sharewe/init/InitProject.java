@@ -19,7 +19,6 @@ public class InitProject implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Map<String, String> map = jobClassesConfig.getJobMap();
         List<Map<String, String>> list = jobClassesConfig.getJobList();
         quartzConfig.startJob(list);
     }
