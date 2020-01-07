@@ -30,4 +30,22 @@ public interface UserInfoMapper {
      * @return
      */
     int updateUserInfo(UserInfo userInfo);
+
+    /**
+     * 捎点添加
+     *
+     * @param openId
+     * @param needPoint
+     * @return
+     */
+    int pointIn(String openId, int needPoint);
+
+    /**
+     * 捎点提现
+     *
+     * @param openId
+     * @param needPoint
+     * @return
+     */
+    int pointOut(String openId, int needPoint);
 }

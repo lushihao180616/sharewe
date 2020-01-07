@@ -134,4 +134,10 @@
 	<update id="updateUserInfo" parameterType="UserInfo">
         update userinfo set nickname=#{nickName},gender=#{gender},province_id=#{province_id},school_id=#{school_id},building_id=#{building_id},phonenumber=#{phoneNumber},avatarurl=#{avatarUrl} where openid=#{openId}
 	</update>
+	<update id="pointIn">
+		UPDATE userinfo SET point=point + #{param2} where openid=#{param1}
+	</update>
+	<update id="pointOut">
+		UPDATE userinfo SET point=point - #{param2} where openid=#{param1}
+	</update>
 </mapper>

@@ -117,4 +117,57 @@ public class UserInfoServiceImpl implements UserInfoService {
         return LSHResponseUtils.getResponse(new LSHResponse(map));
     }
 
+    /**
+     * 添加捎点
+     *
+     * @param openId
+     * @param needPoint
+     * @return
+     */
+    @Override
+    @Transactional
+    public String pointIn(String openId, int needPoint) {
+        int sql_back = userInfoMapper.pointIn(openId, needPoint);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("充值失败，请稍后再试"));
+        } else {
+            return findUserInfoByOpenId(openId);
+        }
+    }
+
+    /**
+     * 提现捎点
+     *
+     * @param openId
+     * @param needPoint
+     * @return
+     */
+    @Override
+    @Transactional
+    public String pointOut(String openId, int needPoint) {
+        int sql_back = userInfoMapper.pointOut(openId, needPoint);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("提现失败，请稍后再试"));
+        } else {
+            return findUserInfoByOpenId(openId);
+        }
+    }
+
+    /**
+     * 通过OpenId获取用户信息()只有用户信息
+     *
+     * @param openId
+     * @return
+     */
+    @Transactional
+    public String findUserInfoByOpenId(String openId) {
+        Map<String, Object> map = new HashMap<>();
+
+        // 获取基本信息
+        AllUserInfo allUserInfo = userInfoMapper.findByOpenId(openId);
+
+        map.put("userinfo", allUserInfo.getUserinfo());
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
+    }
+
 }
