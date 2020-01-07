@@ -3,4 +3,4 @@
 jobClassPath: com.lushihao.sharewe.quartzjobs.
 jobclass:
   jobMap: #List<Map<String, String>>
-    Job0: group0,0 0 2 * * ?
+    Job0: Group0,0 0 2 * * ?
