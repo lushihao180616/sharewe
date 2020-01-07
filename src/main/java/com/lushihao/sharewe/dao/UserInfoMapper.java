@@ -9,19 +9,25 @@ import org.springframework.stereotype.Repository;
 public interface UserInfoMapper {
 
     /**
-     * @param ͨ��openId��ȡ�û���Ϣ
+     * 获取用户信息
+     *
+     * @param openId
      * @return
      */
     AllUserInfo findByOpenId(String openId);
 
     /**
-     * @param �����û���Ϣ
+     * 创建用户信息
+     *
+     * @param userInfo
      * @return
      */
     int createUserInfo(UserInfo userInfo);
 
     /**
-     * @param �����û���Ϣ
+     * 更新用户信息
+     *
+     * @param userInfo
      * @return
      */
     int updateUserInfo(UserInfo userInfo);

@@ -22,6 +22,12 @@ public class AddressServiceImpl implements AddressService {
     @Resource
     private AddressMapper addressMapper;
 
+    /**
+     * 保存地址
+     *
+     * @param address
+     * @return
+     */
     @Override
     @Transactional
     public String createAddress(Address address) {
@@ -36,6 +42,12 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * 修改地址
+     *
+     * @param address
+     * @return
+     */
     @Override
     @Transactional
     public String updateAddress(Address address) {
@@ -50,6 +62,12 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * 删除地址
+     *
+     * @param address
+     * @return
+     */
     @Override
     @Transactional
     public String deleteAddress(Address address) {

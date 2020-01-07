@@ -25,6 +25,12 @@ public class SchoolServiceImpl implements SchoolService {
     @Resource
     private BuildingMapper buildingMapper;
 
+    /**
+     * 通过省份获取学校
+     *
+     * @param provinceId 省份唯一标识
+     * @return
+     */
     @Override
     @Transactional
     public String findSchoolByProvinceId(int provinceId) {

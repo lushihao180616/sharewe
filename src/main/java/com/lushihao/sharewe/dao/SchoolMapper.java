@@ -9,10 +9,11 @@ import java.util.Map;
 
 @Mapper
 public interface SchoolMapper {
-    School findById(int id);
-
+    /**
+     * 通过省份id获取学校
+     *
+     * @param province_id
+     * @return
+     */
     List<School> findByProvinceId(int province_id);
-
-    List<School> findAll();
-
 }

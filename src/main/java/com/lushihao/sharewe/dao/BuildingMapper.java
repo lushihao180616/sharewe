@@ -7,18 +7,18 @@ import java.util.List;
 
 @Mapper
 public interface BuildingMapper {
-	/**
-	 * ͨ��Id��ȡ������
-	 */
-	Building findById(int id);
+    /**
+     * 通过建筑物id获取建筑物
+     * @param id
+     * @return
+     */
+    Building findById(int id);
 
-	/**
-	 * ͨ��ѧУId��ȡ������
-	 */
-	List<Building> findBySchoolId(int school_id);
-
-	/**
-	 * ͨ��ѧУId��ȡ����¥
-	 */
-	List<Building> findDormitoryBySchoolId(int schoolId);
+    /**
+     * 通过学校获取宿舍
+     *
+     * @param schoolId
+     * @return
+     */
+    List<Building> findDormitoryBySchoolId(int schoolId);
 }

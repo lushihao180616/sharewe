@@ -23,6 +23,13 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
     @Resource
     private PointExchangeRecordMapper pointExchangeRecordMapper;
 
+    /**
+     * 兑换劵码
+     *
+     * @param pointExchangeRecord
+     * @param point
+     * @return
+     */
     @Override
     @Transactional
     public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point) {
@@ -39,6 +46,12 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
         }
     }
 
+    /**
+     * 获取我兑换的劵码
+     *
+     * @param openId
+     * @return
+     */
     @Override
     @Transactional
     public String selectPointExchangeRecord(String openId) {

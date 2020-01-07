@@ -21,6 +21,11 @@ public class BuildingServiceImpl implements BuildingService {
     @Resource
     private BuildingMapper buildingMapper;
 
+    /**
+     * 获取学校下的宿舍楼数据
+     * @param schoolId
+     * @return
+     */
     @Override
     @Transactional
     public String findDormitoryBySchoolId(int schoolId) {

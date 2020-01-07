@@ -23,14 +23,29 @@ public class PointController {
     @Resource
     private PointExchangeRecordService pointExchangeRecordService;
 
+    /**
+     * 获取所有的兑换劵码列表
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/pointExchangeList")
     public @ResponseBody
-    String getPointExchangeList(HttpServletRequest request, HttpServletResponse response,
-                                @RequestBody String data) {
-
+    String pointExchangeList(HttpServletRequest request, HttpServletResponse response,
+                             @RequestBody String data) {
         return pointExchangeService.getPointExchangeList();
     }
 
+    /**
+     * 兑换劵码
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/setPointExchangeRecord")
     public @ResponseBody
     String setPointExchangeRecord(HttpServletRequest request, HttpServletResponse response,
@@ -43,11 +58,18 @@ public class PointController {
         return pointExchangeRecordService.createPointExchangeRecord(pointExchangeRecord, point);
     }
 
+    /**
+     * 获取我兑换的劵码
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getPointExchangeRecord")
     public @ResponseBody
     String getPointExchangeRecord(HttpServletRequest request, HttpServletResponse response,
                                   @RequestBody String data) {
-
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String openId = wxRequestJson.getString("openId");
 

@@ -30,6 +30,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     /**
      * 处理获取用户信息方法
+     *
+     * @param code
+     * @param encryptedData
+     * @param iv
+     * @return
      */
     @Override
     @Transactional
@@ -65,11 +70,15 @@ public class UserInfoServiceImpl implements UserInfoService {
                 }
             }
         }
-        return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+        return LSHResponseUtils.getResponse(new LSHResponse("登录失败，请稍后再试"));
     }
 
     /**
      * 更新数据
+     *
+     * @param userInfo      用户信息
+     * @param deleteAddress 是否删除地址
+     * @return
      */
     @Override
     @Transactional
@@ -79,7 +88,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             addressMapper.deleteAllAddress(userInfo.getOpenId());
         }
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("更新失败，请稍后再试"));
         } else {
             return findByOpenId(userInfo.getOpenId());
         }
@@ -87,6 +96,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     /**
      * 通过OpenId获取用户信息
+     *
+     * @param openId
+     * @return
      */
     @Override
     @Transactional

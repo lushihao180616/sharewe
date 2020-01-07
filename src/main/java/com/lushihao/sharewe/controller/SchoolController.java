@@ -19,9 +19,17 @@ public class SchoolController {
     @Resource
     private SchoolService schoolService;
 
+    /**
+     * 通过省份获取学校
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getByProvince")
     public @ResponseBody
-    String userinfo(HttpServletRequest request, HttpServletResponse response, @RequestBody String data) {
+    String getByProvince(HttpServletRequest request, HttpServletResponse response, @RequestBody String data) {
 
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int provinceId = wxRequestJson.getInteger("provinceId");

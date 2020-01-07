@@ -29,6 +29,14 @@ public class PurchaseController {
     @Resource
     private PurchaseTypeService purchaseTypeService;
 
+    /**
+     * 发送任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/sendPurchase")
     public @ResponseBody
     String sendPurchase(HttpServletRequest request, HttpServletResponse response,

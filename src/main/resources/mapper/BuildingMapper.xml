@@ -5,9 +5,6 @@
     <select id="findById" parameterType="int" resultType="Building">
         SELECT * FROM building WHERE id=#{id}
     </select>
-    <select id="findBySchoolId" parameterType="int" resultType="Building">
-        SELECT * FROM building WHERE school_id=#{school_id}
-    </select>
     <select id="findDormitoryBySchoolId" parameterType="int" resultType="Building">
         SELECT * FROM building WHERE school_id=#{school_id} AND type=0
     </select>

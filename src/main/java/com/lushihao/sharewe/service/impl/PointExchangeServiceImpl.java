@@ -18,12 +18,17 @@ import java.util.Map;
 public class PointExchangeServiceImpl implements PointExchangeService {
 
     @Resource
-    private PointExchangeMapper pointExchangeDao;
+    private PointExchangeMapper pointExchangeMapper;
 
+    /**
+     * 获取劵码列表
+     *
+     * @return
+     */
     @Override
     @Transactional
     public String getPointExchangeList() {
-        List<Map<String, Object>> pointExchangeList = pointExchangeDao.getPointExchangeList();
+        List<Map<String, Object>> pointExchangeList = pointExchangeMapper.getPointExchangeList();
 
         Map<String, Object> map = new HashMap<>();
         map.put("pointExchange_list", pointExchangeList);

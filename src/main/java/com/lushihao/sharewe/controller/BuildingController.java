@@ -19,11 +19,18 @@ public class BuildingController {
     @Resource
     private BuildingService buildingService;
 
+    /**
+     * 获取学校下的宿舍楼数据
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getDormitory")
     public @ResponseBody
     String getDormitory(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
-
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int schoolId = wxRequestJson.getInteger("schoolId");
 

@@ -20,6 +20,14 @@ public class UserInfoController {
     @Resource
     private UserInfoService userInfoService;
 
+    /**
+     * 保存用户信息（登录）
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/saveUserInfo")
     public @ResponseBody
     String saveUserInfo(HttpServletRequest request, HttpServletResponse response,
@@ -33,18 +41,14 @@ public class UserInfoController {
         return userInfoService.handleGetUserInfo(code, encryptedData, iv);
     }
 
-    @RequestMapping(value = "/getUserinfoByOpenid")
-    public @ResponseBody
-    String findUserInfoByOpenId(HttpServletRequest request, HttpServletResponse response,
-                                @RequestBody String data) {
-
-        // 获取前端传入的参数
-        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
-        String openId = wxRequestJson.getString("openId");
-
-        return userInfoService.findByOpenId(openId);
-    }
-
+    /**
+     * 修改用户信息
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/modifyUserInfo")
     public @ResponseBody
     String modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
@@ -53,9 +57,29 @@ public class UserInfoController {
         // 获取前端传入的参数
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         UserInfo userInfo = LSHJsonUtils.json2Bean(data, UserInfo.class);
-        boolean deleteAddress = wxRequestJson.getBoolean("deleteAddress");
+        boolean deleteAddress = wxRequestJson.getBoolean("deleteAddress");//是否删除地址
 
         return userInfoService.updateUserInfo(userInfo, deleteAddress);
+    }
+
+    /**
+     * 重新登录时获取用户信息
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getUserinfoByOpenid")
+    public @ResponseBody
+    String getUserinfoByOpenid(HttpServletRequest request, HttpServletResponse response,
+                               @RequestBody String data) {
+
+        // 获取前端传入的参数
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String openId = wxRequestJson.getString("openId");
+
+        return userInfoService.findByOpenId(openId);
     }
 
 }
