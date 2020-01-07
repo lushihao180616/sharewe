@@ -7,14 +7,19 @@ import java.util.List;
 
 @Mapper
 public interface PurchaseTypeMapper {
-	/**
-	 * ͨ��Id��ȡʡ��
-			*/
-	PurchaseType findById(int id);
+    /**
+     * 通过id获取任务类型
+     *
+     * @param id
+     * @return
+     */
+    PurchaseType findById(int id);
 
-	/**
-	 * ��ȡ���е�ʡ��
-	 */
-	List<PurchaseType> findAll();
+    /**
+     * 获取所有任务类型信息
+     *
+     * @return
+     */
+    List<PurchaseType> findAll();
 
 }

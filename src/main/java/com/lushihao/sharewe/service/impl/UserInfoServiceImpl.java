@@ -12,12 +12,15 @@ import com.lushihao.sharewe.entity.UserInfo;
 import com.lushihao.sharewe.service.UserInfoService;
 import com.lushihao.sharewe.util.LSHUserInfoUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@EnableTransactionManagement
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
@@ -29,6 +32,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * 处理获取用户信息方法
      */
     @Override
+    @Transactional
     public String handleGetUserInfo(String code, String encryptedData, String iv) {
         // 微信小程序appid和秘钥，用来获取或解析用户信息
         final String APPID = "wx15c0ebc110fd5eb5";
@@ -68,6 +72,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * 更新数据
      */
     @Override
+    @Transactional
     public String updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
         int sql_back = userInfoMapper.updateUserInfo(userInfo);
         if (deleteAddress) {
@@ -84,6 +89,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * 通过OpenId获取用户信息
      */
     @Override
+    @Transactional
     public String findByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 

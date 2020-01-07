@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.*;
 
-@EnableTransactionManagement
 @Service
+@EnableTransactionManagement
 public class PurchaseServiceImpl implements PurchaseService {
 
     @Resource
@@ -65,6 +65,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String getPurchases(int num, int page) {
         Date lastGetDate = new Date();
         lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
@@ -74,6 +75,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String getPurchase(Purchase purchase) {
         int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
@@ -84,6 +86,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String filterPurchases(int num, int page, int buildingId, int typeId) {
         Date lastGetDate = new Date();
         lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
@@ -94,18 +97,21 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String getSendPurchase(String sendUserOpenId, int statusId) {
         List<Purchase> purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId);
         return transform(purchase_list);
     }
 
     @Override
+    @Transactional
     public String getGetPurchase(String getUserOpenId, int statusId) {
         List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId);
         return transform(purchase_list);
     }
 
     @Override
+    @Transactional
     public String romovePurchase(int purchaseId) {
         int sql_back1 = purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
         int sql_back2 = purchaseMapper.deletePurchase(purchaseId);
@@ -117,6 +123,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
         int sql_back = purchaseMapper.sendCanclePurchase(purchaseId, sendUserCancle);
         if (sql_back == 0) {
@@ -127,6 +134,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String getCanclePurchase(int purchaseId) {
         int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
         if (sql_back == 0) {
@@ -137,6 +145,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
         int sql_back = purchaseMapper.getCompletePurchase(purchaseId, getUserComplete);
         if (sql_back == 0) {
@@ -147,6 +156,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public String sendCompletePurchase(int purchaseId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
@@ -156,7 +166,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
-    private String transform(List<Purchase> purchase_list) {
+    @Transactional
+    String transform(List<Purchase> purchase_list) {
         List<Object> list = new ArrayList<>();
         Map<String, Object> item_map;
         for (Purchase purchase : purchase_list) {

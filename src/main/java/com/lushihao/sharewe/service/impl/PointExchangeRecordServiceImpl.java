@@ -7,6 +7,8 @@ import com.lushihao.sharewe.dao.PointExchangeRecordMapper;
 import com.lushihao.sharewe.entity.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeRecordService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -15,12 +17,14 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
+@EnableTransactionManagement
 public class PointExchangeRecordServiceImpl implements PointExchangeRecordService {
 
     @Resource
     private PointExchangeRecordMapper pointExchangeRecordMapper;
 
     @Override
+    @Transactional
     public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point) {
         Map<String, Object> map = new HashMap<>();
 
@@ -36,6 +40,7 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
     }
 
     @Override
+    @Transactional
     public String selectPointExchangeRecord(String openId) {
         Map<String, Object> map = new HashMap<>();
 

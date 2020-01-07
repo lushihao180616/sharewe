@@ -7,6 +7,8 @@ import com.lushihao.sharewe.dao.BuildingMapper;
 import com.lushihao.sharewe.entity.Address;
 import com.lushihao.sharewe.service.AddressService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -14,12 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@EnableTransactionManagement
 public class AddressServiceImpl implements AddressService {
 
     @Resource
     private AddressMapper addressMapper;
 
-	@Override
+    @Override
+    @Transactional
     public String createAddress(Address address) {
         Map<String, Object> map = new HashMap<>();
 
@@ -32,7 +36,8 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
-	@Override
+    @Override
+    @Transactional
     public String updateAddress(Address address) {
         Map<String, Object> map = new HashMap<>();
 
@@ -46,6 +51,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional
     public String deleteAddress(Address address) {
         Map<String, Object> map = new HashMap<>();
 
@@ -58,7 +64,8 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
-    private List<Map<String, Object>> findByOpenId(String openId) {
+    @Transactional
+    List<Map<String, Object>> findByOpenId(String openId) {
         List<Map<String, Object>> address_list = addressMapper.findByOpenId(openId);
         return address_list;
     }

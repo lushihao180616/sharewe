@@ -8,6 +8,8 @@ import com.lushihao.sharewe.entity.Building;
 import com.lushihao.sharewe.entity.School;
 import com.lushihao.sharewe.service.SchoolService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@EnableTransactionManagement
 public class SchoolServiceImpl implements SchoolService {
 
     @Resource
@@ -23,6 +26,7 @@ public class SchoolServiceImpl implements SchoolService {
     private BuildingMapper buildingMapper;
 
     @Override
+    @Transactional
     public String findSchoolByProvinceId(int provinceId) {
         Map<String, Object> map = new HashMap<>();
 
