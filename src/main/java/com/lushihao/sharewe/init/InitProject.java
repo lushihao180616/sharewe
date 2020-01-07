@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -19,6 +20,7 @@ public class InitProject implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Map<String, String> map = jobClassesConfig.getJobMap();
-        quartzConfig.startJob(map);
+        List<Map<String, String>> list = jobClassesConfig.getJobList();
+        quartzConfig.startJob(list);
     }
 }

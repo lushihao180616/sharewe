@@ -32,15 +32,16 @@ public class QuartzConfig extends WebApplicationObjectSupport {
      *
      * @throws SchedulerException
      */
-    public void startJob(Map<String, String> map) throws SchedulerException, ClassNotFoundException {
+    public void startJob(List<Map<String, String>> list) throws SchedulerException, ClassNotFoundException {
         String jobClassPath = LSHPropertyUtils.getPropertiesValue("jobClassPath");
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            String job = entry.getKey();
-            String group = entry.getValue().split(",")[0];
-            String cron = entry.getValue().split(",")[1];
-            job_group.put(job, group);
-            Class clazz = Class.forName(jobClassPath + job);
-            startJobTask(scheduler, clazz, job, group, cron);
+        for (Map<String, String> map : list) {
+            String name = map.get("name");
+            String corn = map.get("corn");
+            String group = map.get("group");
+            Class clazz = Class.forName(jobClassPath + name);
+            startJobTask(scheduler, clazz, name, group, corn);
+
+            job_group.put(name, group);
         }
         scheduler.start();
     }

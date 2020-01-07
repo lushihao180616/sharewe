@@ -2,5 +2,9 @@
 # jobClass
 jobClassPath: com.lushihao.sharewe.quartzjobs.
 jobclass:
-  jobMap: #List<Map<String, String>>
-    Job0: Group0,0 0 2 * * ?
+  #jobMap:
+    #Job0: Group0,0 0 2 * * ?
+  jobList:
+    - name: "Job0"
+      corn: "* * * * * ?"
+      group: "Group0"
