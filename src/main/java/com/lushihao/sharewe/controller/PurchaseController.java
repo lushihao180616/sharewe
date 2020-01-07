@@ -180,7 +180,6 @@ public class PurchaseController {
     public @ResponseBody
     String getPurchaseTypes(HttpServletRequest request, HttpServletResponse response,
                             @RequestBody String data) {
-
         return purchaseTypeService.findAllPurchaseTypes();
     }
 }

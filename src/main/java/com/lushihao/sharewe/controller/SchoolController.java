@@ -30,7 +30,6 @@ public class SchoolController {
     @RequestMapping(value = "/getByProvince")
     public @ResponseBody
     String getByProvince(HttpServletRequest request, HttpServletResponse response, @RequestBody String data) {
-
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int provinceId = wxRequestJson.getInteger("provinceId");
 

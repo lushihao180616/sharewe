@@ -31,7 +31,6 @@ public class AddressController {
     public @ResponseBody
     String saveAddress(HttpServletRequest request, HttpServletResponse response,
                        @RequestBody String data) {
-
         Address address = LSHJsonUtils.json2Bean(data, Address.class);
 
         return addressService.createAddress(address);
@@ -49,7 +48,6 @@ public class AddressController {
     public @ResponseBody
     String modifyAddress(HttpServletRequest request, HttpServletResponse response,
                          @RequestBody String data) {
-
         Address address = LSHJsonUtils.json2Bean(data, Address.class);
 
         return addressService.updateAddress(address);
@@ -67,7 +65,6 @@ public class AddressController {
     public @ResponseBody
     String deleteAddress(HttpServletRequest request, HttpServletResponse response,
                          @RequestBody String data) {
-
         Address address = LSHJsonUtils.json2Bean(data, Address.class);
 
         return addressService.deleteAddress(address);

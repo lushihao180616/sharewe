@@ -32,7 +32,6 @@ public class UserInfoController {
     public @ResponseBody
     String saveUserInfo(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
-
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String code = wxRequestJson.getString("code");
         String encryptedData = wxRequestJson.getString("encryptedData");
@@ -53,7 +52,6 @@ public class UserInfoController {
     public @ResponseBody
     String modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
                           @RequestBody String data) {
-
         // 获取前端传入的参数
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         UserInfo userInfo = LSHJsonUtils.json2Bean(data, UserInfo.class);
@@ -74,7 +72,6 @@ public class UserInfoController {
     public @ResponseBody
     String getUserinfoByOpenid(HttpServletRequest request, HttpServletResponse response,
                                @RequestBody String data) {
-
         // 获取前端传入的参数
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String openId = wxRequestJson.getString("openId");
