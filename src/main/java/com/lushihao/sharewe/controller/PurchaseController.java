@@ -132,6 +132,14 @@ public class PurchaseController {
         return purchaseService.getGetPurchase(getUserOpenId, statusId);
     }
 
+    /**
+     * 删除任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/removePurchase")
     public @ResponseBody
     String removePurchase(HttpServletRequest request, HttpServletResponse response,
@@ -142,6 +150,14 @@ public class PurchaseController {
         return purchaseService.romovePurchase(purchaseId);
     }
 
+    /**
+     * 发送任务者点击取消按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/sendCanclePurchase")
     public @ResponseBody
     String sendCanclePurchase(HttpServletRequest request, HttpServletResponse response,
@@ -155,6 +171,7 @@ public class PurchaseController {
 
     /**
      * 接收任务者点击取消按钮
+     *
      * @param request
      * @param response
      * @param data

@@ -47,17 +47,27 @@ public interface PurchaseMapper {
     List<Purchase> getGetPurchase(String getUserOpenId, int statusId);
 
     /**
-     * ɾ������
+     * 删除任务
+     *
+     * @param id
+     * @return
      */
     int deletePurchase(int id);
 
     /**
-     * ���������û�ȡ������
+     * 发送任务者点击取消按钮
+     *
+     * @param purchaseId
+     * @param sendUserCancle
+     * @return
      */
     int sendCanclePurchase(int purchaseId, boolean sendUserCancle);
 
     /**
-     * ���������û�ͬ��ȡ������
+     * 接收任务者点击取消按钮
+     *
+     * @param purchaseId
+     * @return
      */
     int getCanclePurchase(int purchaseId);
 

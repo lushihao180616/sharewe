@@ -128,35 +128,57 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
+    /**
+     * 删除任务
+     *
+     * @param purchaseId
+     * @return
+     */
     @Override
     @Transactional
     public String romovePurchase(int purchaseId) {
         int sql_back1 = purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
-        int sql_back2 = purchaseMapper.deletePurchase(purchaseId);
+        int sql_back2 = 0;
+        if (sql_back1 > 0) {
+            sql_back2 = purchaseMapper.deletePurchase(purchaseId);
+        }
         if (sql_back1 == 0 || sql_back2 == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
     }
 
+    /**
+     * 发送任务者点击取消按钮
+     *
+     * @param purchaseId
+     * @param sendUserCancle
+     * @return
+     */
     @Override
     @Transactional
     public String sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
         int sql_back = purchaseMapper.sendCanclePurchase(purchaseId, sendUserCancle);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
     }
 
+    /**
+     * 接收任务者点击取消按钮
+     *
+     * @param purchaseId
+     * @return
+     */
     @Override
     @Transactional
     public String getCanclePurchase(int purchaseId) {
         int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
@@ -174,7 +196,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
         int sql_back = purchaseMapper.getCompletePurchase(purchaseId, getUserComplete);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("完成失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
@@ -191,7 +213,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public String sendCompletePurchase(int purchaseId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
+            return LSHResponseUtils.getResponse(new LSHResponse("完成失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
