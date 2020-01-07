@@ -10,16 +10,16 @@
 		UPDATE purchase SET typeid=#{typeId},addressid=#{addressId},buildingid=#{buildingId},statusid=#{statusId},reward=#{reward},senduseropenid=#{sendUserOpenId},deadtime=#{deadTime},sendtime=#{sendTime},getuseropenid=null,gettime=null,sendusercancle=null where id=#{id}
 	</update>
     <select id="findPurchases" resultType="Purchase">
-        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{2} limit #{1},#{0}
+        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{param3} limit #{param2},#{param1}
     </select>
     <update id="getPurchase" parameterType="Purchase">
 		UPDATE purchase SET getuseropenid=#{getUserOpenId},gettime=#{getTime},statusid=2 where id=#{id}
 	</update>
     <select id="filterPurchases" resultType="Purchase">
-        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{2}
+        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{param3}
         <if test="buildingId != 0"> AND buildingid=#{buildingId} </if>
         <if test="typeId != 0"> AND typeid=#{typeId} </if>
-        limit #{1},#{0}
+        limit #{param2},#{param1}
     </select>
     <select id="getSendPurchase" resultType="Purchase">
         SELECT * FROM purchase WHERE senduseropenid=#{param1} AND statusid=#{param2} order by sendtime desc
@@ -31,15 +31,15 @@
         DELETE FROM purchase WHERE id=#{value}
     </delete>
     <update id="sendCanclePurchase">
-		UPDATE purchase SET sendusercancle=#{1} where id=#{0}
+		UPDATE purchase SET sendusercancle=#{param2} where id=#{param1}
 	</update>
     <update id="getCanclePurchase">
-		UPDATE purchase SET statusid=4 where id=#{0}
+		UPDATE purchase SET statusid=4 where id=#{param1}
 	</update>
     <update id="getCompletePurchase">
-		UPDATE purchase SET getusercomplete=#{1} where id=#{0}
+		UPDATE purchase SET getusercomplete=#{param2} where id=#{param1}
 	</update>
     <update id="sendCompletePurchase">
-		UPDATE purchase SET statusid=3 where id=#{0}
+		UPDATE purchase SET statusid=3 where id=#{param1}
 	</update>
 </mapper>
