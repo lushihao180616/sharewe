@@ -1,16 +1,16 @@
 package com.lushihao.sharewe.config;
 
-import com.lushihao.sharewe.quartzjobs.Job0;
-import com.lushihao.sharewe.util.LSHBeanUtils;
 import com.lushihao.sharewe.util.LSHPropertyUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.context.support.WebApplicationObjectSupport;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class QuartzConfig extends WebApplicationObjectSupport {
