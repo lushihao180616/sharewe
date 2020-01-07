@@ -1,11 +1,9 @@
 package com.lushihao.sharewe.dao;
 
-import com.lushihao.sharewe.entity.School;
+import com.lushihao.sharewe.entity.userinfo.School;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface SchoolMapper {

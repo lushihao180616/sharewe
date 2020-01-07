@@ -3,7 +3,7 @@ package com.lushihao.sharewe.service.impl;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PurchaseTypeMapper;
-import com.lushihao.sharewe.entity.PurchaseType;
+import com.lushihao.sharewe.entity.purchase.PurchaseType;
 import com.lushihao.sharewe.service.PurchaseTypeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;

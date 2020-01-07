@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity;
+package com.lushihao.sharewe.entity.express;
 
 import java.util.Date;
 import java.util.List;
@@ -6,55 +6,55 @@ import java.util.List;
 public class Express {
 
 	/**
-	 * ���Ψһ��ʶ
+	 * 唯一标识
 	 */
 	private int id;
 	/**
-	 * ��ַΨһ��ʶ
+	 * 地址
 	 */
 	private int addressId;
 	/**
-	 * ������ڽ�����
+	 * 建筑物
 	 */
 	private int buildingId;
 	/**
-	 * ���״̬Ψһ��ʶ
+	 * 状态
 	 */
 	private int statusId;
 	/**
-	 * �ͽ�
+	 * 赏金
 	 */
 	private double reward;
 	/**
-	 * ������û�Ψһ��ʶ
+	 * 发送快递者
 	 */
 	private String sendUserOpenId;
 	/**
-	 * �ӿ���û�Ψһ��ʶ
+	 * 接收快递者
 	 */
 	private String getUserOpenId;
 	/**
-	 * ����ʱ��
+	 * 限期
 	 */
 	private Date deadTime;
 	/**
-	 * �����ʱ��
+	 * 发送时间
 	 */
 	private Date sendTime;
 	/**
-	 * �ӿ��ʱ��
+	 * 接收时间
 	 */
 	private Date getTime;
 	/**
-	 * ������ʱ��
+	 * 结束时间
 	 */
 	private Date endTime;
 	/**
-	 * �ӿ���û����
+	 * 接收用户点击完成
 	 */
 	private boolean getUserComplete;
 	/**
-	 * �����Ʒ
+	 * 发送快递单元
 	 */
 	private List<ExpressItem> expressItems;
 

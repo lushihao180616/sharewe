@@ -2,7 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
-import com.lushihao.sharewe.entity.UserInfo;
+import com.lushihao.sharewe.entity.userinfo.UserInfo;
 import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

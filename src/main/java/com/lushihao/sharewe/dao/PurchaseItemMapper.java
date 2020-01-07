@@ -1,6 +1,6 @@
 package com.lushihao.sharewe.dao;
 
-import com.lushihao.sharewe.entity.PurchaseItem;
+import com.lushihao.sharewe.entity.purchase.PurchaseItem;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

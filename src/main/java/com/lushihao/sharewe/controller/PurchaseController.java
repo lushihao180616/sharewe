@@ -1,11 +1,10 @@
 package com.lushihao.sharewe.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
-import com.lushihao.sharewe.entity.Purchase;
-import com.lushihao.sharewe.entity.PurchaseItem;
+import com.lushihao.sharewe.entity.purchase.Purchase;
+import com.lushihao.sharewe.entity.purchase.PurchaseItem;
 import com.lushihao.sharewe.service.PurchaseService;
 import com.lushihao.sharewe.service.PurchaseTypeService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +16,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity;
+package com.lushihao.sharewe.entity.purchase;
 
 import java.util.Date;
 import java.util.List;
@@ -6,63 +6,63 @@ import java.util.List;
 public class Purchase {
 
 	/**
-	 * ����Ψһ��ʶ
+	 * 标识
 	 */
 	private int id;
 	/**
-	 * ��������Ψһ��ʶ
+	 * 类型
 	 */
 	private int typeId;
 	/**
-	 * ��ַΨһ��ʶ
+	 * 地址
 	 */
 	private int addressId;
 	/**
-	 * �������ڽ�����
+	 * 建筑物
 	 */
 	private int buildingId;
 	/**
-	 * ����״̬Ψһ��ʶ
+	 * 状态
 	 */
 	private int statusId;
 	/**
-	 * �ͽ�
+	 * 赏金
 	 */
 	private double reward;
 	/**
-	 * �������û�Ψһ��ʶ
+	 * 发送任务者
 	 */
 	private String sendUserOpenId;
 	/**
-	 * �������û�Ψһ��ʶ
+	 * 接收任务者
 	 */
 	private String getUserOpenId;
 	/**
-	 * ����ʱ��
+	 * 限期
 	 */
 	private Date deadTime;
 	/**
-	 * ������ʱ��
+	 * 发送时间
 	 */
 	private Date sendTime;
 	/**
-	 * ������ʱ��
+	 * 接收时间
 	 */
 	private Date getTime;
 	/**
-	 * �������ʱ��
+	 * 完成时间
 	 */
 	private Date endTime;
 	/**
-	 * �������û�ȡ��
+	 * 发送任务用户点击取消
 	 */
 	private boolean sendUserCancle;
 	/**
-	 * �������û����
+	 * 接收任务用户点击完成
 	 */
 	private boolean getUserComplete;
 	/**
-	 * ������Ʒ
+	 * 任务单元
 	 */
 	private List<PurchaseItem> purchaseItems;
 

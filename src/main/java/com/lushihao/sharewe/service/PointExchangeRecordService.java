@@ -1,6 +1,6 @@
 package com.lushihao.sharewe.service;
 
-import com.lushihao.sharewe.entity.PointExchangeRecord;
+import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 
 public interface PointExchangeRecordService {
 

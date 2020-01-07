@@ -1,6 +1,6 @@
 package com.lushihao.sharewe.service;
 
-import com.lushihao.sharewe.entity.UserInfo;
+import com.lushihao.sharewe.entity.userinfo.UserInfo;
 
 public interface UserInfoService {
     /**

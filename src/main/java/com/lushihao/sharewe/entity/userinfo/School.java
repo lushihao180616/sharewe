@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity;
+package com.lushihao.sharewe.entity.userinfo;
 
 /**
  * @author Administrator �û�ѧУbean

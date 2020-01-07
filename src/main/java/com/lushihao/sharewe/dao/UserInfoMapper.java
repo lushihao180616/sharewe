@@ -1,9 +1,8 @@
 package com.lushihao.sharewe.dao;
 
-import com.lushihao.sharewe.entity.AllUserInfo;
-import com.lushihao.sharewe.entity.UserInfo;
+import com.lushihao.sharewe.entity.userinfo.AllUserInfo;
+import com.lushihao.sharewe.entity.userinfo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface UserInfoMapper {

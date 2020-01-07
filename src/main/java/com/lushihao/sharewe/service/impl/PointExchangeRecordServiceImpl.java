@@ -4,7 +4,7 @@ import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointExchangeRecordMapper;
-import com.lushihao.sharewe.entity.PointExchangeRecord;
+import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeRecordService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;

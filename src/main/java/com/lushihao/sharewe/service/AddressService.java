@@ -1,9 +1,6 @@
 package com.lushihao.sharewe.service;
 
-import com.lushihao.sharewe.entity.Address;
-
-import java.util.List;
-import java.util.Map;
+import com.lushihao.sharewe.entity.userinfo.Address;
 
 public interface AddressService {
 

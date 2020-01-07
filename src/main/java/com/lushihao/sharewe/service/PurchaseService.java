@@ -1,8 +1,6 @@
 package com.lushihao.sharewe.service;
 
-import com.lushihao.sharewe.entity.Purchase;
-
-import java.util.List;
+import com.lushihao.sharewe.entity.purchase.Purchase;
 
 public interface PurchaseService {
 

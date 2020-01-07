@@ -1,24 +1,24 @@
-package com.lushihao.sharewe.entity;
+package com.lushihao.sharewe.entity.express;
 
 public class ExpressItem {
 	/**
-	 * ���Ψһ��ʶ
+	 * 标识
 	 */
 	private int id;
 	/**
-	 * �������
+	 * 验证码
 	 */
 	private String code;
 	/**
-	 * �������
+	 * 昵称
 	 */
 	private String name;
 	/**
-	 * ����ֻ���
+	 * 手机尾号
 	 */
 	private String number;
 	/**
-	 * ��ݱ�ʶ
+	 * 快递
 	 */
 	private int expressId;
 

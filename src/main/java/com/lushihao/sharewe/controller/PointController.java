@@ -2,7 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
-import com.lushihao.sharewe.entity.PointExchangeRecord;
+import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeRecordService;
 import com.lushihao.sharewe.service.PointExchangeService;
 import org.springframework.web.bind.annotation.RequestBody;

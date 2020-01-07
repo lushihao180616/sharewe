@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity;
+package com.lushihao.sharewe.entity.userinfo;
 
 import java.util.List;
 import java.util.Map;

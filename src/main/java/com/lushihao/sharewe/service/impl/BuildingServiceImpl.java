@@ -3,7 +3,7 @@ package com.lushihao.sharewe.service.impl;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.BuildingMapper;
-import com.lushihao.sharewe.entity.Building;
+import com.lushihao.sharewe.entity.userinfo.Building;
 import com.lushihao.sharewe.service.BuildingService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;

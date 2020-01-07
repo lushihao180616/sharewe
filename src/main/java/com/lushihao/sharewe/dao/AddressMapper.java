@@ -1,6 +1,6 @@
 package com.lushihao.sharewe.dao;
 
-import com.lushihao.sharewe.entity.Address;
+import com.lushihao.sharewe.entity.userinfo.Address;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

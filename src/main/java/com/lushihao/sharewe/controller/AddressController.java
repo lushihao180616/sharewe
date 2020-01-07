@@ -1,7 +1,7 @@
 package com.lushihao.sharewe.controller;
 
 import com.lushihao.myutils.json.LSHJsonUtils;
-import com.lushihao.sharewe.entity.Address;
+import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.service.AddressService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

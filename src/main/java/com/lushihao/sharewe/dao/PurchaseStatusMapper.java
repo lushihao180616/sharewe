@@ -1,9 +1,7 @@
 package com.lushihao.sharewe.dao;
 
-import com.lushihao.sharewe.entity.PurchaseStatus;
+import com.lushihao.sharewe.entity.purchase.PurchaseStatus;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Mapper
 public interface PurchaseStatusMapper {

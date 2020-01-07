@@ -1,6 +1,6 @@
 package com.lushihao.sharewe.dao;
 
-import com.lushihao.sharewe.entity.Purchase;
+import com.lushihao.sharewe.entity.purchase.Purchase;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
