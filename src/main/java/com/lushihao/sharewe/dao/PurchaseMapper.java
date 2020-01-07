@@ -9,24 +9,23 @@ import java.util.List;
 
 @Mapper
 public interface PurchaseMapper {
-
     /**
-     * ��������
+     * 创建任务
      */
     int createPurchase(Purchase purchase);
 
     /**
-     * ��������
+     * 更新任务
      */
     int updatePurchase(Purchase purchase);
 
     /**
-     * ��ȡ��������
+     * 获取任务信息列表
      */
     List<Purchase> findPurchases(int num, int offset, Date nowDate);
 
     /**
-     * ������
+     * 获取被用户
      */
     int getPurchase(Purchase purchase);
 

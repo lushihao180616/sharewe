@@ -30,7 +30,7 @@ public class PurchaseController {
     private PurchaseTypeService purchaseTypeService;
 
     /**
-     * 发送任务
+     * 发送任务（修改任务）
      *
      * @param request
      * @param response
@@ -40,30 +40,29 @@ public class PurchaseController {
     @RequestMapping(value = "/sendPurchase")
     public @ResponseBody
     String sendPurchase(HttpServletRequest request, HttpServletResponse response,
-                        @RequestBody String data) {
-        List<PurchaseItem> purchaseItems_list = new ArrayList<>();
+                        @RequestBody String data) throws ParseException {
+        //处理任务信息
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String sendTime = wxRequestJson.getString("sendTime");
         String deadTime = wxRequestJson.getString("deadTime");
-        JSONArray purchaseItems = wxRequestJson.getJSONArray("purchaseItems");
-        for (int i = 0; i < purchaseItems.size(); i++) {
-            JSONObject json = purchaseItems.getJSONObject(i);
-            json.remove("name_num");
-            PurchaseItem purchaseItem = LSHJsonUtils.json2Bean(json, PurchaseItem.class);
-            purchaseItems_list.add(purchaseItem);
-        }
-        wxRequestJson.remove("purchaseItems");
-        try {
-            wxRequestJson.put("sendTime", LSHDateUtils.string2Date(sendTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
-            wxRequestJson.put("deadTime", LSHDateUtils.string2Date(deadTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        wxRequestJson.put("sendTime", LSHDateUtils.string2Date(sendTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
+        wxRequestJson.put("deadTime", LSHDateUtils.string2Date(deadTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
         Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
+        //处理任务单元信息
+        List<PurchaseItem> purchaseItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("purchaseItems"), PurchaseItem.class);
         purchase.setPurchaseItems(purchaseItems_list);
+        //发送任务
         return purchaseService.sendPurchase(purchase);
     }
 
+    /**
+     * 获取发送的任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getPurchases")
     public @ResponseBody
     String getPurchases(HttpServletRequest request, HttpServletResponse response,
@@ -71,9 +70,18 @@ public class PurchaseController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int num = wxRequestJson.getInteger("num");
         int page = wxRequestJson.getInteger("page");
+
         return purchaseService.getPurchases(num, page);
     }
 
+    /**
+     * 获取被接单的任务集合
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getPurchase")
     public @ResponseBody
     String getPurchase(HttpServletRequest request, HttpServletResponse response,

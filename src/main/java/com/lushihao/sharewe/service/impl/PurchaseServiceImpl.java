@@ -34,46 +34,64 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Resource
     private PurchaseItemMapper purchaseItemMapper;
 
+    /**
+     * 发送任务（更新任务）
+     *
+     * @param purchase
+     * @return
+     */
     @Override
     @Transactional
     public String sendPurchase(Purchase purchase) {
         int sql_back;
-        if (purchase.getId() == 0) {
+        if (purchase.getId() == 0) {//创建任务
             sql_back = purchaseMapper.createPurchase(purchase);
-            if (sql_back > 0) {
+            if (sql_back > 0) {//地址使用数量更新
                 addressMapper.updateAddressUsedCount(purchase.getAddressId());
             }
-        } else {
+        } else {//更新任务
             sql_back = purchaseMapper.updatePurchase(purchase);
         }
-        if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-        } else {
+        if (sql_back != 0) {//说明执行成功
             for (PurchaseItem purchaseItem : purchase.getPurchaseItems()) {
                 purchaseItem.setPurchaseId(purchase.getId());
             }
-            if (purchase.getId() != 0) {
+            if (purchase.getId() != 0) {//更新任务
                 purchaseItemMapper.batchDeletePurchaseItems(purchase.getId());
             }
             int batch_sql_back = purchaseItemMapper.batchCreatePurchaseItems(purchase.getPurchaseItems());
-            if (batch_sql_back == purchase.getPurchaseItems().size()) {
+            if (batch_sql_back == purchase.getPurchaseItems().size()) {//执行成功
                 return LSHResponseUtils.getResponse(new LSHResponse((String) null));
             } else {
                 return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
             }
         }
+        return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));
     }
 
+    /**
+     * 获取任务列表
+     *
+     * @param num
+     * @param page
+     * @return
+     */
     @Override
     @Transactional
     public String getPurchases(int num, int page) {
         Date lastGetDate = new Date();
-        lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
+        lastGetDate.setMinutes(LSHDateUtils.date2Map(new Date()).get(LSHDateUtils.MINUTE) + 5);
         List<Purchase> purchase_list = purchaseMapper.findPurchases(num, (page - 1) * num, lastGetDate);
 
         return transform(purchase_list);
     }
 
+    /**
+     * 获取被用户接单的任务信息
+     *
+     * @param purchase
+     * @return
+     */
     @Override
     @Transactional
     public String getPurchase(Purchase purchase) {

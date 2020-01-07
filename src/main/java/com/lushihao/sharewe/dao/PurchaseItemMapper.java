@@ -8,12 +8,12 @@ import java.util.List;
 @Mapper
 public interface PurchaseItemMapper {
 	/**
-	 * ��������������Ʒ
+	 * 批量创建任务单元
 	 */
 	int batchCreatePurchaseItems(List<PurchaseItem> purchaseItems);
 
 	/**
-	 * ����ɾ��������Ʒ
+	 * 批量删除任务单元
 	 */
 	int batchDeletePurchaseItems(int purchaseId);
 
