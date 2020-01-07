@@ -19,30 +19,24 @@ public interface PurchaseMapper {
      */
     int updatePurchase(Purchase purchase);
 
-    /**
-     * 获取任务信息列表
-     */
     List<Purchase> findPurchases(int num, int offset, Date nowDate);
 
-    /**
-     * 获取被用户
-     */
     int getPurchase(Purchase purchase);
 
     /**
-     * ��������
+     * 过滤数据
      */
     List<Purchase> filterPurchases(int num, int offset, Date nowDate, @Param("buildingId") int buildingId, @Param("typeId") int typeId);
 
     /**
-     * ��ȡ��������
+     * 发送任务者发送任务集合
      *
      * @param statusId
      */
     List<Purchase> getSendPurchase(String sendUserOpenId, int statusId);
 
     /**
-     * ��ȡ��������
+     * 接收任务者接收任务集合
      */
     List<Purchase> getGetPurchase(String getUserOpenId, int statusId);
 

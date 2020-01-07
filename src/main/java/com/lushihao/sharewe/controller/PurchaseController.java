@@ -55,14 +55,6 @@ public class PurchaseController {
         return purchaseService.sendPurchase(purchase);
     }
 
-    /**
-     * 获取发送的任务
-     *
-     * @param request
-     * @param response
-     * @param data
-     * @return
-     */
     @RequestMapping(value = "/getPurchases")
     public @ResponseBody
     String getPurchases(HttpServletRequest request, HttpServletResponse response,
@@ -74,14 +66,6 @@ public class PurchaseController {
         return purchaseService.getPurchases(num, page);
     }
 
-    /**
-     * 获取被接单的任务集合
-     *
-     * @param request
-     * @param response
-     * @param data
-     * @return
-     */
     @RequestMapping(value = "/getPurchase")
     public @ResponseBody
     String getPurchase(HttpServletRequest request, HttpServletResponse response,
@@ -97,6 +81,14 @@ public class PurchaseController {
         return purchaseService.getPurchase(purchase);
     }
 
+    /**
+     * 过滤数据
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/filterPurchases")
     public @ResponseBody
     String filterPurchases(HttpServletRequest request, HttpServletResponse response,
@@ -110,6 +102,14 @@ public class PurchaseController {
         return purchaseService.filterPurchases(num, page, buildingId, typeId);
     }
 
+    /**
+     * 发送任务者发送任务集合
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getSendPurchase")
     public @ResponseBody
     String getSendPurchase(HttpServletRequest request, HttpServletResponse response,
@@ -121,6 +121,14 @@ public class PurchaseController {
         return purchaseService.getSendPurchase(sendUserOpenId, statusId);
     }
 
+    /**
+     * 接收任务者接收任务集合
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getGetPurchase")
     public @ResponseBody
     String getGetPurchase(HttpServletRequest request, HttpServletResponse response,

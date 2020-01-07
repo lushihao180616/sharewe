@@ -69,13 +69,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));
     }
 
-    /**
-     * 获取任务列表
-     *
-     * @param num
-     * @param page
-     * @return
-     */
     @Override
     @Transactional
     public String getPurchases(int num, int page) {
@@ -86,12 +79,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
-    /**
-     * 获取被用户接单的任务信息
-     *
-     * @param purchase
-     * @return
-     */
     @Override
     @Transactional
     public String getPurchase(Purchase purchase) {
@@ -103,6 +90,15 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * 过滤数据
+     *
+     * @param num
+     * @param page
+     * @param buildingId
+     * @param typeId
+     * @return
+     */
     @Override
     @Transactional
     public String filterPurchases(int num, int page, int buildingId, int typeId) {
@@ -114,6 +110,13 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
+    /**
+     * 发送任务者发送任务集合
+     *
+     * @param sendUserOpenId
+     * @param statusId
+     * @return
+     */
     @Override
     @Transactional
     public String getSendPurchase(String sendUserOpenId, int statusId) {
@@ -121,6 +124,13 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
+    /**
+     * 接收任务者接收任务集合
+     *
+     * @param getUserOpenId
+     * @param statusId
+     * @return
+     */
     @Override
     @Transactional
     public String getGetPurchase(String getUserOpenId, int statusId) {
