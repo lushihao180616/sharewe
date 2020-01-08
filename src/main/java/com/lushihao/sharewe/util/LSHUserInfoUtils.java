@@ -14,7 +14,15 @@ import java.util.Arrays;
 
 public class LSHUserInfoUtils {
 
-    public static JSONObject getUserInfo(String encryptedData, String sessionKey, String iv){
+    /**
+     * 解密用户信息
+     *
+     * @param encryptedData
+     * @param sessionKey
+     * @param iv
+     * @return
+     */
+    public static JSONObject getUserInfo(String encryptedData, String sessionKey, String iv) {
         // 被加密的数据
         byte[] dataByte = Base64.decode(encryptedData);
         // 加密秘钥
@@ -34,7 +42,7 @@ public class LSHUserInfoUtils {
             }
             Security.addProvider(new BouncyCastleProvider());
             // 初始化
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding","BC");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding", "BC");
             SecretKeySpec spec = new SecretKeySpec(keyByte, "AES");
             AlgorithmParameters parameters = AlgorithmParameters.getInstance("AES");
             parameters.init(new IvParameterSpec(ivByte));
