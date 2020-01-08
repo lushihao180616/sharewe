@@ -28,4 +28,24 @@ public enum ExpressStatusEnum {
         this.name = name;
     }
 
+    /**
+     * 通过属性获取对象
+     *
+     * @param id
+     * @param name
+     * @return
+     */
+    public static ExpressStatusEnum getItem(int id, String name) {
+        for (ExpressStatusEnum expressStatusEnum : values()) {
+            if (id != 0 && expressStatusEnum.getId() != id) {
+                continue;
+            }
+            if (name != null && expressStatusEnum.getName() != name) {
+                continue;
+            }
+            return expressStatusEnum;
+        }
+        return null;
+    }
+
 }

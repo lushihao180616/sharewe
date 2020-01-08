@@ -38,4 +38,26 @@ public enum PurchaseTypeEnum {
         this.code = code;
     }
 
+    /**
+     * 通过属性获取对象
+     *
+     * @param id
+     * @return
+     */
+    public static PurchaseTypeEnum getItem(int id, String name, String code) {
+        for (PurchaseTypeEnum purchaseTypeEnum : values()) {
+            if (id != 0 && purchaseTypeEnum.getId() != id) {
+                continue;
+            }
+            if (name != null && purchaseTypeEnum.getName() != name) {
+                continue;
+            }
+            if (code != null && purchaseTypeEnum.getName() != code) {
+                continue;
+            }
+            return purchaseTypeEnum;
+        }
+        return null;
+    }
+
 }

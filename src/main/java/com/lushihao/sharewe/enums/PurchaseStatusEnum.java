@@ -28,4 +28,23 @@ public enum PurchaseStatusEnum {
         this.name = name;
     }
 
+    /**
+     * 通过属性获取对象
+     *
+     * @param id
+     * @return
+     */
+    public static PurchaseStatusEnum getItem(int id, String name) {
+        for (PurchaseStatusEnum purchaseStatusEnum : values()) {
+            if (id != 0 && purchaseStatusEnum.getId() != id) {
+                continue;
+            }
+            if (name != null && purchaseStatusEnum.getName() != name) {
+                continue;
+            }
+            return purchaseStatusEnum;
+        }
+        return null;
+    }
+
 }
