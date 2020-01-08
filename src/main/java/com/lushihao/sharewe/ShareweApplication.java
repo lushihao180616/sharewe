@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.lushihao.model.dao")
+@MapperScan("com.lushihao.sharewe.dao")
 public class ShareweApplication {
 
     public static void main(String[] args) {
