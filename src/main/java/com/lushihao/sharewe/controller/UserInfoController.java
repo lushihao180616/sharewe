@@ -2,7 +2,11 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
+import com.lushihao.sharewe.service.AddressService;
+import com.lushihao.sharewe.service.BuildingService;
+import com.lushihao.sharewe.service.SchoolService;
 import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,14 @@ public class UserInfoController {
 
     @Resource
     private UserInfoService userInfoService;
+    @Resource
+    private AddressService addressService;
+    @Resource
+    private BuildingService buildingService;
+    @Resource
+    private SchoolService schoolService;
+
+    //==================================================用户开始==================================================
 
     /**
      * 保存用户信息（登录）
@@ -77,4 +89,100 @@ public class UserInfoController {
         return userInfoService.findByOpenId(openId);
     }
 
+    //==================================================用户结束==================================================
+    //==================================================学校开始==================================================
+
+    /**
+     * 通过省份获取学校
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getByProvince")
+    public @ResponseBody
+    String getByProvince(HttpServletRequest request, HttpServletResponse response, @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int provinceId = wxRequestJson.getInteger("provinceId");
+
+        return schoolService.findSchoolByProvinceId(provinceId);
+    }
+
+    //==================================================学校结束==================================================
+    //==================================================建筑开始==================================================
+
+    /**
+     * 获取学校下的宿舍楼数据
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getDormitory")
+    public @ResponseBody
+    String getDormitory(HttpServletRequest request, HttpServletResponse response,
+                        @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int schoolId = wxRequestJson.getInteger("schoolId");
+
+        return buildingService.findDormitoryBySchoolId(schoolId);
+    }
+
+    //==================================================建筑结束==================================================
+    //==================================================地址开始==================================================
+
+    /**
+     * 保存地址
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/saveAddress")
+    public @ResponseBody
+    String saveAddress(HttpServletRequest request, HttpServletResponse response,
+                       @RequestBody String data) {
+        Address address = LSHJsonUtils.json2Bean(data, Address.class);
+
+        return addressService.createAddress(address);
+    }
+
+    /**
+     * 修改地址
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/modifyAddress")
+    public @ResponseBody
+    String modifyAddress(HttpServletRequest request, HttpServletResponse response,
+                         @RequestBody String data) {
+        Address address = LSHJsonUtils.json2Bean(data, Address.class);
+
+        return addressService.updateAddress(address);
+    }
+
+    /**
+     * 删除地址
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/deleteAddress")
+    public @ResponseBody
+    String deleteAddress(HttpServletRequest request, HttpServletResponse response,
+                         @RequestBody String data) {
+        Address address = LSHJsonUtils.json2Bean(data, Address.class);
+
+        return addressService.deleteAddress(address);
+    }
+
+    //==================================================地址结束==================================================
 }
