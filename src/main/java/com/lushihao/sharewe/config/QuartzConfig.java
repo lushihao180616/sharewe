@@ -2,7 +2,6 @@ package com.lushihao.sharewe.config;
 
 import com.lushihao.sharewe.util.LSHPropertyUtils;
 import org.quartz.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.WebApplicationObjectSupport;
 
@@ -14,9 +13,6 @@ import java.util.Map;
 
 @Configuration
 public class QuartzConfig extends WebApplicationObjectSupport {
-
-    @Autowired
-    private LSHPropertyUtils lshPropertyUtils;
     /**
      * 任务调度
      */
