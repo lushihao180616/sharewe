@@ -72,8 +72,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String getPurchases(int num, int page) {
-        Date lastGetDate = new Date();
-        lastGetDate.setMinutes(LSHDateUtils.date2Map(new Date()).get(LSHDateUtils.MINUTE) + 5);
+        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
         List<Purchase> purchase_list = purchaseMapper.findPurchases(num, (page - 1) * num, lastGetDate);
 
         return transform(purchase_list);
@@ -102,8 +101,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String filterPurchases(int num, int page, int buildingId, int typeId) {
-        Date lastGetDate = new Date();
-        lastGetDate.setMinutes(lastGetDate.getMinutes() + 5);
+        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
         List<Purchase> purchase_list = purchaseMapper.filterPurchases(num, (page - 1) * num, lastGetDate, buildingId,
                 typeId);
 
