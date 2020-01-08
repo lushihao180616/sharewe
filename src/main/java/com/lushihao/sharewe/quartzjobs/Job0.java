@@ -14,6 +14,6 @@ public class Job0 extends QuartzJobBean  {
      */
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("-----------------1");
+        System.out.println("-----------------Job0");
     }
 }

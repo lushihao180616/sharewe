@@ -13,6 +13,6 @@ public class Job1 extends QuartzJobBean  {
      */
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("-----------------2");
+        System.out.println("-----------------Job1");
     }
 }
