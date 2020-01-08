@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface BuildingMapper {
+
     /**
      * 通过建筑物id获取建筑物
      *
@@ -22,4 +23,5 @@ public interface BuildingMapper {
      * @return
      */
     List<Building> findDormitoryBySchoolId(int schoolId);
+
 }

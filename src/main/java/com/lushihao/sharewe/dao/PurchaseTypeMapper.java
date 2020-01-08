@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface PurchaseTypeMapper {
+
     /**
      * 通过id获取任务类型
      *

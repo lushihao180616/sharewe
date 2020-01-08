@@ -10,8 +10,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 初始化项目
+ */
 @Component
-public class InitProject implements ApplicationRunner {
+public class QuartzInit implements ApplicationRunner {
+
     @Autowired
     private QuartzConfig quartzConfig;
     @Autowired
@@ -22,4 +26,5 @@ public class InitProject implements ApplicationRunner {
         List<Map<String, String>> list = jobClassesConfig.getJobList();
         quartzConfig.startJob(list);
     }
+
 }

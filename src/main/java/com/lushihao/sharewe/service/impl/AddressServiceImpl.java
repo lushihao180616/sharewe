@@ -92,4 +92,5 @@ public class AddressServiceImpl implements AddressService {
         List<Map<String, Object>> address_list = addressMapper.findByOpenId(openId);
         return address_list;
     }
+
 }

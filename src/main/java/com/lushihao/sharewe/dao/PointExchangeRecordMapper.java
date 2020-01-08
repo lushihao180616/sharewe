@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Mapper
 public interface PointExchangeRecordMapper {
+
     /**
      * 兑换劵码
      *
@@ -22,4 +23,5 @@ public interface PointExchangeRecordMapper {
      * @return
      */
     List<Map<String, Object>> selectPointExchangeRecord(String openId);
+
 }

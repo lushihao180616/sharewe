@@ -116,4 +116,5 @@ public class PointController {
 
         return userInfoService.pointOut(openId, needPoint);
     }
+
 }

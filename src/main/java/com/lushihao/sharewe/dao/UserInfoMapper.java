@@ -48,4 +48,5 @@ public interface UserInfoMapper {
      * @return
      */
     int pointOut(String openId, int needPoint);
+
 }

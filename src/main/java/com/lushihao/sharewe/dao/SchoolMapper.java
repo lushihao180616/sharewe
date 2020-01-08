@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface SchoolMapper {
+
     /**
      * 通过省份id获取学校
      *
@@ -14,4 +15,5 @@ public interface SchoolMapper {
      * @return
      */
     List<School> findByProvinceId(int province_id);
+
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface PurchaseItemMapper {
+
 	/**
 	 * 批量创建任务单元
 	 */
@@ -21,4 +22,5 @@ public interface PurchaseItemMapper {
 	 * ͨ通过任务获取任务单元列表
 	 */
 	List<PurchaseItem> findPurchaseItemsByPurchaseId(int purchaseId);
+
 }

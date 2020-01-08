@@ -92,4 +92,5 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.afterPropertiesSet();
         return template;//StringRedisTemplate是RedisTempLate<String, String>的子类
     }
+
 }

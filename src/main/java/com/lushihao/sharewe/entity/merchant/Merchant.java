@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity.userinfo;
+package com.lushihao.sharewe.entity.merchant;
 
 public class Merchant {
 

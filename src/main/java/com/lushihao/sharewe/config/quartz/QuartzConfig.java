@@ -15,6 +15,7 @@ import java.util.Map;
 @Configuration
 @PropertySource("classpath:application.properties")
 public class QuartzConfig extends WebApplicationObjectSupport {
+
     /**
      * 任务调度
      */

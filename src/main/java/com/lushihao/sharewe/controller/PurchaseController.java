@@ -244,4 +244,5 @@ public class PurchaseController {
                             @RequestBody String data) {
         return purchaseTypeService.findAllPurchaseTypes();
     }
+
 }

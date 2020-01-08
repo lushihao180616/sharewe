@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface PurchaseMapper {
+
     /**
      * 创建任务
      */
@@ -81,4 +82,5 @@ public interface PurchaseMapper {
      * @return
      */
     int sendCompletePurchase(int purchaseId);
+
 }

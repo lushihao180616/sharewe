@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.enums;
 
 public enum PurchaseTypeEnum {
+
     TYPE1(1, "美食", "food");
 
     private int id;
@@ -36,4 +37,5 @@ public enum PurchaseTypeEnum {
     public void setCode(String code) {
         this.code = code;
     }
+
 }

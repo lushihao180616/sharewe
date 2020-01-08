@@ -8,6 +8,7 @@ import java.util.Map;
 
 @Mapper
 public interface AddressMapper {
+
     /**
      * 通过唯一标识获取地址
      *
@@ -63,4 +64,5 @@ public interface AddressMapper {
      * @return
      */
     int updateAddressUsedCount(int id);
+
 }

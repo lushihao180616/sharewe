@@ -36,4 +36,5 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
 
         return LSHResponseUtils.getResponse(new LSHResponse(map));
     }
+
 }

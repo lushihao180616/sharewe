@@ -6,6 +6,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 public class Job0 extends QuartzJobBean  {
+
     /**
      * 需要执行的具体任务
      *
@@ -16,4 +17,5 @@ public class Job0 extends QuartzJobBean  {
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         System.out.println("-----------------Job0");
     }
+
 }

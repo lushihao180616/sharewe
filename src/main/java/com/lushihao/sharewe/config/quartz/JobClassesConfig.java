@@ -20,4 +20,5 @@ public class JobClassesConfig {
     public void setJobList(List<Map<String, String>> jobList) {
         this.jobList = jobList;
     }
+
 }
