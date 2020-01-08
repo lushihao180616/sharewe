@@ -1,8 +1,9 @@
 package com.lushihao.sharewe.config;
 
-import com.lushihao.sharewe.util.LSHPropertyUtils;
 import org.quartz.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.context.support.WebApplicationObjectSupport;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class QuartzConfig extends WebApplicationObjectSupport {
     /**
      * 任务调度
@@ -22,6 +24,11 @@ public class QuartzConfig extends WebApplicationObjectSupport {
      * 键：job类名，值：group组名
      */
     public Map<String, String> job_group = new HashMap<>();
+    /**
+     * Job类路径
+     */
+    @Value("${jobClassPath}")
+    private String jobClassPath;
 
     /**
      * 开始执行定时任务
@@ -29,7 +36,6 @@ public class QuartzConfig extends WebApplicationObjectSupport {
      * @throws SchedulerException
      */
     public void startJob(List<Map<String, String>> list) throws SchedulerException, ClassNotFoundException {
-        String jobClassPath = LSHPropertyUtils.getPropertiesValue("jobClassPath");
         for (Map<String, String> map : list) {
             String name = map.get("name");
             String corn = map.get("corn");
