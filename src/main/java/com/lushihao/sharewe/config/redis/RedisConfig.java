@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.config;
+package com.lushihao.sharewe.config.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

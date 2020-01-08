@@ -1,7 +1,7 @@
 package com.lushihao.sharewe.init;
 
-import com.lushihao.sharewe.config.JobClassesConfig;
-import com.lushihao.sharewe.config.QuartzConfig;
+import com.lushihao.sharewe.config.quartz.JobClassesConfig;
+import com.lushihao.sharewe.config.quartz.QuartzConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

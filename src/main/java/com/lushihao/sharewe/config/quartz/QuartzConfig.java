@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.config;
+package com.lushihao.sharewe.config.quartz;
 
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Value;

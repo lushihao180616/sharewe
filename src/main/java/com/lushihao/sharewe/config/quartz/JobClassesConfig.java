@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.config;
+package com.lushihao.sharewe.config.quartz;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
