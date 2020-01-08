@@ -1,38 +1,29 @@
 package com.lushihao.sharewe.entity.purchase;
 
 public class PurchaseStatus {
-	private int id;
-	private String name;
+    /**
+     * 标识
+     */
+    private int id;
+    /**
+     * 名称
+     */
+    private String name;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public PurchaseStatus(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-
-	public PurchaseStatus() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "PurchaseStatus [id=" + id + ", name=" + name + "]";
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

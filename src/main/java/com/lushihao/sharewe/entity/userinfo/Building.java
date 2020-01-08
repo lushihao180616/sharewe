@@ -2,23 +2,23 @@ package com.lushihao.sharewe.entity.userinfo;
 
 public class Building {
 	/**
-	 * ������Ψһ��ʶ
+	 * 标识
 	 */
 	private int id;
 	/**
-	 * ����������
+	 * 名称
 	 */
 	private String name;
 	/**
-	 * ���������� 0������¥��1����ѧ¥��2��ʵ��¥��3������¥
+	 * 类型
 	 */
 	private int type;
 	/**
-	 * ѧУ����
+	 * 学校
 	 */
 	private int school_id;
 	/**
-	 * ѧУ����
+	 * 学校名称
 	 */
 	private String school_name;
 
@@ -60,25 +60,6 @@ public class Building {
 
 	public void setSchool_name(String school_name) {
 		this.school_name = school_name;
-	}
-
-	public Building(int id, String name, int type, int school_id, String school_name) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.school_id = school_id;
-		this.school_name = school_name;
-	}
-
-	public Building() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "Building [id=" + id + ", name=" + name + ", type=" + type + ", school_id=" + school_id
-				+ ", school_name=" + school_name + "]";
 	}
 
 }

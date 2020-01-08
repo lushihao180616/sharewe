@@ -2,23 +2,23 @@ package com.lushihao.sharewe.entity.userinfo;
 
 public class PointExchange {
 	/**
-	 * Ψһ��ʶ
+	 * 标识
 	 */
 	private String id;
 	/**
-	 * �̼ұ��
+	 * 商家代号
 	 */
 	private String merchantCode;
 	/**
-	 * ������
+	 * 劵码内容
 	 */
 	private String context;
 	/**
-	 * ����ֹʱ��
+	 * 劵码到期时间
 	 */
 	private String time;
 	/**
-	 * ��ֵ�ӵ�
+	 * 兑换需要用的捎点
 	 */
 	private double point;
 
@@ -60,19 +60,6 @@ public class PointExchange {
 
 	public void setPoint(double point) {
 		this.point = point;
-	}
-
-	public PointExchange(String id, String merchantCode, String context, String time, double point) {
-		super();
-		this.id = id;
-		this.merchantCode = merchantCode;
-		this.context = context;
-		this.time = time;
-		this.point = point;
-	}
-
-	public PointExchange() {
-		super();
 	}
 
 }

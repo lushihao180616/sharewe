@@ -186,38 +186,4 @@ public class Purchase {
 		this.purchaseItems = purchaseItems;
 	}
 
-	public Purchase(int id, int typeId, int addressId, int buildingId, int statusId, double reward,
-			String sendUserOpenId, String getUserOpenId, Date deadTime, Date sendTime, Date getTime, Date endTime,
-			boolean sendUserCancle, boolean getUserComplete, List<PurchaseItem> purchaseItems) {
-		super();
-		this.id = id;
-		this.typeId = typeId;
-		this.addressId = addressId;
-		this.buildingId = buildingId;
-		this.statusId = statusId;
-		this.reward = reward;
-		this.sendUserOpenId = sendUserOpenId;
-		this.getUserOpenId = getUserOpenId;
-		this.deadTime = deadTime;
-		this.sendTime = sendTime;
-		this.getTime = getTime;
-		this.endTime = endTime;
-		this.sendUserCancle = sendUserCancle;
-		this.getUserComplete = getUserComplete;
-		this.purchaseItems = purchaseItems;
-	}
-
-	public Purchase() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "Purchase [id=" + id + ", typeId=" + typeId + ", addressId=" + addressId + ", buildingId=" + buildingId
-				+ ", statusId=" + statusId + ", reward=" + reward + ", sendUserOpenId=" + sendUserOpenId
-				+ ", getUserOpenId=" + getUserOpenId + ", deadTime=" + deadTime + ", sendTime=" + sendTime
-				+ ", getTime=" + getTime + ", endTime=" + endTime + ", sendUserCancle=" + sendUserCancle
-				+ ", getUserComplete=" + getUserComplete + ", purchaseItems=" + purchaseItems + "]";
-	}
-
 }

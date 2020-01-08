@@ -110,30 +110,4 @@ public class UserInfo {
         this.point = point;
     }
 
-    public UserInfo(String openId, String nickName, String gender, int province_id, int school_id, int building_id,
-                    String phoneNumber, String avatarUrl, Double point) {
-        super();
-        this.openId = openId;
-        this.nickName = nickName;
-        this.gender = gender;
-        this.province_id = province_id;
-        this.school_id = school_id;
-        this.building_id = building_id;
-        this.phoneNumber = phoneNumber;
-        this.avatarUrl = avatarUrl;
-        this.point = point;
-    }
-
-    public UserInfo() {
-        super();
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo [openId=" + openId + ", nickName=" + nickName + ", gender=" + gender + ", province_id="
-                + province_id + ", school_id=" + school_id + ", building_id=" + building_id + ", phoneNumber="
-                + phoneNumber + ", avatarUrl=" + avatarUrl + ", point=" + point + "]";
-    }
-
-
 }

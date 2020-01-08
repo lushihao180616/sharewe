@@ -62,23 +62,4 @@ public class PurchaseItem {
         this.purchaseId = purchaseId;
     }
 
-    public PurchaseItem(int id, String name, int num, String remarks, int purchaseId) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.num = num;
-        this.remarks = remarks;
-        this.purchaseId = purchaseId;
-    }
-
-    public PurchaseItem() {
-        super();
-    }
-
-    @Override
-    public String toString() {
-        return "PurchaseItem [id=" + id + ", name=" + name + ", num=" + num + ", remarks=" + remarks + ", purchaseId="
-                + purchaseId + "]";
-    }
-
 }

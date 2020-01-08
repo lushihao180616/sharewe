@@ -1,9 +1,21 @@
 package com.lushihao.sharewe.entity.userinfo;
 
 public class PointExchangeRecord {
+	/**
+	 * 劵码
+	 */
 	private String pointExchangeId;
+	/**
+	 * 用户
+	 */
 	private String openId;
+	/**
+	 * 验证码
+	 */
 	private String verificationCode;
+	/**
+	 * 是否被使用
+	 */
 	private boolean ifUsed;
 
 	public String getPointExchangeId() {
@@ -36,24 +48,6 @@ public class PointExchangeRecord {
 
 	public void setIfUsed(boolean ifUsed) {
 		this.ifUsed = ifUsed;
-	}
-
-	public PointExchangeRecord(String pointExchangeId, String openId, String verificationCode, boolean ifUsed) {
-		super();
-		this.pointExchangeId = pointExchangeId;
-		this.openId = openId;
-		this.verificationCode = verificationCode;
-		this.ifUsed = ifUsed;
-	}
-
-	public PointExchangeRecord() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "PointExchangeRecord [pointExchangeId=" + pointExchangeId + ", openId=" + openId + ", verificationCode="
-				+ verificationCode + ", ifUsed=" + ifUsed + "]";
 	}
 
 }

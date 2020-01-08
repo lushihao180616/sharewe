@@ -5,19 +5,19 @@ package com.lushihao.sharewe.entity.userinfo;
  */
 public class School {
 	/**
-	 * ѧУΨһ��ʶ
+	 * 标识
 	 */
 	private int id;
 	/**
-	 * ѧУ����
+	 * 名称
 	 */
 	private String name;
 	/**
-	 * ѧУʡ�ݴ���
+	 * 省份
 	 */
 	private int province_id;
 	/**
-	 * ѧУʡ������
+	 * 省份名
 	 */
 	private String province_name;
 
@@ -51,24 +51,6 @@ public class School {
 
 	public void setProvince_name(String province_name) {
 		this.province_name = province_name;
-	}
-
-	public School(int id, String name, int province_id, String province_name) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.province_id = province_id;
-		this.province_name = province_name;
-	}
-
-	public School() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "School [id=" + id + ", name=" + name + ", province_id=" + province_id + ", province_name="
-				+ province_name + "]";
 	}
 
 }

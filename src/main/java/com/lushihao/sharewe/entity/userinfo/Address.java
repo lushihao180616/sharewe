@@ -1,12 +1,33 @@
 package com.lushihao.sharewe.entity.userinfo;
 
 public class Address {
+    /**
+     * 标识
+     */
     private int id;
+    /**
+     * 建筑物
+     */
     private int building_id;
+    /**
+     * 房间
+     */
     private String roomcode;
+    /**
+     * 名称
+     */
     private String name;
+    /**
+     * 手机号
+     */
     private String phoneNumber;
+    /**
+     * 是哪个用户的
+     */
     private String openId;
+    /**
+     * 被使用次数
+     */
     private int usedCount;
 
     public int getId() {
@@ -63,33 +84,5 @@ public class Address {
 
     public void setUsedCount(int usedCount) {
         this.usedCount = usedCount;
-    }
-
-    public Address(int id, int building_id, String roomcode, String name, String phoneNumber, String openId, int usedCount) {
-        super();
-        this.id = id;
-        this.building_id = building_id;
-        this.roomcode = roomcode;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.openId = openId;
-        this.usedCount = usedCount;
-    }
-
-    public Address() {
-        super();
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", building_id=" + building_id +
-                ", roomcode='" + roomcode + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", openId='" + openId + '\'' +
-                ", usedCount=" + usedCount +
-                '}';
     }
 }
