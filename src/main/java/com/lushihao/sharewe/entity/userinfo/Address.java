@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.entity.userinfo;
 
 public class Address {
+
     /**
      * 标识
      */
@@ -85,4 +86,5 @@ public class Address {
     public void setUsedCount(int usedCount) {
         this.usedCount = usedCount;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.entity.userinfo;
 
 public class Merchant {
+
     /**
      * 代号
      */

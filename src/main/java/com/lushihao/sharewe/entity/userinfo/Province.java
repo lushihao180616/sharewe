@@ -1,9 +1,7 @@
 package com.lushihao.sharewe.entity.userinfo;
 
-/**
- * @author Administrator �û�ʡ��bean
- */
 public class Province {
+
     /**
      * 标识
      */

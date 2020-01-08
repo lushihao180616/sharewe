@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.entity.userinfo;
 
 public class UserInfo {
+
     /**
      * 用户唯一标识
      */

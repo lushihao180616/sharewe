@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.entity.userinfo;
 
 public class PointExchangeRecord {
+
 	/**
 	 * 劵码
 	 */

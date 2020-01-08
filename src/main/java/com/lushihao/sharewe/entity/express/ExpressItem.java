@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.entity.express;
 
 public class ExpressItem {
+
 	/**
 	 * 标识
 	 */

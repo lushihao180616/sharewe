@@ -1,6 +1,7 @@
 package com.lushihao.sharewe.entity.purchase;
 
 public class PurchaseType {
+
     /**
      * 标识
      */

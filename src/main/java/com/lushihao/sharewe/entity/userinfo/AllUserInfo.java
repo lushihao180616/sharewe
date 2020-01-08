@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AllUserInfo {
+
     /**
      * 用户
      */
@@ -76,4 +77,5 @@ public class AllUserInfo {
     public void setAddressList(List<Map<String, Object>> addressList) {
         this.addressList = addressList;
     }
+
 }
