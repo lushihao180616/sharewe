@@ -1,7 +1,7 @@
 package com.lushihao.sharewe.enums;
 
 public enum PurchaseStatusEnum {
-    STATUS1(1, "待接单"), STATUS2(2, "待送达"), STATUS3(3, "已完成"), STATUS4(4, "已取消");
+    WAITING_GET(1, "待接单"), WAITING_SERVED(2, "待送达"), ALREADY_DONE(3, "已完成"), ALREADY_CANCLE(4, "已取消"), TIME_OUT(5, "已超时");
 
     private int id;
     private String name;
