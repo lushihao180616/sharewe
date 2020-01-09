@@ -1,5 +1,8 @@
 package com.lushihao.sharewe.enums;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 public enum ExpressStatusEnum {
 
     WAITING_GET(1, "待接单"), WAITING_SERVED(2, "待送达"), ALREADY_DONE(3, "已完成"), ALREADY_CANCLE(4, "已取消"), TIME_OUT(5, "已超时");
@@ -32,7 +35,6 @@ public enum ExpressStatusEnum {
      * 通过属性获取对象
      *
      * @param id
-     * @param name
      * @return
      */
     public static ExpressStatusEnum getItem(int id, String name) {
@@ -46,6 +48,45 @@ public enum ExpressStatusEnum {
             return expressStatusEnum;
         }
         return null;
+    }
+
+    /**
+     * 获取一条数据
+     *
+     * @param id
+     * @param name
+     * @return
+     */
+    public static JSONObject getOne(int id, String name) {
+        ExpressStatusEnum expressStatusEnum = getItem(id, name);
+        JSONObject jsonObject = getOne(expressStatusEnum);
+        return jsonObject;
+    }
+
+    /**
+     * 获取一条数据
+     *
+     * @param expressStatusEnum
+     * @return
+     */
+    public static JSONObject getOne(ExpressStatusEnum expressStatusEnum) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", expressStatusEnum.getId());
+        jsonObject.put("name", expressStatusEnum.getName());
+        return jsonObject;
+    }
+
+    /**
+     * 获取数据
+     *
+     * @return
+     */
+    public static JSONArray getAll() {
+        JSONArray jsonArray = new JSONArray();
+        for (ExpressStatusEnum expressStatusEnum : values()) {
+            jsonArray.add(getOne(expressStatusEnum));
+        }
+        return jsonArray;
     }
 
 }

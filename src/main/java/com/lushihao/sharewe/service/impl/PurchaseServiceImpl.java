@@ -7,6 +7,7 @@ import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
+import com.lushihao.sharewe.enums.PurchaseTypeEnum;
 import com.lushihao.sharewe.service.PurchaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,8 +28,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     private UserInfoMapper userInfoMapper;
     @Resource
     private BuildingMapper buildingMapper;
-    @Resource
-    private PurchaseTypeMapper purchaseTypeMapper;
     @Resource
     private PurchaseStatusMapper purchaseStatusMapper;
     @Resource
@@ -237,7 +236,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             Address address = addressMapper.findById(purchase.getAddressId());
             List<PurchaseItem> purchase_items = purchaseItemMapper.findPurchaseItemsByPurchaseId(purchase.getId());
             item_map.put("id", purchase.getId());
-            item_map.put("type", purchaseTypeMapper.findById(purchase.getTypeId()));
+            item_map.put("type", PurchaseTypeEnum.getItem(purchase.getTypeId(), null, null));
             item_map.put("address", address);
             item_map.put("building", buildingMapper.findById(address.getBuilding_id()));
             item_map.put("status", purchaseStatusMapper.findById(purchase.getStatusId()));

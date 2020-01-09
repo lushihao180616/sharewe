@@ -1,5 +1,8 @@
 package com.lushihao.sharewe.enums;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 public enum PurchaseTypeEnum {
 
     TYPE1(1, "美食", "food");
@@ -52,12 +55,52 @@ public enum PurchaseTypeEnum {
             if (name != null && purchaseTypeEnum.getName() != name) {
                 continue;
             }
-            if (code != null && purchaseTypeEnum.getName() != code) {
+            if (code != null && purchaseTypeEnum.getCode() != code) {
                 continue;
             }
             return purchaseTypeEnum;
         }
         return null;
+    }
+
+    /**
+     * 获取一条数据
+     * @param id
+     * @param name
+     * @param code
+     * @return
+     */
+    public static JSONObject getOne(int id, String name, String code) {
+        PurchaseTypeEnum purchaseTypeEnum = getItem(id, name, code);
+        JSONObject jsonObject = getOne(purchaseTypeEnum);
+        return jsonObject;
+    }
+
+    /**
+     * 获取一条数据
+     *
+     * @param purchaseTypeEnum
+     * @return
+     */
+    public static JSONObject getOne(PurchaseTypeEnum purchaseTypeEnum) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", purchaseTypeEnum.getId());
+        jsonObject.put("name", purchaseTypeEnum.getName());
+        jsonObject.put("code", purchaseTypeEnum.getCode());
+        return jsonObject;
+    }
+
+    /**
+     * 获取数据
+     *
+     * @return
+     */
+    public static JSONArray getAll() {
+        JSONArray jsonArray = new JSONArray();
+        for (PurchaseTypeEnum purchaseTypeEnum : values()) {
+            jsonArray.add(getOne(purchaseTypeEnum));
+        }
+        return jsonArray;
     }
 
 }
