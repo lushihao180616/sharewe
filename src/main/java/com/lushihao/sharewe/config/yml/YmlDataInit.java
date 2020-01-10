@@ -15,7 +15,8 @@ public class YmlDataInit {
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         yaml.setResources(
                 new ClassPathResource("job-classes.yml"),
-                new ClassPathResource("basic.yml")
+                new ClassPathResource("basic.yml"),
+                new ClassPathResource("purchase-type.yml")
         );
         configurer.setProperties(yaml.getObject());
         return configurer;

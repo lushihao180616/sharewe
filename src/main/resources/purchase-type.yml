@@ -1,0 +1,5 @@
+purchasetype:
+  typeList:
+    - id: 1
+      name: "美食"
+      code: "food"
