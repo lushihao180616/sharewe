@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity.purchase;
+package com.lushihao.sharewe.entity.yml;
 
 public class PurchaseType {
 

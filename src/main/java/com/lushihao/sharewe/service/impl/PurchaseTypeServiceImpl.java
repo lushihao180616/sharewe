@@ -2,7 +2,7 @@ package com.lushihao.sharewe.service.impl;
 
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
-import com.lushihao.sharewe.entity.purchase.AllPurchaseType;
+import com.lushihao.sharewe.entity.yml.AllPurchaseType;
 import com.lushihao.sharewe.service.PurchaseTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

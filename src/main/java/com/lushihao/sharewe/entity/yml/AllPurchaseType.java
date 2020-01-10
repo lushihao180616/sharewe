@@ -1,6 +1,5 @@
-package com.lushihao.sharewe.entity.purchase;
+package com.lushihao.sharewe.entity.yml;
 
-import com.mchange.v2.lang.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
