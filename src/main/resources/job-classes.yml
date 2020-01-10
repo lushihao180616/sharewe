@@ -3,8 +3,8 @@ jobclass:
   jobClassPath: com.lushihao.sharewe.quartzjobs.
   jobList:
     - name: "Job0"
-      corn: "* * * * * ?"
+      corn: "0 0 2 * * ?"
       group: "Group0"
     - name: "Job1"
-      corn: "* * * * * ?"
+      corn: "0 0 2 * * ?"
       group: "Group1"
