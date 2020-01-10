@@ -1,7 +1,7 @@
 package com.lushihao.sharewe.init;
 
-import com.lushihao.sharewe.config.quartz.JobClassesConfig;
 import com.lushihao.sharewe.config.quartz.QuartzConfig;
+import com.lushihao.sharewe.entity.yml.JobClasses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,11 +19,11 @@ public class QuartzInit implements ApplicationRunner {
     @Autowired
     private QuartzConfig quartzConfig;
     @Autowired
-    private JobClassesConfig jobClassesConfig;
+    private JobClasses jobClasses;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        List<Map<String, String>> list = jobClassesConfig.getJobList();
+        List<Map<String, String>> list = jobClasses.getJobList();
         quartzConfig.startJob(list);
     }
 
