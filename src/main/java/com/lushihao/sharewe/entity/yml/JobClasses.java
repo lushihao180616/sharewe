@@ -12,6 +12,9 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "jobclass")  // 配置文件中的前缀
 public class JobClasses {
 
+    /**
+     * 华尔兹任务集合
+     */
     private List<Map<String, String>> jobList = new ArrayList<>();
 
     public List<Map<String, String>> getJobList() {

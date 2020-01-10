@@ -4,12 +4,14 @@ import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.dao.*;
+import com.lushihao.sharewe.entity.purchase.AllPurchaseType;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
+import com.lushihao.sharewe.entity.purchase.PurchaseType;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.enums.PurchaseStatusEnum;
-import com.lushihao.sharewe.enums.PurchaseTypeEnum;
 import com.lushihao.sharewe.service.PurchaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     private BuildingMapper buildingMapper;
     @Resource
     private PurchaseItemMapper purchaseItemMapper;
+    @Autowired
+    private AllPurchaseType allPurchaseType;
 
     /**
      * 发送任务（更新任务）
@@ -235,7 +239,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             Address address = addressMapper.findById(purchase.getAddressId());
             List<PurchaseItem> purchase_items = purchaseItemMapper.findPurchaseItemsByPurchaseId(purchase.getId());
             item_map.put("id", purchase.getId());
-            item_map.put("type", PurchaseTypeEnum.getOne(purchase.getTypeId(), null, null));
+            item_map.put("type", allPurchaseType.getItem(new PurchaseType(purchase.getId(), null, null)).get(0));
             item_map.put("address", address);
             item_map.put("building", buildingMapper.findById(address.getBuilding_id()));
             item_map.put("status", PurchaseStatusEnum.getOne(purchase.getStatusId(), null));

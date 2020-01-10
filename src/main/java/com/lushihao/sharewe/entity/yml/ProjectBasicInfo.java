@@ -5,9 +5,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "basic")  // 配置文件中的前缀
-public class Basic {
+public class ProjectBasicInfo {
 
+    /**
+     * 项目名称（中文）
+     */
     private String chineseName;
+    /**
+     * 项目名称（英文）
+     */
     private String englishName;
 
     public String getChineseName() {
