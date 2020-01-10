@@ -7,13 +7,16 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-public class JobClassesInit {
+public class YmlDataInit {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-        yaml.setResources(new ClassPathResource("job-classes.yml"));
+        yaml.setResources(
+                new ClassPathResource("job-classes.yml"),
+                new ClassPathResource("basic.yml")
+        );
         configurer.setProperties(yaml.getObject());
         return configurer;
     }
