@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-@PropertySource("classpath:application.properties")
 public class QuartzConfig extends WebApplicationObjectSupport {
 
     /**
@@ -24,19 +23,14 @@ public class QuartzConfig extends WebApplicationObjectSupport {
     /**
      * 键：job类名，值：group组名
      */
-    public Map<String, String> job_group = new HashMap<>();
-    /**
-     * Job类路径
-     */
-    @Value("${jobClassPath}")
-    private String jobClassPath;
+    public static Map<String, String> job_group = new HashMap<>();
 
     /**
      * 开始执行定时任务
      *
      * @throws SchedulerException
      */
-    public void startJob(List<Map<String, String>> list) throws SchedulerException, ClassNotFoundException {
+    public void startJob(List<Map<String, String>> list, String jobClassPath) throws SchedulerException, ClassNotFoundException {
         for (Map<String, String> map : list) {
             String name = map.get("name");
             String corn = map.get("corn");

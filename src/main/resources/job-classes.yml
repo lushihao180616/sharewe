@@ -1,10 +1,10 @@
 # jobClass
-jobClassPath: com.lushihao.sharewe.quartzjobs.
 jobclass:
+  jobClassPath: com.lushihao.sharewe.quartzjobs.
   jobList:
     - name: "Job0"
-      corn: "0 0 2 * * ?"
+      corn: "* * * * * ?"
       group: "Group0"
     - name: "Job1"
-      corn: "0 0 2 * * ?"
+      corn: "* * * * * ?"
       group: "Group1"

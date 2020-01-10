@@ -24,7 +24,8 @@ public class QuartzInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         List<Map<String, String>> list = jobClasses.getJobList();
-        quartzConfig.startJob(list);
+        String jobClassPath = jobClasses.getJobClassPath();
+        quartzConfig.startJob(list, jobClassPath);
     }
 
 }
