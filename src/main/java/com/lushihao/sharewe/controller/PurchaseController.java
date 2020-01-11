@@ -101,7 +101,7 @@ public class PurchaseController {
     }
 
     /**
-     * 发送任务者发送任务集合
+     * 发送任务者查看发送任务
      *
      * @param request
      * @param response

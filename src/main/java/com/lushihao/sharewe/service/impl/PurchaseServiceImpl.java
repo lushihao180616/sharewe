@@ -110,7 +110,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     /**
-     * 发送任务者发送任务集合
+     * 发送任务者查看发送任务
      *
      * @param sendUserOpenId
      * @param statusId
@@ -243,6 +243,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             item_map.put("building", buildingMapper.findById(address.getBuilding_id()));
             item_map.put("status", PurchaseStatusEnum.getOne(purchase.getStatusId(), null));
             item_map.put("reward", purchase.getReward());
+            item_map.put("guarantee", purchase.getGuarantee());
             item_map.put("sendUserInfo", userInfoMapper.findByOpenId(purchase.getSendUserOpenId()));
             if (purchase.getGetUserOpenId() != null) {
                 item_map.put("getUserInfo", userInfoMapper.findByOpenId(purchase.getGetUserOpenId()));
