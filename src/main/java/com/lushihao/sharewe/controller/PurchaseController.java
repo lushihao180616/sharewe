@@ -57,11 +57,12 @@ public class PurchaseController {
     public @ResponseBody
     String getPurchases(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
-        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
-        int num = wxRequestJson.getInteger("num");
-        int page = wxRequestJson.getInteger("page");
 
-        return purchaseService.getPurchases(num, page);
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int buildingId = wxRequestJson.getInteger("buildingId");
+        int typeId = wxRequestJson.getInteger("typeId");
+        int purchase_lastId = wxRequestJson.getInteger("purchase_lastId");
+        return purchaseService.getPurchases(buildingId, typeId, purchase_lastId);
     }
 
     @RequestMapping(value = "/getPurchase")
@@ -77,27 +78,6 @@ public class PurchaseController {
         }
         Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
         return purchaseService.getPurchase(purchase);
-    }
-
-    /**
-     * 过滤数据
-     *
-     * @param request
-     * @param response
-     * @param data
-     * @return
-     */
-    @RequestMapping(value = "/filterPurchases")
-    public @ResponseBody
-    String filterPurchases(HttpServletRequest request, HttpServletResponse response,
-                           @RequestBody String data) {
-        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
-        int num = wxRequestJson.getInteger("num");
-        int page = wxRequestJson.getInteger("page");
-        int buildingId = wxRequestJson.getInteger("buildingId");
-        int typeId = wxRequestJson.getInteger("typeId");
-
-        return purchaseService.filterPurchases(num, page, buildingId, typeId);
     }
 
     /**
@@ -120,7 +100,7 @@ public class PurchaseController {
     }
 
     /**
-     * 接收任务者接收任务集合
+     * 接收任务者接收任务页面数据
      *
      * @param request
      * @param response

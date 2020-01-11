@@ -70,11 +70,16 @@ public class PurchaseServiceImpl implements PurchaseService {
         return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));
     }
 
+    /**
+     * 接收任务者接收任务列表
+     *
+     * @return
+     */
     @Override
     @Transactional
-    public String getPurchases(int num, int page) {
+    public String getPurchases(int buildingId, int typeId, int purchase_lastId) {
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
-        List<Purchase> purchase_list = purchaseMapper.findPurchases(num, (page - 1) * num, lastGetDate);
+        List<Purchase> purchase_list = purchaseMapper.findPurchases(buildingId, typeId, purchase_lastId, lastGetDate);
 
         return transform(purchase_list);
     }
@@ -88,25 +93,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
-    }
-
-    /**
-     * 过滤数据
-     *
-     * @param num
-     * @param page
-     * @param buildingId
-     * @param typeId
-     * @return
-     */
-    @Override
-    @Transactional
-    public String filterPurchases(int num, int page, int buildingId, int typeId) {
-        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
-        List<Purchase> purchase_list = purchaseMapper.filterPurchases(num, (page - 1) * num, lastGetDate, buildingId,
-                typeId);
-
-        return transform(purchase_list);
     }
 
     /**

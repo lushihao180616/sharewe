@@ -20,14 +20,18 @@ public interface PurchaseMapper {
      */
     int updatePurchase(Purchase purchase);
 
-    List<Purchase> findPurchases(int num, int offset, Date nowDate);
+    /**
+     * 接任务者接收任务
+     *
+     * @param buildingId
+     * @param typeId
+     * @param purchase_lastId
+     * @param nowDate
+     * @return
+     */
+    List<Purchase> findPurchases(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("purchase_lastId") int purchase_lastId, @Param("nowDate") Date nowDate);
 
     int getPurchase(Purchase purchase);
-
-    /**
-     * 过滤数据
-     */
-    List<Purchase> filterPurchases(int num, int offset, Date nowDate, @Param("buildingId") int buildingId, @Param("typeId") int typeId);
 
     /**
      * 发送任务者发送任务集合

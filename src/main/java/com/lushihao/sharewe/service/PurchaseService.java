@@ -6,11 +6,9 @@ public interface PurchaseService {
 
 	String sendPurchase(Purchase purchase);
 
-	String getPurchases(int num, int page);
+	String getPurchases(int buildingId, int typeId, int purchase_lastId);
 
 	String getPurchase(Purchase purchase);
-
-	String filterPurchases(int num, int page, int buildingId, int typeId);
 
 	String getSendPurchase(String sendUserOpenId, int statusId);
 

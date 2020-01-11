@@ -10,17 +10,15 @@
 		UPDATE purchase SET typeid=#{typeId},addressid=#{addressId},buildingid=#{buildingId},statusid=#{statusId},reward=#{reward},senduseropenid=#{sendUserOpenId},deadtime=#{deadTime},sendtime=#{sendTime},getuseropenid=null,gettime=null,sendusercancle=null where id=#{id}
 	</update>
     <select id="findPurchases" resultType="Purchase">
-        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{param3} limit #{param2},#{param1}
+        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{nowDate}
+            <if test="buildingId != 0"> AND buildingid=#{buildingId} </if>
+            <if test="typeId != 0"> AND typeid=#{typeId} </if>
+            <if test="purchase_lastId != 0"> AND typeid>#{purchase_lastId} </if>
+        ORDER BY id ASC
     </select>
     <update id="getPurchase" parameterType="Purchase">
 		UPDATE purchase SET getuseropenid=#{getUserOpenId},gettime=#{getTime},statusid=2 where id=#{id}
 	</update>
-    <select id="filterPurchases" resultType="Purchase">
-        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{param3}
-        <if test="buildingId != 0"> AND buildingid=#{buildingId} </if>
-        <if test="typeId != 0"> AND typeid=#{typeId} </if>
-        limit #{param2},#{param1}
-    </select>
     <select id="getSendPurchase" resultType="Purchase">
         SELECT * FROM purchase WHERE senduseropenid=#{param1} AND statusid=#{param2} order by sendtime desc
     </select>
