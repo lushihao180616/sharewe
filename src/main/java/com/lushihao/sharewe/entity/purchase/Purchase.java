@@ -30,6 +30,10 @@ public class Purchase {
 	 */
 	private double reward;
 	/**
+	 * 保障金
+	 */
+	private double guarantee;
+	/**
 	 * 发送任务者
 	 */
 	private String sendUserOpenId;
@@ -112,6 +116,14 @@ public class Purchase {
 
 	public void setReward(double reward) {
 		this.reward = reward;
+	}
+
+	public double getGuarantee() {
+		return guarantee;
+	}
+
+	public void setGuarantee(double guarantee) {
+		this.guarantee = guarantee;
 	}
 
 	public String getSendUserOpenId() {

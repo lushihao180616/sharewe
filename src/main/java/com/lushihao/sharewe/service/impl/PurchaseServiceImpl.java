@@ -37,7 +37,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private AllPurchaseType allPurchaseType;
 
     /**
-     * 发送任务（更新任务）
+     * 发送任务这发送任务（或更新任务）
      *
      * @param purchase
      * @return
@@ -50,6 +50,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             sql_back = purchaseMapper.createPurchase(purchase);
             if (sql_back > 0) {//地址使用数量更新
                 addressMapper.updateAddressUsedCount(purchase.getAddressId());
+                userInfoMapper.pointOut(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
             }
         } else {//更新任务
             sql_back = purchaseMapper.updatePurchase(purchase);
@@ -63,8 +64,6 @@ public class PurchaseServiceImpl implements PurchaseService {
             }
             int batch_sql_back = purchaseItemMapper.batchCreatePurchaseItems(purchase.getPurchaseItems());
             if (batch_sql_back == purchase.getPurchaseItems().size()) {//执行成功
-                return LSHResponseUtils.getResponse(new LSHResponse((String) null));
-            } else {
                 return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
             }
         }

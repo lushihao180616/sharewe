@@ -24,11 +24,11 @@ public class PurchaseController {
 
     @Resource
     private PurchaseService purchaseService;
-    @Resource
-    private PurchaseTypeService purchaseTypeService;
+//    @Resource
+//    private PurchaseTypeService purchaseTypeService;
 
     /**
-     * 发送任务（修改任务）
+     * 发送任务者发送任务（修改任务）
      *
      * @param request
      * @param response
@@ -230,19 +230,19 @@ public class PurchaseController {
         return purchaseService.sendCompletePurchase(purchaseId);
     }
 
-    /**
-     * 获取任务类型
-     *
-     * @param request
-     * @param response
-     * @param data
-     * @return
-     */
-    @RequestMapping(value = "/getPurchaseTypes")
-    public @ResponseBody
-    String getPurchaseTypes(HttpServletRequest request, HttpServletResponse response,
-                            @RequestBody String data) {
-        return purchaseTypeService.findAllPurchaseTypes();
-    }
+//    /**
+//     * 获取任务类型
+//     *
+//     * @param request
+//     * @param response
+//     * @param data
+//     * @return
+//     */
+//    @RequestMapping(value = "/getPurchaseTypes")
+//    public @ResponseBody
+//    String getPurchaseTypes(HttpServletRequest request, HttpServletResponse response,
+//                            @RequestBody String data) {
+//        return purchaseTypeService.findAllPurchaseTypes();
+//    }
 
 }

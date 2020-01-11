@@ -4,7 +4,7 @@
 <mapper namespace="com.lushihao.sharewe.dao.PurchaseMapper">
     <insert id="createPurchase" parameterType="Purchase"
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO purchase (typeid,addressid,buildingid,statusid,reward,senduseropenid,deadtime,sendtime) VALUES (#{typeId},#{addressId},#{buildingId},#{statusId},#{reward},#{sendUserOpenId},#{deadTime},#{sendTime})
+        INSERT INTO purchase (typeid,addressid,buildingid,statusid,reward,guarantee,senduseropenid,deadtime,sendtime) VALUES (#{typeId},#{addressId},#{buildingId},#{statusId},#{reward},#{guarantee},#{sendUserOpenId},#{deadTime},#{sendTime})
 	</insert>
     <update id="updatePurchase" parameterType="Purchase">
 		UPDATE purchase SET typeid=#{typeId},addressid=#{addressId},buildingid=#{buildingId},statusid=#{statusId},reward=#{reward},senduseropenid=#{sendUserOpenId},deadtime=#{deadTime},sendtime=#{sendTime},getuseropenid=null,gettime=null,sendusercancle=null where id=#{id}
