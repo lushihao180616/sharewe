@@ -4,8 +4,10 @@ import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointExchangeRecordMapper;
+import com.lushihao.sharewe.dao.UserInfoMapper;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
 
     @Resource
     private PointExchangeRecordMapper pointExchangeRecordMapper;
+    @Resource
+    private UserInfoMapper userInfoMapper;
 
     /**
      * 兑换劵码
@@ -42,6 +46,7 @@ public class PointExchangeRecordServiceImpl implements PointExchangeRecordServic
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse((String) null));
         } else {
+            userInfoMapper.pointOut(pointExchangeRecord.getOpenId(), point);
             return LSHResponseUtils.getResponse(new LSHResponse(map));
         }
     }
