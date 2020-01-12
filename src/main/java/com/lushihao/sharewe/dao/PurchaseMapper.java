@@ -12,11 +12,17 @@ public interface PurchaseMapper {
 
     /**
      * 创建任务
+     *
+     * @param purchase
+     * @return
      */
     int createPurchase(Purchase purchase);
 
     /**
      * 更新任务
+     *
+     * @param purchase
+     * @return
      */
     int updatePurchase(Purchase purchase);
 
@@ -31,6 +37,12 @@ public interface PurchaseMapper {
      */
     List<Purchase> findPurchases(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("purchase_lastId") int purchase_lastId, @Param("nowDate") Date nowDate);
 
+    /**
+     * 接收任务者接收任务
+     *
+     * @param purchase
+     * @return
+     */
     int getPurchase(Purchase purchase);
 
     /**
@@ -42,6 +54,10 @@ public interface PurchaseMapper {
 
     /**
      * 接收任务者接收任务集合
+     *
+     * @param getUserOpenId
+     * @param statusId
+     * @return
      */
     List<Purchase> getGetPurchase(String getUserOpenId, int statusId);
 

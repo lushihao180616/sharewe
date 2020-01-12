@@ -24,8 +24,6 @@ public class PurchaseController {
 
     @Resource
     private PurchaseService purchaseService;
-//    @Resource
-//    private PurchaseTypeService purchaseTypeService;
 
     /**
      * 发送任务者发送任务（修改任务）
@@ -53,6 +51,14 @@ public class PurchaseController {
         return purchaseService.sendPurchase(purchase);
     }
 
+    /**
+     * 接收任务者接收任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getPurchases")
     public @ResponseBody
     String getPurchases(HttpServletRequest request, HttpServletResponse response,
@@ -65,6 +71,14 @@ public class PurchaseController {
         return purchaseService.getPurchases(buildingId, typeId, purchase_lastId);
     }
 
+    /**
+     * 接收任务者接收任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getPurchase")
     public @ResponseBody
     String getPurchase(HttpServletRequest request, HttpServletResponse response,

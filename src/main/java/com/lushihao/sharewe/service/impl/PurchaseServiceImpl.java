@@ -84,6 +84,12 @@ public class PurchaseServiceImpl implements PurchaseService {
         return transform(purchase_list);
     }
 
+    /**
+     * 接收任务者接收任务
+     *
+     * @param purchase
+     * @return
+     */
     @Override
     @Transactional
     public String getPurchase(Purchase purchase) {
@@ -215,7 +221,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Transactional
-    String transform(List<Purchase> purchase_list) {
+    public String transform(List<Purchase> purchase_list) {
         List<Object> list = new ArrayList<>();
         Map<String, Object> item_map;
         for (Purchase purchase : purchase_list) {
@@ -224,7 +230,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             Address address = addressMapper.findById(purchase.getAddressId());
             List<PurchaseItem> purchase_items = purchaseItemMapper.findPurchaseItemsByPurchaseId(purchase.getId());
             item_map.put("id", purchase.getId());
-            item_map.put("type", allPurchaseType.getItem(new PurchaseType(purchase.getId(), null, null)).get(0));
+            item_map.put("type", allPurchaseType.getItem(new PurchaseType(purchase.getTypeId(), null, null)).get(0));
             item_map.put("address", address);
             item_map.put("building", buildingMapper.findById(address.getBuilding_id()));
             item_map.put("status", PurchaseStatusEnum.getOne(purchase.getStatusId(), null));
@@ -244,13 +250,9 @@ public class PurchaseServiceImpl implements PurchaseService {
             item_map.put("getUserComplete", purchase.isGetUserComplete());
             list.add(item_map);
         }
-        if (purchase_list.size() <= 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("没有数据"));
-        } else {
-            Map<String, Object> map = new HashMap<>();
-            map.put("purchase_list", list);
-            return LSHResponseUtils.getResponse(new LSHResponse(map));
-        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("purchase_list", list);
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
     }
 
 }
