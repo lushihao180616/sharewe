@@ -62,6 +62,13 @@ public interface PurchaseMapper {
     List<Purchase> getGetPurchase(String getUserOpenId, int statusId);
 
     /**
+     * 获取一条任务
+     * @param id
+     * @return
+     */
+    Purchase getOnePurchase(int id);
+
+    /**
      * 删除任务
      *
      * @param id

@@ -53,6 +53,16 @@ public class PurchaseServiceImpl implements PurchaseService {
                 userInfoMapper.pointOut(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
             }
         } else {//更新任务
+            Purchase nowPurchase = purchaseMapper.getOnePurchase(purchase.getId());
+            if (nowPurchase.getStatusId() != 1) {
+                return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
+            }
+            int pointjs = (int) (purchase.getReward() + purchase.getGuarantee() - nowPurchase.getReward() - nowPurchase.getGuarantee());
+            if (pointjs > 0) {
+                userInfoMapper.pointOut(purchase.getSendUserOpenId(), pointjs);
+            } else if (pointjs < 0) {
+                userInfoMapper.pointIn(purchase.getSendUserOpenId(), -pointjs);
+            }
             sql_back = purchaseMapper.updatePurchase(purchase);
         }
         if (sql_back != 0) {//说明执行成功
@@ -95,7 +105,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public String getPurchase(Purchase purchase) {
         int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return LSHResponseUtils.getResponse(new LSHResponse("任务已经被别人抢走了"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
@@ -138,10 +148,15 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String romovePurchase(int purchaseId) {
+        Purchase purchase = purchaseMapper.getOnePurchase(purchaseId);
+        if (purchase.getStatusId() != 1) {
+            return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
+        }
         int sql_back1 = purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
         int sql_back2 = 0;
         if (sql_back1 > 0) {
             sql_back2 = purchaseMapper.deletePurchase(purchaseId);
+            userInfoMapper.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
         }
         if (sql_back1 == 0 || sql_back2 == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
