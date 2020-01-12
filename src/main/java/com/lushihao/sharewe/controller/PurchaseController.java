@@ -6,7 +6,6 @@ import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
 import com.lushihao.sharewe.service.PurchaseService;
-import com.lushihao.sharewe.service.PurchaseTypeService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -223,20 +222,5 @@ public class PurchaseController {
 
         return purchaseService.sendCompletePurchase(purchaseId);
     }
-
-//    /**
-//     * 获取任务类型
-//     *
-//     * @param request
-//     * @param response
-//     * @param data
-//     * @return
-//     */
-//    @RequestMapping(value = "/getPurchaseTypes")
-//    public @ResponseBody
-//    String getPurchaseTypes(HttpServletRequest request, HttpServletResponse response,
-//                            @RequestBody String data) {
-//        return purchaseTypeService.findAllPurchaseTypes();
-//    }
 
 }
