@@ -50,7 +50,7 @@ public interface PurchaseMapper {
      *
      * @param statusId
      */
-    List<Purchase> getSendPurchase(String sendUserOpenId, int statusId);
+    List<Purchase> getSendPurchase(@Param("sendUserOpenId") String sendUserOpenId, @Param("statusId") int statusId, @Param("nowDate") Date nowDate);
 
     /**
      * 接收任务者接收任务集合
@@ -59,10 +59,11 @@ public interface PurchaseMapper {
      * @param statusId
      * @return
      */
-    List<Purchase> getGetPurchase(String getUserOpenId, int statusId);
+    List<Purchase> getGetPurchase(@Param("getUserOpenId") String getUserOpenId, @Param("statusId") int statusId, @Param("nowDate") Date nowDate);
 
     /**
      * 获取一条任务
+     *
      * @param id
      * @return
      */

@@ -54,7 +54,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             }
         } else {//更新任务
             Purchase nowPurchase = purchaseMapper.getOnePurchase(purchase.getId());
-            if (nowPurchase.getStatusId() != 1) {
+            if (nowPurchase.getStatusId() == 2) {
                 return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
             }
             int pointjs = (int) (purchase.getReward() + purchase.getGuarantee() - nowPurchase.getReward() - nowPurchase.getGuarantee());
@@ -121,7 +121,15 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String getSendPurchase(String sendUserOpenId, int statusId) {
-        List<Purchase> purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId);
+        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
+        List<Purchase> purchase_list;
+        if (statusId == 1) {//待接单
+            purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
+        } else if (statusId == 5) {//已超时
+            purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
+        } else {
+            purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, null);
+        }
         return transform(purchase_list);
     }
 
@@ -135,7 +143,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String getGetPurchase(String getUserOpenId, int statusId) {
-        List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId);
+        List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId, new Date());
         return transform(purchase_list);
     }
 

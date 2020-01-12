@@ -30,10 +30,36 @@
 		UPDATE purchase SET getuseropenid=#{getUserOpenId},gettime=#{getTime},statusid=2 where id=#{id}
 	</update>
     <select id="getSendPurchase" resultType="Purchase">
-        SELECT * FROM purchase WHERE senduseropenid=#{param1} AND statusid=#{param2} order by sendtime desc
+        SELECT * FROM purchase WHERE senduseropenid=#{sendUserOpenId}
+        <if test="statusId == 1">
+            AND statusid=1 AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+        </if>
+        <if test="statusId == 2">
+            AND statusid=2
+        </if>
+        <if test="statusId == 3">
+            AND statusid=3
+        </if>
+        <if test="statusId == 4">
+            AND statusid=4
+        </if>
+        <if test="statusId == 5">
+            AND statusid=1 AND deadtime&lt;#{nowDate}
+        </if>
+        ORDER BY sendtime desc
     </select>
     <select id="getGetPurchase" resultType="Purchase">
-        SELECT * FROM purchase WHERE getuseropenid=#{param1} AND statusid=#{param2} order by gettime desc
+        SELECT * FROM purchase WHERE getuseropenid=#{getUserOpenId}
+        <if test="statusId == 2">
+            AND statusid=2 AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+        </if>
+        <if test="statusId == 3">
+            AND statusid=3
+        </if>
+        <if test="statusId == 4">
+            AND statusid=2 AND deadtime&lt;#{nowDate}
+        </if>
+        ORDER BY gettime DESC
     </select>
     <select id="getOnePurchase" parameterType="int" resultType="Purchase">
         SELECT * FROM purchase WHERE id=#{value}
