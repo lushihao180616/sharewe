@@ -21,11 +21,12 @@
 		    reward=#{reward},
 		    guarantee=#{guarantee},
 		    senduseropenid=#{sendUserOpenId},
+		    getuseropenid=null,
 		    deadtime=#{deadTime},
 		    sendtime=#{sendTime},
-		    getuseropenid=null,
 		    gettime=null,
-		    sendusercancle=null
+		    sendusercancle=null,
+		    getusercomplete=null
 		WHERE
 		    id=#{id}
 		AND
