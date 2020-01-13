@@ -136,32 +136,32 @@
 		UPDATE
 		    purchase
 		SET
-		    sendusercancle=#{param2}
-		where
-		    id=#{param1}
+		    sendusercancle=#{sendUserCancle}
+		WHERE
+		    id=#{purchaseId}
 	</update>
     <update id="getCanclePurchase">
 		UPDATE
 		    purchase
 		SET
 		    statusid=4
-		where
-		    id=#{param1}
+		WHERE
+		    id=#{purchaseId}
 	</update>
     <update id="getCompletePurchase">
 		UPDATE
 		    purchase
 		SET
-		    getusercomplete=#{param2}
-		where
-		    id=#{param1}
+		    getusercomplete=#{sendUserCancle}
+		WHERE
+		    id=#{purchaseId}
 	</update>
     <update id="sendCompletePurchase">
 		UPDATE
 		    purchase
 		SET
 		    statusid=3
-		where
-		    id=#{param1}
+		WHERE
+		    id=#{purchaseId}
 	</update>
 </mapper>

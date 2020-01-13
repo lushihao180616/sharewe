@@ -165,15 +165,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String getSendPurchase(String sendUserOpenId, int statusId) {
+        //获取任务是否超时的时间点
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getPurchaseAdvanceMinute(), LSHDateUtils.MINUTE);
-        List<Purchase> purchase_list;
-        if (statusId == 1) {//待接单
-            purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
-        } else if (statusId == 5) {//已超时
-            purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
-        } else {
-            purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, null);
-        }
+        List<Purchase> purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
         return transform(purchase_list);
     }
 

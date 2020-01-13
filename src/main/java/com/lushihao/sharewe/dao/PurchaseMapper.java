@@ -84,7 +84,7 @@ public interface PurchaseMapper {
      * @param sendUserCancle
      * @return
      */
-    int sendCanclePurchase(int purchaseId, boolean sendUserCancle);
+    int sendCanclePurchase(@Param("purchaseId") int purchaseId, @Param("sendUserCancle") boolean sendUserCancle);
 
     /**
      * 接收任务者点击取消按钮
@@ -92,7 +92,7 @@ public interface PurchaseMapper {
      * @param purchaseId
      * @return
      */
-    int getCanclePurchase(int purchaseId);
+    int getCanclePurchase(@Param("purchaseId") int purchaseId);
 
     /**
      * 接收任务者点击完成按钮
@@ -101,7 +101,7 @@ public interface PurchaseMapper {
      * @param sendUserCancle
      * @return
      */
-    int getCompletePurchase(int purchaseId, boolean sendUserCancle);
+    int getCompletePurchase(@Param("purchaseId") int purchaseId, @Param("sendUserCancle") boolean sendUserCancle);
 
     /**
      * 发送任务者点击完成按钮
@@ -109,6 +109,6 @@ public interface PurchaseMapper {
      * @param purchaseId
      * @return
      */
-    int sendCompletePurchase(int purchaseId);
+    int sendCompletePurchase(@Param("purchaseId") int purchaseId);
 
 }
