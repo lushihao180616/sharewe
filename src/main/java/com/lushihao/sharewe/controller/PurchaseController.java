@@ -42,6 +42,7 @@ public class PurchaseController {
         String deadTime = wxRequestJson.getString("deadTime");
         wxRequestJson.put("sendTime", LSHDateUtils.string2Date(sendTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
         wxRequestJson.put("deadTime", LSHDateUtils.string2Date(deadTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
+        //转换成需要的任务
         Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
         //处理任务单元信息
         List<PurchaseItem> purchaseItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("purchaseItems"), PurchaseItem.class);
@@ -51,7 +52,7 @@ public class PurchaseController {
     }
 
     /**
-     * 接收任务者接收任务
+     * 接收任务者接收任务页面数据
      *
      * @param request
      * @param response
@@ -94,6 +95,24 @@ public class PurchaseController {
     }
 
     /**
+     * 删除任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/removePurchase")
+    public @ResponseBody
+    String removePurchase(HttpServletRequest request, HttpServletResponse response,
+                          @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
+
+        return purchaseService.romovePurchase(purchaseId);
+    }
+
+    /**
      * 发送任务者查看发送任务
      *
      * @param request
@@ -129,24 +148,6 @@ public class PurchaseController {
         int statusId = wxRequestJson.getInteger("statusId");
 
         return purchaseService.getGetPurchase(getUserOpenId, statusId);
-    }
-
-    /**
-     * 删除任务
-     *
-     * @param request
-     * @param response
-     * @param data
-     * @return
-     */
-    @RequestMapping(value = "/removePurchase")
-    public @ResponseBody
-    String removePurchase(HttpServletRequest request, HttpServletResponse response,
-                          @RequestBody String data) {
-        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
-        int purchaseId = wxRequestJson.getInteger("purchaseId");
-
-        return purchaseService.romovePurchase(purchaseId);
     }
 
     /**

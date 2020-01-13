@@ -35,7 +35,7 @@ public interface PurchaseMapper {
      * @param nowDate
      * @return
      */
-    List<Purchase> findPurchases(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("purchase_lastId") int purchase_lastId, @Param("nowDate") Date nowDate);
+    List<Purchase> filterPurchases(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("purchase_lastId") int purchase_lastId, @Param("nowDate") Date nowDate);
 
     /**
      * 接收任务者接收任务

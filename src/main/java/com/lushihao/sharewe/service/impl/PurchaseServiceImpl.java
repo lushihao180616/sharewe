@@ -49,34 +49,47 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Transactional
     public String sendPurchase(Purchase purchase) {
         int sql_back;
-        if (purchase.getId() == 0) {//创建任务
+        if (purchase.getId() == 0) {
+            //创建任务
             sql_back = purchaseMapper.createPurchase(purchase);
-            if (sql_back > 0) {//地址使用数量更新
+            if (sql_back > 0) {
+                //地址使用数量更新
                 addressMapper.updateAddressUsedCount(purchase.getAddressId());
+                //消耗掉应消耗的捎点
                 userInfoMapper.pointOut(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
             }
         } else {//更新任务
+            //先判断这个，任务是不是已经被别人接了
             Purchase nowPurchase = purchaseMapper.getOnePurchase(purchase.getId());
             if (nowPurchase.getStatusId() == 2) {
                 return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
             }
+            //执行更新任务
+            sql_back = purchaseMapper.updatePurchase(purchase);
+            //捎点多退少补
             int pointjs = (int) (purchase.getReward() + purchase.getGuarantee() - nowPurchase.getReward() - nowPurchase.getGuarantee());
             if (pointjs > 0) {
+                //补充的捎点
                 userInfoMapper.pointOut(purchase.getSendUserOpenId(), pointjs);
             } else if (pointjs < 0) {
+                //退还的捎点
                 userInfoMapper.pointIn(purchase.getSendUserOpenId(), -pointjs);
             }
-            sql_back = purchaseMapper.updatePurchase(purchase);
         }
-        if (sql_back != 0) {//说明执行成功
+        //执行更新、插入成功
+        if (sql_back != 0) {
+            //任务单元赋值
             for (PurchaseItem purchaseItem : purchase.getPurchaseItems()) {
                 purchaseItem.setPurchaseId(purchase.getId());
             }
-            if (purchase.getId() != 0) {//更新任务
+            //更新任务，先删除任务单元
+            if (purchase.getId() != 0) {
                 purchaseItemMapper.batchDeletePurchaseItems(purchase.getId());
             }
+            //创建任务单元
             int batch_sql_back = purchaseItemMapper.batchCreatePurchaseItems(purchase.getPurchaseItems());
-            if (batch_sql_back == purchase.getPurchaseItems().size()) {//执行成功
+            //执行成功
+            if (batch_sql_back == purchase.getPurchaseItems().size()) {
                 return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
             }
         }
@@ -84,15 +97,16 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     /**
-     * 接收任务者接收任务列表
+     * 接收任务者接收任务列表，（带分页，通过本页面最后一个任务id）
      *
      * @return
      */
     @Override
     @Transactional
     public String getPurchases(int buildingId, int typeId, int purchase_lastId) {
+        //最晚接收几分钟马上要超期的任务
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getPurchaseAdvanceMinute(), LSHDateUtils.MINUTE);
-        List<Purchase> purchase_list = purchaseMapper.findPurchases(buildingId, typeId, purchase_lastId, lastGetDate);
+        List<Purchase> purchase_list = purchaseMapper.filterPurchases(buildingId, typeId, purchase_lastId, lastGetDate);
 
         return transform(purchase_list);
     }
@@ -109,6 +123,33 @@ public class PurchaseServiceImpl implements PurchaseService {
         int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("任务已经被别人抢走了"));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    /**
+     * 删除任务
+     *
+     * @param purchaseId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String romovePurchase(int purchaseId) {
+        //要被删除的任务
+        Purchase purchase = purchaseMapper.getOnePurchase(purchaseId);
+        if (purchase.getStatusId() == 2) {
+            return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
+        }
+        //需要批量删除的任务单元
+        purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
+        //需要删除的任务
+        int sql_back = purchaseMapper.deletePurchase(purchaseId);
+        //需要返还的捎点
+        userInfoMapper.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
@@ -148,32 +189,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     public String getGetPurchase(String getUserOpenId, int statusId) {
         List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId, new Date());
         return transform(purchase_list);
-    }
-
-    /**
-     * 删除任务
-     *
-     * @param purchaseId
-     * @return
-     */
-    @Override
-    @Transactional
-    public String romovePurchase(int purchaseId) {
-        Purchase purchase = purchaseMapper.getOnePurchase(purchaseId);
-        if (purchase.getStatusId() != 1) {
-            return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
-        }
-        int sql_back1 = purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
-        int sql_back2 = 0;
-        if (sql_back1 > 0) {
-            sql_back2 = purchaseMapper.deletePurchase(purchaseId);
-            userInfoMapper.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
-        }
-        if (sql_back1 == 0 || sql_back2 == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
-        } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
-        }
     }
 
     /**

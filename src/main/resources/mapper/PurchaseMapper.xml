@@ -4,13 +4,42 @@
 <mapper namespace="com.lushihao.sharewe.dao.PurchaseMapper">
     <insert id="createPurchase" parameterType="Purchase"
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO purchase (typeid,addressid,buildingid,statusid,reward,guarantee,senduseropenid,deadtime,sendtime) VALUES (#{typeId},#{addressId},#{buildingId},#{statusId},#{reward},#{guarantee},#{sendUserOpenId},#{deadTime},#{sendTime})
+        INSERT INTO
+            purchase
+            (typeid,addressid,buildingid,statusid,reward,guarantee,senduseropenid,deadtime,sendtime)
+        VALUES
+            (#{typeId},#{addressId},#{buildingId},#{statusId},#{reward},#{guarantee},#{sendUserOpenId},#{deadTime},#{sendTime})
 	</insert>
     <update id="updatePurchase" parameterType="Purchase">
-		UPDATE purchase SET typeid=#{typeId},addressid=#{addressId},buildingid=#{buildingId},statusid=#{statusId},reward=#{reward},guarantee=#{guarantee},senduseropenid=#{sendUserOpenId},deadtime=#{deadTime},sendtime=#{sendTime},getuseropenid=null,gettime=null,sendusercancle=null where id=#{id}
+		UPDATE
+		    purchase
+		SET
+		    typeid=#{typeId},
+		    addressid=#{addressId},
+		    buildingid=#{buildingId},
+		    statusid=#{statusId},
+		    reward=#{reward},
+		    guarantee=#{guarantee},
+		    senduseropenid=#{sendUserOpenId},
+		    deadtime=#{deadTime},
+		    sendtime=#{sendTime},
+		    getuseropenid=null,
+		    gettime=null,
+		    sendusercancle=null
+		WHERE
+		    id=#{id}
+		AND
+		    statusid = 1
 	</update>
-    <select id="findPurchases" resultType="Purchase">
-        SELECT * FROM purchase WHERE statusid=1 AND deadtime&gt;#{nowDate}
+    <select id="filterPurchases" resultType="Purchase">
+        SELECT
+            *
+        FROM
+            purchase
+        WHERE
+            statusid=1
+        AND
+            deadtime&gt;#{nowDate}
         <if test="buildingId != 0">
             AND buildingid=#{buildingId}
         </if>
@@ -27,12 +56,27 @@
         </choose>
     </select>
     <update id="getPurchase" parameterType="Purchase">
-		UPDATE purchase SET getuseropenid=#{getUserOpenId},gettime=#{getTime},statusid=2 where id=#{id}
+		UPDATE
+		    purchase
+		SET
+		    getuseropenid=#{getUserOpenId},
+		    gettime=#{getTime},
+		    statusid=2
+		WHERE
+		    id=#{id}
+		AND
+		    statusid=1
 	</update>
     <select id="getSendPurchase" resultType="Purchase">
-        SELECT * FROM purchase WHERE senduseropenid=#{sendUserOpenId}
+        SELECT
+            *
+        FROM
+            purchase
+        WHERE
+            senduseropenid=#{sendUserOpenId}
         <if test="statusId == 1">
-            AND statusid=1 AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+            AND statusid=1
+            AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
         </if>
         <if test="statusId == 2">
             AND statusid=2
@@ -44,14 +88,23 @@
             AND statusid=4
         </if>
         <if test="statusId == 5">
-            AND statusid=1 AND deadtime&lt;#{nowDate}
+            AND statusid=1
+            AND deadtime&lt;#{nowDate}
         </if>
-        ORDER BY sendtime desc
+        ORDER BY
+            sendtime
+        DESC
     </select>
     <select id="getGetPurchase" resultType="Purchase">
-        SELECT * FROM purchase WHERE getuseropenid=#{getUserOpenId}
+        SELECT
+            *
+        FROM
+            purchase
+        WHERE
+            getuseropenid=#{getUserOpenId}
         <if test="statusId == 2">
-            AND statusid=2 AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+            AND statusid=2
+            AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
         </if>
         <if test="statusId == 3">
             AND statusid=3
@@ -59,24 +112,56 @@
         <if test="statusId == 4">
             AND statusid=2 AND deadtime&lt;#{nowDate}
         </if>
-        ORDER BY gettime DESC
+        ORDER BY
+            gettime
+        DESC
     </select>
     <select id="getOnePurchase" parameterType="int" resultType="Purchase">
-        SELECT * FROM purchase WHERE id=#{value}
+        SELECT
+            *
+        FROM
+            purchase
+        WHERE
+            id=#{value}
     </select>
     <delete id="deletePurchase" parameterType="int">
-        DELETE FROM purchase WHERE id=#{value}
+        DELETE FROM
+            purchase
+        WHERE
+            id=#{value}
+        AND
+            statusid=1
     </delete>
     <update id="sendCanclePurchase">
-		UPDATE purchase SET sendusercancle=#{param2} where id=#{param1}
+		UPDATE
+		    purchase
+		SET
+		    sendusercancle=#{param2}
+		where
+		    id=#{param1}
 	</update>
     <update id="getCanclePurchase">
-		UPDATE purchase SET statusid=4 where id=#{param1}
+		UPDATE
+		    purchase
+		SET
+		    statusid=4
+		where
+		    id=#{param1}
 	</update>
     <update id="getCompletePurchase">
-		UPDATE purchase SET getusercomplete=#{param2} where id=#{param1}
+		UPDATE
+		    purchase
+		SET
+		    getusercomplete=#{param2}
+		where
+		    id=#{param1}
 	</update>
     <update id="sendCompletePurchase">
-		UPDATE purchase SET statusid=3 where id=#{param1}
+		UPDATE
+		    purchase
+		SET
+		    statusid=3
+		where
+		    id=#{param1}
 	</update>
 </mapper>

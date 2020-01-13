@@ -10,11 +10,11 @@ public interface PurchaseService {
 
 	String getPurchase(Purchase purchase);
 
+	String romovePurchase(int purchaseId);
+
 	String getSendPurchase(String sendUserOpenId, int statusId);
 
 	String getGetPurchase(String getUserOpenId, int statusId);
-
-	String romovePurchase(int purchaseId);
 
 	String sendCanclePurchase(int purchaseId, boolean sendUserCancle);
 
