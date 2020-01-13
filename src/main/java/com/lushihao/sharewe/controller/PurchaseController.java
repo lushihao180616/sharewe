@@ -24,6 +24,8 @@ public class PurchaseController {
     @Resource
     private PurchaseService purchaseService;
 
+    //==================================================发送、接收任务开始==================================================
+
     /**
      * 发送任务者发送任务（修改任务）
      *
@@ -93,6 +95,9 @@ public class PurchaseController {
         Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
         return purchaseService.getPurchase(purchase);
     }
+
+    //==================================================发送、接收任务结束==================================================
+    //==================================================任务订单管理开始==================================================
 
     /**
      * 删除任务
@@ -223,5 +228,7 @@ public class PurchaseController {
 
         return purchaseService.sendCompletePurchase(purchaseId);
     }
+
+    //==================================================任务订单管理结束==================================================
 
 }

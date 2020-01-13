@@ -98,10 +98,10 @@ public interface PurchaseMapper {
      * 接收任务者点击完成按钮
      *
      * @param purchaseId
-     * @param sendUserCancle
+     * @param getUserComplete
      * @return
      */
-    int getCompletePurchase(@Param("purchaseId") int purchaseId, @Param("sendUserCancle") boolean sendUserCancle);
+    int getCompletePurchase(@Param("purchaseId") int purchaseId, @Param("getUserComplete") boolean getUserComplete);
 
     /**
      * 发送任务者点击完成按钮

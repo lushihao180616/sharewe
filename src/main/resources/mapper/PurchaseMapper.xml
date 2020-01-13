@@ -153,7 +153,7 @@
 		UPDATE
 		    purchase
 		SET
-		    getusercomplete=#{sendUserCancle}
+		    getusercomplete=#{getUserComplete}
 		WHERE
 		    id=#{purchaseId}
 	</update>
