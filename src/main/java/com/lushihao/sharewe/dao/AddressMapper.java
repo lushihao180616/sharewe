@@ -2,6 +2,7 @@ package com.lushihao.sharewe.dao;
 
 import com.lushihao.sharewe.entity.userinfo.Address;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -61,8 +62,9 @@ public interface AddressMapper {
      * 修改地址使用数量
      *
      * @param id
+     * @param flag 0:减，1:加
      * @return
      */
-    int updateAddressUsedCount(int id);
+    int updateAddressUsedCount(@Param("id") int id, @Param("flag") int flag);
 
 }

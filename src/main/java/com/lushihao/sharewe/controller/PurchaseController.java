@@ -188,8 +188,10 @@ public class PurchaseController {
                              @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int purchaseId = wxRequestJson.getInteger("purchaseId");
+        int guarantee = wxRequestJson.getInteger("guarantee");
+        String getUserOpenId = wxRequestJson.getString("getUserOpenId");
 
-        return purchaseService.getCanclePurchase(purchaseId);
+        return purchaseService.getCanclePurchase(purchaseId, guarantee, getUserOpenId);
     }
 
     /**
@@ -225,8 +227,13 @@ public class PurchaseController {
                                 @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int purchaseId = wxRequestJson.getInteger("purchaseId");
+        int guarantee = wxRequestJson.getInteger("guarantee");
+        int reward = wxRequestJson.getInteger("reward");
+        String sendUserOpenId = wxRequestJson.getString("sendUserOpenId");
+        String getUserOpenId = wxRequestJson.getString("getUserOpenId");
+        int addressId = wxRequestJson.getInteger("addressId");
 
-        return purchaseService.sendCompletePurchase(purchaseId);
+        return purchaseService.sendCompletePurchase(purchaseId, guarantee, reward, sendUserOpenId, getUserOpenId, addressId);
     }
 
     //==================================================任务订单管理结束==================================================

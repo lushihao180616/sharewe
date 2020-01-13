@@ -38,6 +38,16 @@
         DELETE FROM address WHERE openid=#{openId}
     </delete>
     <update id="updateAddressUsedCount" parameterType="int">
-        UPDATE address SET usedcount=usedcount + 1 WHERE id=#{id}
+        UPDATE
+            address
+        SET
+        <if test="flag == 1">
+            usedcount=usedcount + 1
+        </if>
+        <if test="flag == 0">
+            usedcount=usedcount - 1
+        </if>
+        WHERE
+            id=#{id}
 	</update>
 </mapper>

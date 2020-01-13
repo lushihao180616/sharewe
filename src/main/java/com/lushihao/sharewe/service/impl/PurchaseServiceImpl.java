@@ -57,7 +57,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             sql_back = purchaseMapper.createPurchase(purchase);
             if (sql_back > 0) {
                 //地址使用数量更新
-                addressMapper.updateAddressUsedCount(purchase.getAddressId());
+                addressMapper.updateAddressUsedCount(purchase.getAddressId(), 1);
                 //消耗掉应消耗的捎点
                 userInfoMapper.pointOut(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
             }
@@ -93,7 +93,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             int batch_sql_back = purchaseItemMapper.batchCreatePurchaseItems(purchase.getPurchaseItems());
             //执行成功
             if (batch_sql_back == purchase.getPurchaseItems().size()) {
-                return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+                return userInfoService.findUserInfoByOpenId(purchase.getSendUserOpenId());
             }
         }
         return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));
@@ -127,7 +127,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("任务已经被别人抢走了"));
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            userInfoMapper.pointOut(purchase.getGetUserOpenId(), (int) purchase.getGuarantee());
+            return userInfoService.findUserInfoByOpenId(purchase.getGetUserOpenId());
         }
     }
 
@@ -214,12 +215,13 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getCanclePurchase(int purchaseId) {
+    public String getCanclePurchase(int purchaseId, int guarantee, String getUserOpenId) {
         int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            userInfoMapper.pointIn(getUserOpenId, guarantee);
+            return userInfoService.findUserInfoByOpenId(getUserOpenId);
         }
     }
 
@@ -249,12 +251,15 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String sendCompletePurchase(int purchaseId) {
+    public String sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("完成失败，请稍后再试"));
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            userInfoMapper.pointIn(sendUserOpenId, guarantee);
+            userInfoMapper.pointIn(sendUserOpenId, guarantee + reward);
+            addressMapper.updateAddressUsedCount(addressId, 0);
+            return userInfoService.findUserInfoByOpenId(sendUserOpenId);
         }
     }
 
