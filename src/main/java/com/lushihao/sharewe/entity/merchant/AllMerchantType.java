@@ -1,6 +1,5 @@
 package com.lushihao.sharewe.entity.merchant;
 
-import com.lushihao.sharewe.entity.purchase.PurchaseType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
