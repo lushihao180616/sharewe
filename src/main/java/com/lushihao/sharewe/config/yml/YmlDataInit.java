@@ -9,6 +9,11 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 public class YmlDataInit {
 
+    /**
+     * 配置yml文件
+     *
+     * @return
+     */
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
