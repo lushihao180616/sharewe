@@ -12,6 +12,7 @@ import com.lushihao.sharewe.entity.yml.PurchaseType;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.enums.PurchaseStatusEnum;
 import com.lushihao.sharewe.service.PurchaseService;
+import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -38,6 +39,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     private AllPurchaseType allPurchaseType;
     @Autowired
     private ProjectBasicInfo projectBasicInfo;
+    @Resource
+    private UserInfoService userInfoService;
 
     /**
      * 发送任务这发送任务（或更新任务）

@@ -159,6 +159,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param openId
      * @return
      */
+    @Override
     @Transactional
     public String findUserInfoByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();

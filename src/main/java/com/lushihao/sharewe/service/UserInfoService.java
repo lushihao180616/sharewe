@@ -14,4 +14,6 @@ public interface UserInfoService {
 
     String pointOut(String openId, int needPoint);
 
+    String findUserInfoByOpenId(String openId);
+
 }
