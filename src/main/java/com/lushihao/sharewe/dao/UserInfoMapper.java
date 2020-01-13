@@ -3,6 +3,7 @@ package com.lushihao.sharewe.dao;
 import com.lushihao.sharewe.entity.userinfo.AllUserInfo;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserInfoMapper {
@@ -38,7 +39,7 @@ public interface UserInfoMapper {
      * @param needPoint
      * @return
      */
-    int pointIn(String openId, int needPoint);
+    int pointIn(@Param("openId") String openId, @Param("needPoint") int needPoint);
 
     /**
      * 捎点提现
@@ -47,6 +48,6 @@ public interface UserInfoMapper {
      * @param needPoint
      * @return
      */
-    int pointOut(String openId, int needPoint);
+    int pointOut(@Param("openId") String openId, @Param("needPoint") int needPoint);
 
 }

@@ -3,9 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lushihao.sharewe.dao.PointExchangeRecordMapper">
     <insert id="createPointExchangeRecord">
-		INSERT INTO pointexchangerecord VALUES (#{pointExchangeId},#{openId},#{verificationCode},#{ifUsed})
+		INSERT INTO
+			pointexchangerecord
+		VALUES
+			(#{pointExchangeId},#{openId},#{verificationCode},#{ifUsed})
 	</insert>
-
     <select id="selectPointExchangeRecord" parameterType="String" resultType="java.util.Map">
         SELECT
          	m.name merchant_name,
@@ -15,7 +17,9 @@
          	pe.time pointExchange_time,
          	per.verificationcode record_code
         FROM 
-        	pointexchangerecord per,pointexchange pe,merchant m 
+        	pointexchangerecord per,
+        	pointexchange pe,
+        	merchant m
         WHERE 
         	per.openid=#{openId}
         AND

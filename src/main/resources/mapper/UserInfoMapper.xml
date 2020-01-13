@@ -2,25 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lushihao.sharewe.dao.UserInfoMapper">
-    <resultMap type="AllUserInfo" id="resultUserMap">
-    	<association property="userinfo" javaType="UserInfo">
-    		<id property="openId" column="openid" />
-    		<result property="nickName" column="nickname" />
-    		<result property="gender" column="gender" />
-    		<result property="province_id" column="province_id" />
-    		<result property="school_id" column="school_id" />
-    		<result property="building_id" column="building_id" />
-    		<result property="phoneNumber" column="phonenumber" />
-    		<result property="avatarUrl" column="avatarurl" />
-    		<result property="point" column="point" />
-    	</association>
-    	
-		<collection property="provinceList" ofType="Province" select="getProvince" column="{id=province_id}" />
-		<collection property="schoolList" ofType="School" select="getSchool" column="{id=province_id}" />
-		<collection property="buildingList" ofType="Building" select="getBuilding" column="{id=school_id}" />
-		<collection property="dormitoryList" ofType="Building" select="getDormitory" column="{id=school_id}" />
-		<collection property="addressList" ofType="Address" select="getAddress" column="openid" />
-    </resultMap>
     <select id="findByOpenId" parameterType="string" resultMap="resultUserMap">
         SELECT 
         	ui.openid,
@@ -37,6 +18,25 @@
         WHERE 
         	ui.openid=#{openId}
     </select>
+	<resultMap type="AllUserInfo" id="resultUserMap">
+		<association property="userinfo" javaType="UserInfo">
+			<id property="openId" column="openid" />
+			<result property="nickName" column="nickname" />
+			<result property="gender" column="gender" />
+			<result property="province_id" column="province_id" />
+			<result property="school_id" column="school_id" />
+			<result property="building_id" column="building_id" />
+			<result property="phoneNumber" column="phonenumber" />
+			<result property="avatarUrl" column="avatarurl" />
+			<result property="point" column="point" />
+		</association>
+
+		<collection property="provinceList" ofType="Province" select="getProvince" column="{id=province_id}" />
+		<collection property="schoolList" ofType="School" select="getSchool" column="{id=province_id}" />
+		<collection property="buildingList" ofType="Building" select="getBuilding" column="{id=school_id}" />
+		<collection property="dormitoryList" ofType="Building" select="getDormitory" column="{id=school_id}" />
+		<collection property="addressList" ofType="Address" select="getAddress" column="openid" />
+	</resultMap>
     <select id="getProvince" parameterType="java.util.Map" resultType="Province">
         SELECT 
         	pv.id,
@@ -120,7 +120,6 @@
         WHERE
         	ad.openId=#{openid}
     </select>
-    
     <insert id="createUserInfo" parameterType="UserInfo">
         INSERT INTO
         	userinfo(openid,nickname,gender,avatarurl)
@@ -135,9 +134,19 @@
         update userinfo set nickname=#{nickName},gender=#{gender},province_id=#{province_id},school_id=#{school_id},building_id=#{building_id},phonenumber=#{phoneNumber},avatarurl=#{avatarUrl} where openid=#{openId}
 	</update>
 	<update id="pointIn">
-		UPDATE userinfo SET point=point + #{param2} where openid=#{param1}
+		UPDATE
+			userinfo
+		SET
+			point=point + #{needPoint}
+		WHERE
+			openid=#{openId}
 	</update>
 	<update id="pointOut">
-		UPDATE userinfo SET point=point - #{param2} where openid=#{param1}
+		UPDATE
+			userinfo
+		SET
+			point=point - #{needPoint}
+		WHERE
+			openid=#{openId}
 	</update>
 </mapper>
