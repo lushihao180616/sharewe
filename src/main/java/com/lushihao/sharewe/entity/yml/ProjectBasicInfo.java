@@ -15,6 +15,10 @@ public class ProjectBasicInfo {
      * 项目名称（英文）
      */
     private String englishName;
+    /**
+     * 任务提前几分钟被认为
+     */
+    private int purchaseAdvanceMinute;
 
     public String getChineseName() {
         return chineseName;
@@ -32,4 +36,12 @@ public class ProjectBasicInfo {
         this.englishName = englishName;
     }
 
+    public int getPurchaseAdvanceMinute() {
+        return purchaseAdvanceMinute;
+    }
+
+    public void setPurchaseAdvanceMinute(int purchaseAdvanceMinute) {
+        this.purchaseAdvanceMinute = purchaseAdvanceMinute;
+    }
+    
 }

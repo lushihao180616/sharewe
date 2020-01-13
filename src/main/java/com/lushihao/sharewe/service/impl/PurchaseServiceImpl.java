@@ -7,6 +7,7 @@ import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.yml.AllPurchaseType;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
+import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.entity.yml.PurchaseType;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.enums.PurchaseStatusEnum;
@@ -35,6 +36,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     private PurchaseItemMapper purchaseItemMapper;
     @Autowired
     private AllPurchaseType allPurchaseType;
+    @Autowired
+    private ProjectBasicInfo projectBasicInfo;
 
     /**
      * 发送任务这发送任务（或更新任务）
@@ -88,7 +91,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String getPurchases(int buildingId, int typeId, int purchase_lastId) {
-        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
+        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getPurchaseAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Purchase> purchase_list = purchaseMapper.findPurchases(buildingId, typeId, purchase_lastId, lastGetDate);
 
         return transform(purchase_list);
@@ -121,7 +124,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public String getSendPurchase(String sendUserOpenId, int statusId) {
-        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), 5, LSHDateUtils.MINUTE);
+        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getPurchaseAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Purchase> purchase_list;
         if (statusId == 1) {//待接单
             purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
