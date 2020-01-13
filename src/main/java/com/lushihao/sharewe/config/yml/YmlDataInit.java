@@ -21,7 +21,8 @@ public class YmlDataInit {
         yaml.setResources(
                 new ClassPathResource("job-classes.yml"),
                 new ClassPathResource("project-basic-info.yml"),
-                new ClassPathResource("purchase-type.yml")
+                new ClassPathResource("purchase-type.yml"),
+                new ClassPathResource("merchant-type.yml")
         );
         configurer.setProperties(yaml.getObject());
         return configurer;

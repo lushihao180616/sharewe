@@ -1,9 +1,18 @@
-package com.lushihao.sharewe.entity.yml;
+package com.lushihao.sharewe.entity.merchant;
 
-public class PurchaseType {
+public class MerchantType {
 
+    /**
+     * 标识
+     */
     private int id;
+    /**
+     * 名称
+     */
     private String name;
+    /**
+     * 类型代号
+     */
     private String code;
 
     public int getId() {
@@ -30,10 +39,10 @@ public class PurchaseType {
         this.code = code;
     }
 
-    public PurchaseType() {
+    public MerchantType() {
     }
 
-    public PurchaseType(int id, String name, String code) {
+    public MerchantType(int id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;

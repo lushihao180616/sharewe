@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.entity.yml;
+package com.lushihao.sharewe.entity.purchase;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
