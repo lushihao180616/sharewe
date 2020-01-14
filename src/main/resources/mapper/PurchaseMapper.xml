@@ -29,8 +29,6 @@
 		    getusercomplete=null
 		WHERE
 		    id=#{id}
-		AND
-		    statusid = 1
 	</update>
     <select id="filterPurchases" resultType="Purchase">
         SELECT
