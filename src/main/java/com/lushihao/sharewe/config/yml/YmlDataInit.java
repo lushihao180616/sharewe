@@ -22,7 +22,8 @@ public class YmlDataInit {
                 new ClassPathResource("job-classes.yml"),
                 new ClassPathResource("project-basic-info.yml"),
                 new ClassPathResource("purchase-type.yml"),
-                new ClassPathResource("merchant-type.yml")
+                new ClassPathResource("merchant-type.yml"),
+                new ClassPathResource("express-type.yml")
         );
         configurer.setProperties(yaml.getObject());
         return configurer;
