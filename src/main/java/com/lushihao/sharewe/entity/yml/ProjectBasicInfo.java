@@ -16,9 +16,13 @@ public class ProjectBasicInfo {
      */
     private String englishName;
     /**
-     * 任务提前几分钟被认为
+     * 任务提前几分钟被认为超时
      */
     private int purchaseAdvanceMinute;
+    /**
+     * 快递提前几分钟被认为超时
+     */
+    private int expressAdvanceMinute;
 
     public String getChineseName() {
         return chineseName;
@@ -43,5 +47,13 @@ public class ProjectBasicInfo {
     public void setPurchaseAdvanceMinute(int purchaseAdvanceMinute) {
         this.purchaseAdvanceMinute = purchaseAdvanceMinute;
     }
-    
+
+    public int getExpressAdvanceMinute() {
+        return expressAdvanceMinute;
+    }
+
+    public void setExpressAdvanceMinute(int expressAdvanceMinute) {
+        this.expressAdvanceMinute = expressAdvanceMinute;
+    }
+
 }

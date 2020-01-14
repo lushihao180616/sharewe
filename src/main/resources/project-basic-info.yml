@@ -1,4 +1,5 @@
 basic:
   chineseName: 捎微
   englishName: share we
-  purchaseAdvanceMinute: 5
+  purchaseAdvanceMinute: 10
+  expressAdvanceMinute: 10
