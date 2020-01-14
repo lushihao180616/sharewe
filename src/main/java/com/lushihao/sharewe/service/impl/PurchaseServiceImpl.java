@@ -263,6 +263,12 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * 转换
+     *
+     * @param purchase_list
+     * @return
+     */
     @Transactional
     public String transform(List<Purchase> purchase_list) {
         List<Object> list = new ArrayList<>();

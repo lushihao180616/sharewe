@@ -3,6 +3,10 @@ package com.lushihao.sharewe.dao;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 @Mapper
 public interface ExpressMapper {
@@ -22,6 +26,17 @@ public interface ExpressMapper {
      * @return
      */
     int updateExpress(Express express);
+
+    /**
+     * 接快递者接收快递
+     *
+     * @param buildingId
+     * @param typeId
+     * @param express_lastId
+     * @param nowDate
+     * @return
+     */
+    List<Express> filterExpress(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("express_lastId") int express_lastId, @Param("nowDate") Date nowDate);
 
     /**
      * 获取一条快递
