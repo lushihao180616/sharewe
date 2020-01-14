@@ -12,14 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-/**
- * 缓存提供类
- */
 public class LSHRedisUtils {
 
     /**
-     * 注入对象
-     * 由于当前class不在spring boot框架内（不在web项目中）所以无法使用autowired，使用此种方法进行注入
+     * 注入对象 由于当前class不在spring boot框架内（不在web项目中）所以无法使用autowired，使用此种方法进行注入
+     *
      */
     private static RedisTemplate<String, String> template = (RedisTemplate<String, String>) LSHBeanUtils.getBean("redisTemplate");
     /**
@@ -34,6 +31,34 @@ public class LSHRedisUtils {
      * 保存时间60天
      */
     private static final Long SAVE_TIME_60D = (long) 60 * 60 * 24 * 60;
+
+    /**
+     * 是否存在
+     *
+     * @param key
+     * @return
+     */
+    public static boolean isExit(String key) {
+        if (template.hasKey(key)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 是否存在（模糊）
+     *
+     * @param key
+     * @return
+     */
+    public static boolean isFuzzyExit(String key) {
+        if (template.hasKey("*" + key + "*")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * 保存数据
