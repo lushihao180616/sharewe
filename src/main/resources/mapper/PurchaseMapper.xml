@@ -129,7 +129,7 @@
         WHERE
             id=#{value}
         AND
-            statusid=1
+            (statusid=1 OR statusid=4)
     </delete>
     <update id="sendCanclePurchase">
 		UPDATE
