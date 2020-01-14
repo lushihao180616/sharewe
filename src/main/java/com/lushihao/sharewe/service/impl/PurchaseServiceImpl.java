@@ -150,6 +150,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
         //需要删除的任务
         int sql_back = purchaseMapper.deletePurchase(purchaseId);
+        addressMapper.updateAddressUsedCount(purchase.getAddressId(), 0);
         //需要返还的捎点
         userInfoService.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
         if (sql_back == 0) {
