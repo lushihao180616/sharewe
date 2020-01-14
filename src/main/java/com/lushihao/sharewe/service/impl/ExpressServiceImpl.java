@@ -64,7 +64,7 @@ public class ExpressServiceImpl implements ExpressService {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
                 //消耗掉应消耗的捎点
-                userInfoMapper.pointOut(express.getSendUserOpenId(), (int) (express.getReward() + express.getGuarantee()));
+                userInfoService.pointOut(express.getSendUserOpenId(), (int) (express.getReward() + express.getGuarantee()));
             }
         } else {//更新快递
             //先判断这个，快递是不是已经被别人接了
@@ -78,10 +78,10 @@ public class ExpressServiceImpl implements ExpressService {
             int pointjs = (int) (express.getReward() + express.getGuarantee() - nowExpress.getReward() - nowExpress.getGuarantee());
             if (pointjs > 0) {
                 //补充的捎点
-                userInfoMapper.pointOut(express.getSendUserOpenId(), pointjs);
+                userInfoService.pointOut(express.getSendUserOpenId(), pointjs);
             } else if (pointjs < 0) {
                 //退还的捎点
-                userInfoMapper.pointIn(express.getSendUserOpenId(), -pointjs);
+                userInfoService.pointIn(express.getSendUserOpenId(), -pointjs);
             }
         }
         //执行更新、插入成功

@@ -8,6 +8,7 @@ import com.lushihao.sharewe.dao.PointExchangeRecordMapper;
 import com.lushihao.sharewe.dao.UserInfoMapper;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 import com.lushihao.sharewe.service.PointExchangeService;
+import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class PointExchangeServiceImpl implements PointExchangeService {
     @Resource
     private PointExchangeRecordMapper pointExchangeRecordMapper;
     @Resource
-    private UserInfoMapper userInfoMapper;
+    private UserInfoService userInfoService;
 
     /**
      * 获取劵码列表
@@ -63,7 +64,7 @@ public class PointExchangeServiceImpl implements PointExchangeService {
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse((String) null));
         } else {
-            userInfoMapper.pointOut(pointExchangeRecord.getOpenId(), point);
+            userInfoService.pointOut(pointExchangeRecord.getOpenId(), point);
             return LSHResponseUtils.getResponse(new LSHResponse(map));
         }
     }

@@ -123,7 +123,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param openId
      * @param needPoint
      * @return
-     */
+             */
     @Override
     @Transactional
     public String pointIn(String openId, int needPoint) {

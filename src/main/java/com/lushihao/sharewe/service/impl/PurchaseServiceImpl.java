@@ -59,7 +59,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(purchase.getAddressId(), 1);
                 //消耗掉应消耗的捎点
-                userInfoMapper.pointOut(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
+                userInfoService.pointOut(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
             }
         } else {//更新任务
             //先判断这个，任务是不是已经被别人接了
@@ -73,10 +73,10 @@ public class PurchaseServiceImpl implements PurchaseService {
             int pointjs = (int) (purchase.getReward() + purchase.getGuarantee() - nowPurchase.getReward() - nowPurchase.getGuarantee());
             if (pointjs > 0) {
                 //补充的捎点
-                userInfoMapper.pointOut(purchase.getSendUserOpenId(), pointjs);
+                userInfoService.pointOut(purchase.getSendUserOpenId(), pointjs);
             } else if (pointjs < 0) {
                 //退还的捎点
-                userInfoMapper.pointIn(purchase.getSendUserOpenId(), -pointjs);
+                userInfoService.pointIn(purchase.getSendUserOpenId(), -pointjs);
             }
         }
         //执行更新、插入成功
@@ -127,7 +127,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("任务已经被别人抢走了"));
         } else {
-            userInfoMapper.pointOut(purchase.getGetUserOpenId(), (int) purchase.getGuarantee());
+            userInfoService.pointOut(purchase.getGetUserOpenId(), (int) purchase.getGuarantee());
             return userInfoService.findUserInfoByOpenId(purchase.getGetUserOpenId());
         }
     }
@@ -151,7 +151,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         //需要删除的任务
         int sql_back = purchaseMapper.deletePurchase(purchaseId);
         //需要返还的捎点
-        userInfoMapper.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
+        userInfoService.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()));
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
         } else {
@@ -220,7 +220,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
         } else {
-            userInfoMapper.pointIn(getUserOpenId, guarantee);
+            userInfoService.pointIn(getUserOpenId, guarantee);
             return userInfoService.findUserInfoByOpenId(getUserOpenId);
         }
     }
@@ -256,8 +256,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("完成失败，请稍后再试"));
         } else {
-            userInfoMapper.pointIn(sendUserOpenId, guarantee);
-            userInfoMapper.pointIn(sendUserOpenId, guarantee + reward);
+            userInfoService.pointIn(sendUserOpenId, guarantee);
+            userInfoService.pointIn(sendUserOpenId, guarantee + reward);
             addressMapper.updateAddressUsedCount(addressId, 0);
             return userInfoService.findUserInfoByOpenId(sendUserOpenId);
         }
