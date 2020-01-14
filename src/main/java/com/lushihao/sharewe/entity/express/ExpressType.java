@@ -60,4 +60,5 @@ public class ExpressType {
         this.code = code;
         this.des = des;
     }
+
 }
