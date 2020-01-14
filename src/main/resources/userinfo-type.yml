@@ -1,0 +1,8 @@
+userinfotype:
+  typeList:
+    - id: 1
+      name: "普通用户"
+      code: "ordinary"
+    - id: 2
+      name: "vip用户"
+      code: "vip"

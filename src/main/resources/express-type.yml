@@ -1,23 +1,16 @@
 expresstype:
   typeList:
     - id: 1
-      name: "美食"
-      code: "food"
+      name: "小型件"
+      code: "little"
+      des: "重量≤2公斤"
     - id: 2
-      name: "生活"
-      code: "life"
+      name: "中型件"
+      code: "middle"
+      des: "2公斤＜重量≤6公斤"
     - id: 3
-      name: "学习"
-      code: "study"
+      name: "大型件"
+      code: "6公斤＜重量≤20公斤"
     - id: 4
-      name: "运动"
-      code: "sport"
-    - id: 5
-      name: "美妆"
-      code: "beauty"
-    - id: 6
-      name: "服饰"
-      code: "cloth"
-    - id: 7
-      name: "其他"
-      code: "other"
+      name: "特大型件"
+      code: "重量＞20公斤"

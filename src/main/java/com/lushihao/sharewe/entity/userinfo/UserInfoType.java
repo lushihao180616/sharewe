@@ -1,6 +1,6 @@
-package com.lushihao.sharewe.entity.express;
+package com.lushihao.sharewe.entity.userinfo;
 
-public class ExpressType {
+public class UserInfoType {
 
     /**
      * 标识
@@ -14,10 +14,6 @@ public class ExpressType {
      * 类型代号
      */
     private String code;
-    /**
-     * 类型代号
-     */
-    private String des;
 
     public int getId() {
         return id;
@@ -43,21 +39,13 @@ public class ExpressType {
         this.code = code;
     }
 
-    public String getDes() {
-        return des;
+    public UserInfoType() {
     }
 
-    public void setDes(String des) {
-        this.des = des;
-    }
-
-    public ExpressType() {
-    }
-
-    public ExpressType(int id, String name, String code, String des) {
+    public UserInfoType(int id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
-        this.des = des;
     }
+
 }
