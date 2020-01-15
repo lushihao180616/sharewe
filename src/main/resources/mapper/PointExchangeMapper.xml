@@ -12,4 +12,12 @@
         ON
             pe.merchantcode = m.code
     </select>
+    <select id="getPointExchangeListByMerchant" parameterType="string" resultType="java.util.HashMap">
+        SELECT
+            *
+        FROM
+            merchant
+        WHERE
+            code=#{merchantCode}
+    </select>
 </mapper>
