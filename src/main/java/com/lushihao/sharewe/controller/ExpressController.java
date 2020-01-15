@@ -35,7 +35,7 @@ public class ExpressController {
     @RequestMapping(value = "/sendExpress")
     public @ResponseBody
     String sendExpress(HttpServletRequest request, HttpServletResponse response,
-                    @RequestBody String data) throws ParseException {
+                       @RequestBody String data) throws ParseException {
         //处理快递信息
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String sendTime = wxRequestJson.getString("sendTime");

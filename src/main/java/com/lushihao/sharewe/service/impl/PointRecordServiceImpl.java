@@ -28,7 +28,7 @@ public class PointRecordServiceImpl implements PointRecordService {
         Map<String, Object> map = new HashMap<>();
 
         List<PointRecord> list = pointRecordMapper.getRecords(openId);
-        map.put("school_list", list);
+        map.put("record_list", list);
         return LSHResponseUtils.getResponse(new LSHResponse(map));
     }
 
