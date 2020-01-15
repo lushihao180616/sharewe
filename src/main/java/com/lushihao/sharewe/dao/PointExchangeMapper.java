@@ -1,5 +1,6 @@
 package com.lushihao.sharewe.dao;
 
+import com.lushihao.sharewe.entity.userinfo.PointExchange;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,5 +15,12 @@ public interface PointExchangeMapper {
      * @return
      */
     List<Map<String, Object>> getPointExchangeList();
+
+    /**
+     * 获取劵码列表
+     *
+     * @return
+     */
+    List<PointExchange> getPointExchangeListByMerchant(String merchantCode);
 
 }

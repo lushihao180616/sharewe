@@ -1,11 +1,23 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.response.LSHResponseUtils;
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.MerchantMapper;
+import com.lushihao.sharewe.dao.PointExchangeMapper;
+import com.lushihao.sharewe.entity.merchant.Merchant;
+import com.lushihao.sharewe.entity.userinfo.Building;
+import com.lushihao.sharewe.entity.userinfo.PointExchange;
+import com.lushihao.sharewe.entity.userinfo.School;
 import com.lushihao.sharewe.service.MerchantService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @EnableTransactionManagement
@@ -13,5 +25,28 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Resource
     private MerchantMapper merchantMapper;
+    @Resource
+    private PointExchangeMapper pointExchangeMapper;
+
+    /**
+     * 获取商家信息（包含劵码）
+     *
+     * @param merchantCode
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getMerchantInfo(String merchantCode) {
+        Map<String, Object> map = new HashMap<>();
+
+        Merchant merchant = merchantMapper.getMerchant(merchantCode);
+        List<PointExchange> pointExchangeList = new ArrayList<>();
+        if (merchant != null) {
+            pointExchangeList = pointExchangeMapper.getPointExchangeListByMerchant(merchantCode);
+        }
+        map.put("merchant", merchant);
+        map.put("pointExchange_list", pointExchangeList);
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
+    }
 
 }
