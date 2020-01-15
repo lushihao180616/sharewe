@@ -10,9 +10,9 @@ public interface UserInfoService {
 
     String updateUserInfo(UserInfo userInfo, boolean deleteAddress);
 
-    String pointIn(String openId, int needPoint);
+    String pointIn(String openId, int needPoint, int recordSourceType);
 
-    String pointOut(String openId, int needPoint);
+    String pointOut(String openId, int needPoint, int recordSourceType);
 
     String findUserInfoByOpenId(String openId);
 

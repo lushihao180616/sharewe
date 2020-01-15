@@ -11,8 +11,13 @@ public enum PointRecordTypeEnum {
     TYPE_PURCHASE_GET(202, "接收任务"),
     TYPE_PURCHASE_CANCLE(203, "取消任务"),
     TYPE_PURCHASE_REMOVE(204, "删除任务"),
-    TYPE_PURCHASE_SEND_COMPLETE(205, "发送任务被完成"),
-    TYPE_PURCHASE_GET_COMPLETE(206, "完成接收任务");
+    TYPE_PURCHASE_RESEND(205, "重新发送任务"),
+    TYPE_PURCHASE_SEND_COMPLETE(206, "发送任务被完成"),
+    TYPE_PURCHASE_GET_COMPLETE(207, "完成接收任务"),
+    TYPE_EXPRESS_SEND(301, "发送快递"),
+    TYPE_EXPRESS_GET(302, "接收快递"),
+    TYPE_EXPRESS_RESEND(305, "重新发送快递"),
+    TYPE_POINTEXCHANGE_EXCHANGE(401, "兑换劵码");
 
     private int id;
     private String content;

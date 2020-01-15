@@ -8,7 +8,9 @@ import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.AddressMapper;
 import com.lushihao.sharewe.dao.UserInfoMapper;
 import com.lushihao.sharewe.entity.userinfo.AllUserInfo;
+import com.lushihao.sharewe.entity.userinfo.PointRecord;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
+import com.lushihao.sharewe.service.PointRecordService;
 import com.lushihao.sharewe.service.UserInfoService;
 import com.lushihao.sharewe.util.LSHUserInfoUtils;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
     @Resource
     private AddressMapper addressMapper;
+    @Resource
+    private PointRecordService pointRecordService;
 
     /**
      * 处理获取用户信息方法
@@ -123,11 +127,12 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param openId
      * @param needPoint
      * @return
-             */
+     */
     @Override
     @Transactional
-    public String pointIn(String openId, int needPoint) {
+    public String pointIn(String openId, int needPoint, int recordSourceType) {
         int sql_back = userInfoMapper.pointIn(openId, needPoint);
+        pointRecordService.addRecord(new PointRecord(openId, recordSourceType, needPoint, 1));
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("充值失败，请稍后再试"));
         } else {
@@ -144,8 +149,9 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String pointOut(String openId, int needPoint) {
+    public String pointOut(String openId, int needPoint, int recordSourceType) {
         int sql_back = userInfoMapper.pointOut(openId, needPoint);
+        pointRecordService.addRecord(new PointRecord(openId, recordSourceType, needPoint, 2));
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("提现失败，请稍后再试"));
         } else {

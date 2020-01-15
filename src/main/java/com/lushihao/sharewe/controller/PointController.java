@@ -3,6 +3,7 @@ package com.lushihao.sharewe.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
+import com.lushihao.sharewe.enums.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.PointExchangeService;
 import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,7 @@ public class PointController {
         String openId = wxRequestJson.getString("openId");
         int needPoint = wxRequestJson.getInteger("needPoint");
 
-        return userInfoService.pointIn(openId, needPoint);
+        return userInfoService.pointIn(openId, needPoint, PointRecordTypeEnum.TYPE_MONEY_IN.getId());
     }
 
     /**
@@ -60,7 +61,7 @@ public class PointController {
         String openId = wxRequestJson.getString("openId");
         int needPoint = wxRequestJson.getInteger("needPoint");
 
-        return userInfoService.pointOut(openId, needPoint);
+        return userInfoService.pointOut(openId, needPoint, PointRecordTypeEnum.TYPE_MONEY_OUT.getId());
     }
 
     //==================================================捎点加减结束==================================================

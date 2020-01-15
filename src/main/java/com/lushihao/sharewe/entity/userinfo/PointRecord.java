@@ -15,7 +15,7 @@ public class PointRecord {
     /**
      * 来源（1：充值/提现，2：任务，3：快递，4：劵码）
      */
-    private int RecordSourceType;
+    private int recordSourceType;
     /**
      * 保存时间
      */
@@ -46,11 +46,11 @@ public class PointRecord {
     }
 
     public int getRecordSourceType() {
-        return RecordSourceType;
+        return recordSourceType;
     }
 
     public void setRecordSourceType(int recordSourceType) {
-        RecordSourceType = recordSourceType;
+        this.recordSourceType = recordSourceType;
     }
 
     public Date getSaveTime() {
@@ -74,6 +74,14 @@ public class PointRecord {
     }
 
     public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public PointRecord(String openId, int recordSourceType, int num, int flag) {
+        this.openId = openId;
+        this.recordSourceType = recordSourceType;
+        this.saveTime = new Date();
+        this.num = num;
         this.flag = flag;
     }
 

@@ -15,6 +15,7 @@ import com.lushihao.sharewe.entity.purchase.PurchaseType;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.ExpressStatusEnum;
+import com.lushihao.sharewe.enums.PointRecordTypeEnum;
 import com.lushihao.sharewe.enums.PurchaseStatusEnum;
 import com.lushihao.sharewe.service.ExpressService;
 import com.lushihao.sharewe.service.UserInfoService;
@@ -64,7 +65,7 @@ public class ExpressServiceImpl implements ExpressService {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
                 //消耗掉应消耗的捎点
-                userInfoService.pointOut(express.getSendUserOpenId(), (int) (express.getReward() + express.getGuarantee()));
+                userInfoService.pointOut(express.getSendUserOpenId(), (int) (express.getReward() + express.getGuarantee()), PointRecordTypeEnum.TYPE_EXPRESS_SEND.getId());
             }
         } else {//更新快递
             //先判断这个，快递是不是已经被别人接了
@@ -78,10 +79,10 @@ public class ExpressServiceImpl implements ExpressService {
             int pointjs = (int) (express.getReward() + express.getGuarantee() - nowExpress.getReward() - nowExpress.getGuarantee());
             if (pointjs > 0) {
                 //补充的捎点
-                userInfoService.pointOut(express.getSendUserOpenId(), pointjs);
+                userInfoService.pointOut(express.getSendUserOpenId(), pointjs, PointRecordTypeEnum.TYPE_EXPRESS_RESEND.getId());
             } else if (pointjs < 0) {
                 //退还的捎点
-                userInfoService.pointIn(express.getSendUserOpenId(), -pointjs);
+                userInfoService.pointIn(express.getSendUserOpenId(), -pointjs, PointRecordTypeEnum.TYPE_EXPRESS_RESEND.getId());
             }
         }
         //执行更新、插入成功
