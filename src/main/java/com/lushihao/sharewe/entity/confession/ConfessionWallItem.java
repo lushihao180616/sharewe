@@ -2,8 +2,6 @@ package com.lushihao.sharewe.entity.confession;
 
 import com.lushihao.sharewe.enums.ConfessionWallItemInfoEnum;
 
-import java.util.List;
-
 public class ConfessionWallItem {
 
     /**
@@ -11,9 +9,9 @@ public class ConfessionWallItem {
      */
     private int id;
     /**
-     * 需要信息集合
+     * 需要信息
      */
-    private List<ConfessionWallItemInfoEnum> infoList;
+    private ConfessionWallItemInfoEnum info;
     /**
      * 捎点
      */
@@ -27,12 +25,12 @@ public class ConfessionWallItem {
         this.id = id;
     }
 
-    public List<ConfessionWallItemInfoEnum> getInfoList() {
-        return infoList;
+    public ConfessionWallItemInfoEnum getInfo() {
+        return info;
     }
 
-    public void setInfoList(List<ConfessionWallItemInfoEnum> infoList) {
-        this.infoList = infoList;
+    public void setInfo(ConfessionWallItemInfoEnum info) {
+        this.info = info;
     }
 
     public int getPoint() {
