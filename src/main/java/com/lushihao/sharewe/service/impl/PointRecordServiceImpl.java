@@ -4,11 +4,9 @@ import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointRecordMapper;
-import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.userinfo.PointRecord;
 import com.lushihao.sharewe.enums.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.PointRecordService;
-import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
