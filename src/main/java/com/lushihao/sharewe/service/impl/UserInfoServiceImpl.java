@@ -6,6 +6,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.AddressMapper;
+import com.lushihao.sharewe.dao.PointRecordMapper;
 import com.lushihao.sharewe.dao.UserInfoMapper;
 import com.lushihao.sharewe.entity.userinfo.AllUserInfo;
 import com.lushihao.sharewe.entity.userinfo.PointRecord;
@@ -31,6 +32,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private AddressMapper addressMapper;
     @Resource
     private PointRecordService pointRecordService;
+    @Resource
+    private PointRecordMapper pointRecordMapper;
 
     /**
      * 处理获取用户信息方法
@@ -132,7 +135,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Transactional
     public String pointIn(String openId, int needPoint, int recordSourceType) {
         int sql_back = userInfoMapper.pointIn(openId, needPoint);
-        pointRecordService.addRecord(new PointRecord(openId, recordSourceType, needPoint, 1));
+        pointRecordMapper.createPointRecord(new PointRecord(openId, recordSourceType, needPoint, 1));
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("充值失败，请稍后再试"));
         } else {
@@ -151,7 +154,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Transactional
     public String pointOut(String openId, int needPoint, int recordSourceType) {
         int sql_back = userInfoMapper.pointOut(openId, needPoint);
-        pointRecordService.addRecord(new PointRecord(openId, recordSourceType, needPoint, 2));
+        pointRecordMapper.createPointRecord(new PointRecord(openId, recordSourceType, needPoint, 2));
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("提现失败，请稍后再试"));
         } else {

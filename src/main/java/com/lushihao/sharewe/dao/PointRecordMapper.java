@@ -12,10 +12,10 @@ public interface PointRecordMapper {
     /**
      * 创建捎点日志
      *
-     * @param map
+     * @param pointRecord
      * @return
      */
-    int createPointRecord(Map map);
+    int createPointRecord(PointRecord pointRecord);
 
     /**
      * 获取捎点操作日志集合
