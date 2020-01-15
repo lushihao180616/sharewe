@@ -11,13 +11,18 @@
 	</insert>
     <select id="getRecords" parameterType="String" resultType="PointRecord">
         SELECT
-        	*
+			pr.id id,
+			pr.openid openId,
+			pr.recordsourcetype recordSourceType,
+			pr.savetime saveTime,
+			pr.num num,
+			pr.flag flag
         FROM
-        	pointrecord
+        	pointrecord pr
         WHERE
-        	openid=#{openId}
+        	pr.openid=#{openId}
         ORDER BY
-        	savetime
+        	pr.savetime
         DESC
     </select>
 </mapper>

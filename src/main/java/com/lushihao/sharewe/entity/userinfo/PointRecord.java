@@ -77,6 +77,18 @@ public class PointRecord {
         this.flag = flag;
     }
 
+    public PointRecord(int id) {
+    }
+
+    public PointRecord(int id, String openId, int recordSourceType, Date saveTime, int num, int flag) {
+        this.id = id;
+        this.openId = openId;
+        this.recordSourceType = recordSourceType;
+        this.saveTime = saveTime;
+        this.num = num;
+        this.flag = flag;
+    }
+
     public PointRecord(String openId, int recordSourceType, int num, int flag) {
         this.openId = openId;
         this.recordSourceType = recordSourceType;
@@ -84,5 +96,4 @@ public class PointRecord {
         this.num = num;
         this.flag = flag;
     }
-
 }
