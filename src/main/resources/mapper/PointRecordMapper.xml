@@ -16,5 +16,8 @@
         	pointrecord
         WHERE
         	openid=#{openId}
+        ORDER BY
+        	savetime
+        DESC
     </select>
 </mapper>
