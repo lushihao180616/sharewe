@@ -5,6 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 import com.lushihao.sharewe.enums.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.PointExchangeService;
+import com.lushihao.sharewe.service.PointRecordService;
 import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,8 @@ public class PointController {
     private PointExchangeService pointExchangeService;
     @Resource
     private UserInfoService userInfoService;
+    @Resource
+    private PointRecordService pointRecordService;
 
     //==================================================捎点加减开始==================================================
 
@@ -121,5 +124,26 @@ public class PointController {
     }
 
     //==================================================劵码相关结束==================================================
+    //==================================================捎点记录开始==================================================
+
+    /**
+     * 获取捎点记录数据
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getPointRecords")
+    public @ResponseBody
+    String getPointRecords(HttpServletRequest request, HttpServletResponse response,
+                           @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String openId = wxRequestJson.getString("openId");
+
+        return pointRecordService.getRecords(openId);
+    }
+
+    //==================================================捎点记录结束==================================================
 
 }
