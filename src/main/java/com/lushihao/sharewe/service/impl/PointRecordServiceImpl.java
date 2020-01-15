@@ -7,12 +7,14 @@ import com.lushihao.sharewe.entity.userinfo.Building;
 import com.lushihao.sharewe.entity.userinfo.PointRecord;
 import com.lushihao.sharewe.entity.userinfo.School;
 import com.lushihao.sharewe.service.PointRecordService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class PointRecordServiceImpl implements PointRecordService {
 
     @Resource
