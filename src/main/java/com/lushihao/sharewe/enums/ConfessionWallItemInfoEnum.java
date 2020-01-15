@@ -2,7 +2,7 @@ package com.lushihao.sharewe.enums;
 
 public enum ConfessionWallItemInfoEnum {
 
-    GRADE(3, "年级"), CLASS(4, "班级"), NAME(1, "姓名");
+    GRADE(1, "年级"), CLASS(2, "班级"), NAME(3, "姓名");
 
     private int id;
     private String name;
