@@ -19,7 +19,7 @@ public class ConfessionWall {
     /**
      * 图片地址
      */
-    private String imgSrc;
+    private List<String> imgSrc;
     /**
      * 需要的信息
      */
@@ -49,11 +49,11 @@ public class ConfessionWall {
         this.content = content;
     }
 
-    public String getImgSrc() {
+    public List<String> getImgSrc() {
         return imgSrc;
     }
 
-    public void setImgSrc(String imgSrc) {
+    public void setImgSrc(List<String> imgSrc) {
         this.imgSrc = imgSrc;
     }
 
