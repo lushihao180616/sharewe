@@ -1,10 +1,12 @@
 package com.lushihao.sharewe.dao;
 
 import com.lushihao.sharewe.entity.express.ExpressItem;
-import com.lushihao.sharewe.entity.purchase.PurchaseItem;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface ExpressItemMapper {
 
     /**
@@ -15,11 +17,11 @@ public interface ExpressItemMapper {
     /**
      * 批量删除快递单元
      */
-    int batchDeleteExpressItems(int expressId);
+    int batchDeleteExpressItems(@Param("expressId") int expressId);
 
     /**
      * ͨ通过快递获取快递单元列表
      */
-    List<ExpressItem> findExpressItemsByExpressId(int expressId);
+    List<ExpressItem> findExpressItemsByExpressId(@Param("expressId") int expressId);
 
 }

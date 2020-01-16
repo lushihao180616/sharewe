@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lushihao.sharewe.dao.ExpressItemMapper">
+    <insert id="batchCreateExpressItems" parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO
+            expressitem
+            (code,name,number,expresstype,expressid)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.code},
+            #{item.name},
+            #{item.number},
+            #{item.expressType},
+            #{item.expressId}
+            )
+        </foreach>
+    </insert>
+    <delete id="batchDeleteExpressItems" parameterType="int">
+        DELETE FROM
+            expressitem
+        WHERE
+            expressid=#{expressId}
+    </delete>
+    <select id="findExpressItemsByExpressId" parameterType="int" resultType="ExpressItem">
+        SELECT * FROM expressitem where expressid = #{expressId}
+    </select>
+</mapper>

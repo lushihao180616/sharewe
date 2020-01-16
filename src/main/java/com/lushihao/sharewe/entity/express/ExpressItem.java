@@ -21,7 +21,7 @@ public class ExpressItem {
     /**
      * 快递类型
      */
-    private ExpressType expressType;
+    private int expressType;
     /**
      * 快递
      */
@@ -59,15 +59,15 @@ public class ExpressItem {
         this.number = number;
     }
 
-	public ExpressType getExpressType() {
-		return expressType;
-	}
+    public int getExpressType() {
+        return expressType;
+    }
 
-	public void setExpressType(ExpressType expressType) {
-		this.expressType = expressType;
-	}
+    public void setExpressType(int expressType) {
+        this.expressType = expressType;
+    }
 
-	public int getExpressId() {
+    public int getExpressId() {
         return expressId;
     }
 
