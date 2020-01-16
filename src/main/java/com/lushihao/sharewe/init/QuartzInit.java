@@ -21,6 +21,12 @@ public class QuartzInit implements ApplicationRunner {
     @Autowired
     private JobClasses jobClasses;
 
+    /**
+     * 根据配置文件获取需要执行的任务，并通过任务调度器执行
+     *
+     * @param args
+     * @throws Exception
+     */
     @Override
     public void run(ApplicationArguments args) throws Exception {
         List<Map<String, String>> list = jobClasses.getJobList();
