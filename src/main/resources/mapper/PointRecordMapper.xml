@@ -9,7 +9,7 @@
 		VALUES
 			(#{openId},#{recordSourceType},#{saveTime},#{num},#{flag})
 	</insert>
-    <select id="getRecords" parameterType="String" resultType="PointRecord">
+    <select id="getRecords" resultType="PointRecord">
         SELECT
 			pr.id id,
 			pr.openid openId,
@@ -21,8 +21,16 @@
         	pointrecord pr
         WHERE
         	pr.openid=#{openId}
-        ORDER BY
-        	pr.savetime
-        DESC
+		ORDER BY
+			pr.savetime
+		DESC
+		<choose>
+			<when test="record_lastId != 0">
+				LIMIT ${record_lastId},10
+			</when>
+			<otherwise>
+				LIMIT 0,10
+			</otherwise>
+		</choose>
     </select>
 </mapper>

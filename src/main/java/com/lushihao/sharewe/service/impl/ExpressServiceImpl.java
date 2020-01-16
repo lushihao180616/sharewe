@@ -108,7 +108,7 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getExpress(int buildingId, int express_lastId) {
+    public String getExpresses(int buildingId, int express_lastId) {
         //最晚接收几分钟马上要超期的快递
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getExpressAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Express> express_list = expressMapper.filterExpress(buildingId, express_lastId, lastGetDate);

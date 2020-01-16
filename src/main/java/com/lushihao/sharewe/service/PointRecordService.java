@@ -7,6 +7,6 @@ public interface PointRecordService {
      *
      * @return
      */
-    String getRecords(String openId);
+    String getRecords(String openId, int record_lastId);
 
 }

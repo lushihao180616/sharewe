@@ -30,13 +30,14 @@ public class PointRecordServiceImpl implements PointRecordService {
      */
     @Override
     @Transactional
-    public String getRecords(String openId) {
-        List<PointRecord> list = pointRecordMapper.getRecords(openId);
+    public String getRecords(String openId, int record_lastId) {
+        List<PointRecord> list = pointRecordMapper.getRecords(openId, record_lastId);
         return transform(list);
     }
 
     /**
      * 转换方法
+     *
      * @param recordList
      * @return
      */

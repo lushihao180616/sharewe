@@ -6,6 +6,6 @@ public interface ExpressService {
 
     String sendExpress(Express express);
 
-    String getExpress(int buildingId, int express_lastId);
+    String getExpresses(int buildingId, int express_lastId);
 
 }

@@ -139,9 +139,10 @@ public class PointController {
     String getPointRecords(HttpServletRequest request, HttpServletResponse response,
                            @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int record_lastId = wxRequestJson.getInteger("record_lastId");
         String openId = wxRequestJson.getString("openId");
 
-        return pointRecordService.getRecords(openId);
+        return pointRecordService.getRecords(openId, record_lastId);
     }
 
     //==================================================捎点记录结束==================================================

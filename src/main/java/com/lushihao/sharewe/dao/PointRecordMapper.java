@@ -2,6 +2,7 @@ package com.lushihao.sharewe.dao;
 
 import com.lushihao.sharewe.entity.userinfo.PointRecord;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,6 +23,6 @@ public interface PointRecordMapper {
      * @param openId
      * @return
      */
-    List<PointRecord> getRecords(String openId);
+    List<PointRecord> getRecords(@Param("openId") String openId, @Param("record_lastId") int record_lastId);
 
 }

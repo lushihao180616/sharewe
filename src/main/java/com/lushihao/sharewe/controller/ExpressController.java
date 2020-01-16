@@ -58,15 +58,15 @@ public class ExpressController {
      * @param data
      * @return
      */
-    @RequestMapping(value = "/getExpress")
+    @RequestMapping(value = "/getExpresses")
     public @ResponseBody
-    String getExpress(HttpServletRequest request, HttpServletResponse response,
+    String getExpresses(HttpServletRequest request, HttpServletResponse response,
                         @RequestBody String data) {
 
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int buildingId = wxRequestJson.getInteger("buildingId");
         int express_lastId = wxRequestJson.getInteger("express_lastId");
-        return expressService.getExpress(buildingId, express_lastId);
+        return expressService.getExpresses(buildingId, express_lastId);
     }
 
 }
