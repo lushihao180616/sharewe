@@ -59,7 +59,7 @@ public class ExpressServiceImpl implements ExpressService {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
                 //消耗掉应消耗的捎点
-                userInfoService.pointOut(express.getSendUserOpenId(), (int) (express.getReward() + express.getGuarantee()), PointRecordTypeEnum.TYPE_EXPRESS_SEND.getId());
+                userInfoService.pointOut(express.getSendUserOpenId(), (int) (express.getReward()), PointRecordTypeEnum.TYPE_EXPRESS_SEND.getId());
             }
         } else {//更新快递
             //先判断这个，快递是不是已经被别人接了
@@ -70,7 +70,7 @@ public class ExpressServiceImpl implements ExpressService {
             //执行更新任务
             sql_back = expressMapper.updateExpress(express);
             //捎点多退少补
-            int pointjs = (int) (express.getReward() + express.getGuarantee() - nowExpress.getReward() - nowExpress.getGuarantee());
+            int pointjs = (int) (express.getReward() - nowExpress.getReward());
             if (pointjs > 0) {
                 //补充的捎点
                 userInfoService.pointOut(express.getSendUserOpenId(), pointjs, PointRecordTypeEnum.TYPE_EXPRESS_RESEND.getId());
@@ -137,7 +137,6 @@ public class ExpressServiceImpl implements ExpressService {
             item_map.put("building", buildingMapper.findById(address.getBuilding_id()));
             item_map.put("status", ExpressStatusEnum.getOne(express.getStatusId(), null));
             item_map.put("reward", express.getReward());
-            item_map.put("guarantee", express.getGuarantee());
             item_map.put("sendUserInfo", userInfoMapper.findByOpenId(express.getSendUserOpenId()));
             if (express.getGetUserOpenId() != null) {
                 item_map.put("getUserInfo", userInfoMapper.findByOpenId(express.getGetUserOpenId()));

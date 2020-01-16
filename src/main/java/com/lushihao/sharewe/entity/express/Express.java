@@ -26,10 +26,6 @@ public class Express {
 	 */
 	private double reward;
 	/**
-	 * 保障金
-	 */
-	private double guarantee;
-	/**
 	 * 发送快递者
 	 */
 	private String sendUserOpenId;
@@ -100,14 +96,6 @@ public class Express {
 
 	public void setReward(double reward) {
 		this.reward = reward;
-	}
-
-	public double getGuarantee() {
-		return guarantee;
-	}
-
-	public void setGuarantee(double guarantee) {
-		this.guarantee = guarantee;
 	}
 
 	public String getSendUserOpenId() {
