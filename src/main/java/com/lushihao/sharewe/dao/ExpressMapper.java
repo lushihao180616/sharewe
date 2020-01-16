@@ -34,7 +34,7 @@ public interface ExpressMapper {
      * @param express_lastId
      * @param nowDate
      * @return
-     */
+             */
     List<Express> filterExpress(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("express_lastId") int express_lastId, @Param("nowDate") Date nowDate);
 
     /**
@@ -43,6 +43,6 @@ public interface ExpressMapper {
      * @param id
      * @return
      */
-    Express getOneExpress(int id);
+    Express getOneExpress(@Param("buildingId") int id);
 
 }

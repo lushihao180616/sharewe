@@ -59,7 +59,7 @@ public class ExpressServiceImpl implements ExpressService {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
                 //消耗掉应消耗的捎点
-                userInfoService.pointOut(express.getSendUserOpenId(), (int) (express.getReward()), PointRecordTypeEnum.TYPE_EXPRESS_SEND.getId());
+                userInfoService.pointOut(express.getSendUserOpenId(), (int) express.getReward(), PointRecordTypeEnum.TYPE_EXPRESS_SEND.getId());
             }
         } else {//更新快递
             //先判断这个，快递是不是已经被别人接了
