@@ -1,16 +1,16 @@
-package com.lushihao.sharewe.enums;
+package com.lushihao.sharewe.enums.point;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-public enum PurchaseStatusEnum {
+public enum PointRecordStatusEnum {
 
-    WAITING_GET(1, "待接单"), WAITING_SERVED(2, "待送达"), ALREADY_DONE(3, "已完成"), ALREADY_CANCLE(4, "已取消"), TIME_OUT(5, "已超时");
+    WAITING_GET(1, "+"), WAITING_SERVED(2, "-");
 
     private int id;
     private String name;
 
-    PurchaseStatusEnum(int id, String name) {
+    PointRecordStatusEnum(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -37,15 +37,15 @@ public enum PurchaseStatusEnum {
      * @param id
      * @return
      */
-    public static PurchaseStatusEnum getItem(int id, String name) {
-        for (PurchaseStatusEnum purchaseStatusEnum : values()) {
-            if (id != 0 && purchaseStatusEnum.getId() != id) {
+    public static PointRecordStatusEnum getItem(int id, String name) {
+        for (PointRecordStatusEnum pointRecordStatusEnum : values()) {
+            if (id != 0 && pointRecordStatusEnum.getId() != id) {
                 continue;
             }
-            if (name != null && purchaseStatusEnum.getName() != name) {
+            if (name != null && pointRecordStatusEnum.getName() != name) {
                 continue;
             }
-            return purchaseStatusEnum;
+            return pointRecordStatusEnum;
         }
         return null;
     }
@@ -58,21 +58,21 @@ public enum PurchaseStatusEnum {
      * @return
      */
     public static JSONObject getOne(int id, String name) {
-        PurchaseStatusEnum purchaseStatusEnum = getItem(id, name);
-        JSONObject jsonObject = getOne(purchaseStatusEnum);
+        PointRecordStatusEnum pointRecordStatusEnum = getItem(id, name);
+        JSONObject jsonObject = getOne(pointRecordStatusEnum);
         return jsonObject;
     }
 
     /**
      * 获取一条数据
      *
-     * @param purchaseStatusEnum
+     * @param pointRecordStatusEnum
      * @return
      */
-    public static JSONObject getOne(PurchaseStatusEnum purchaseStatusEnum) {
+    public static JSONObject getOne(PointRecordStatusEnum pointRecordStatusEnum) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", purchaseStatusEnum.getId());
-        jsonObject.put("name", purchaseStatusEnum.getName());
+        jsonObject.put("id", pointRecordStatusEnum.getId());
+        jsonObject.put("name", pointRecordStatusEnum.getName());
         return jsonObject;
     }
 
@@ -83,8 +83,8 @@ public enum PurchaseStatusEnum {
      */
     public static JSONArray getAll() {
         JSONArray jsonArray = new JSONArray();
-        for (PurchaseStatusEnum purchaseStatusEnum : values()) {
-            jsonArray.add(getOne(purchaseStatusEnum));
+        for (PointRecordStatusEnum pointRecordStatusEnum : values()) {
+            jsonArray.add(getOne(pointRecordStatusEnum));
         }
         return jsonArray;
     }

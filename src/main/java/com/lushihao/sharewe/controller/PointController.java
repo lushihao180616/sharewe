@@ -3,7 +3,7 @@ package com.lushihao.sharewe.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
-import com.lushihao.sharewe.enums.PointRecordTypeEnum;
+import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.PointExchangeService;
 import com.lushihao.sharewe.service.PointRecordService;
 import com.lushihao.sharewe.service.UserInfoService;

@@ -1,4 +1,4 @@
-package com.lushihao.sharewe.enums;
+package com.lushihao.sharewe.enums.point;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

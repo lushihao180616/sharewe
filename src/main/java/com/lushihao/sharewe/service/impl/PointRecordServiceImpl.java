@@ -5,7 +5,8 @@ import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.PointRecordMapper;
 import com.lushihao.sharewe.entity.userinfo.PointRecord;
-import com.lushihao.sharewe.enums.PointRecordTypeEnum;
+import com.lushihao.sharewe.enums.point.PointRecordStatusEnum;
+import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.PointRecordService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,7 @@ public class PointRecordServiceImpl implements PointRecordService {
             Map<String, Object> item_map = LSHMapUtils.entityToMap(pointRecord);
             // 获取类型
             item_map.put("recordSourceType", PointRecordTypeEnum.getOne((int) item_map.get("recordSourceType"), null));
+            item_map.put("flag", PointRecordStatusEnum.getOne((int) item_map.get("flag"), null));
             list.add(item_map);
         }
         Map<String, Object> map = new HashMap<>();
