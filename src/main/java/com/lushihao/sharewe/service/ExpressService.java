@@ -8,4 +8,6 @@ public interface ExpressService {
 
     String getExpresses(int buildingId, int express_lastId);
 
+    String getExpress(Express express);
+
 }

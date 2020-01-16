@@ -5,6 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
+import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.service.ExpressService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +68,29 @@ public class ExpressController {
         int buildingId = wxRequestJson.getInteger("buildingId");
         int express_lastId = wxRequestJson.getInteger("express_lastId");
         return expressService.getExpresses(buildingId, express_lastId);
+    }
+
+    /**
+     * 接收快递者接收快递页面数据
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getExpress")
+    public @ResponseBody
+    String getExpress(HttpServletRequest request, HttpServletResponse response,
+                        @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String getTime = wxRequestJson.getString("getTime");
+        try {
+            wxRequestJson.put("getTime", LSHDateUtils.string2Date(getTime, LSHDateUtils.YYYY_MM_DD_HH_MM_SS2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
+        return expressService.getExpress(express);
     }
 
 }

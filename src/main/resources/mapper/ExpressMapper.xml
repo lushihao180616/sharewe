@@ -48,6 +48,18 @@
 			</otherwise>
 		</choose>
 	</select>
+	<update id="getExpress" parameterType="Express">
+		UPDATE
+		    express
+		SET
+		    getuseropenid=#{getUserOpenId},
+		    gettime=#{getTime},
+		    statusid=2
+		WHERE
+		    id=#{id}
+		AND
+		    statusid=1
+	</update>
     <select id="getOneExpress" parameterType="int" resultType="Express">
         SELECT
             *

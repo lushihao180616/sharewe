@@ -7,6 +7,7 @@ import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.express.AllExpressType;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
+import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.express.ExpressStatusEnum;
@@ -114,6 +115,23 @@ public class ExpressServiceImpl implements ExpressService {
         List<Express> express_list = expressMapper.filterExpress(buildingId, express_lastId, lastGetDate);
 
         return transform(express_list);
+    }
+
+    /**
+     * 接收任务者接收任务
+     *
+     * @param express
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getExpress(Express express) {
+        int sql_back = expressMapper.getExpress(express);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
+        } else {
+            return userInfoService.findUserInfoByOpenId(express.getGetUserOpenId());
+        }
     }
 
     /**
