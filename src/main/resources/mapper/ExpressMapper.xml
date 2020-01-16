@@ -27,6 +27,27 @@
 		WHERE
 		    id=#{id}
 	</update>
+	<select id="filterExpress" resultType="Express">
+		SELECT
+			*
+		FROM
+			express
+		WHERE
+			statusid=1
+		AND
+			deadtime&gt;#{nowDate}
+		<if test="buildingId != 0">
+			AND buildingid=#{buildingId}
+		</if>
+		<choose>
+			<when test="express_lastId != 0">
+				LIMIT ${express_lastId},10
+			</when>
+			<otherwise>
+				LIMIT 0,10
+			</otherwise>
+		</choose>
+	</select>
     <select id="getOneExpress" parameterType="int" resultType="Express">
         SELECT
             *

@@ -103,16 +103,15 @@ public class ExpressServiceImpl implements ExpressService {
      * 接收快递者接收快递列表，（带分页，通过本页面最后一个快递id）
      *
      * @param buildingId
-     * @param typeId
      * @param express_lastId
      * @return
      */
     @Override
     @Transactional
-    public String getExpress(int buildingId, int typeId, int express_lastId) {
+    public String getExpress(int buildingId, int express_lastId) {
         //最晚接收几分钟马上要超期的快递
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getExpressAdvanceMinute(), LSHDateUtils.MINUTE);
-        List<Express> express_list = expressMapper.filterExpress(buildingId, typeId, express_lastId, lastGetDate);
+        List<Express> express_list = expressMapper.filterExpress(buildingId, express_lastId, lastGetDate);
 
         return transform(express_list);
     }

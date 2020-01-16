@@ -30,12 +30,11 @@ public interface ExpressMapper {
      * 接快递者接收快递
      *
      * @param buildingId
-     * @param typeId
      * @param express_lastId
      * @param nowDate
      * @return
              */
-    List<Express> filterExpress(@Param("buildingId") int buildingId, @Param("typeId") int typeId, @Param("express_lastId") int express_lastId, @Param("nowDate") Date nowDate);
+    List<Express> filterExpress(@Param("buildingId") int buildingId, @Param("express_lastId") int express_lastId, @Param("nowDate") Date nowDate);
 
     /**
      * 获取一条快递
