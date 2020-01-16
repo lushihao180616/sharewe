@@ -3,6 +3,7 @@ package com.lushihao.sharewe.service.impl;
 import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
+import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.dao.PointRecordMapper;
 import com.lushihao.sharewe.entity.userinfo.PointRecord;
 import com.lushihao.sharewe.enums.point.PointRecordStatusEnum;
@@ -48,6 +49,7 @@ public class PointRecordServiceImpl implements PointRecordService {
             // 获取类型
             item_map.put("recordSourceType", PointRecordTypeEnum.getOne((int) item_map.get("recordSourceType"), null));
             item_map.put("flag", PointRecordStatusEnum.getOne((int) item_map.get("flag"), null));
+            item_map.put("saveTime", LSHDateUtils.date2String(pointRecord.getSaveTime(), LSHDateUtils.YYYY_MM_DD_HH_MM_SS1));
             list.add(item_map);
         }
         Map<String, Object> map = new HashMap<>();

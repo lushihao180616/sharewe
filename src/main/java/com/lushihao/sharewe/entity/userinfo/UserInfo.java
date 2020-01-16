@@ -37,7 +37,7 @@ public class UserInfo {
     /**
      * 捎点
      */
-    private Double point;
+    private int point;
 
     public String getOpenId() {
         return openId;
@@ -103,11 +103,11 @@ public class UserInfo {
         this.avatarUrl = avatarUrl;
     }
 
-    public Double getPoint() {
+    public int getPoint() {
         return point;
     }
 
-    public void setPoint(Double point) {
+    public void setPoint(int point) {
         this.point = point;
     }
 

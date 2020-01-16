@@ -21,9 +21,6 @@
         	pointrecord pr
         WHERE
         	pr.openid=#{openId}
-		ORDER BY
-			pr.savetime
-		DESC
 		<choose>
 			<when test="record_lastId != 0">
 				LIMIT ${record_lastId},10

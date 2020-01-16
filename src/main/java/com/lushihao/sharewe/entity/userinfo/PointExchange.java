@@ -21,7 +21,7 @@ public class PointExchange {
 	/**
 	 * 兑换需要用的捎点
 	 */
-	private double point;
+	private int point;
 
 	public String getId() {
 		return id;
@@ -55,11 +55,11 @@ public class PointExchange {
 		this.time = time;
 	}
 
-	public double getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(double point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 
