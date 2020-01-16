@@ -16,8 +16,8 @@
         SELECT
             *
         FROM
-            merchant
+            pointexchange
         WHERE
-            code=#{merchantCode}
+            merchantCode=#{merchantCode}
     </select>
 </mapper>

@@ -10,17 +10,25 @@
 			(#{openId},#{recordSourceType},#{saveTime},#{num},#{flag})
 	</insert>
     <select id="getRecords" resultType="PointRecord">
-        SELECT
-			pr.id id,
-			pr.openid openId,
-			pr.recordsourcetype recordSourceType,
-			pr.savetime saveTime,
-			pr.num num,
-			pr.flag flag
-        FROM
-        	pointrecord pr
-        WHERE
-        	pr.openid=#{openId}
+		SELECT nowtable.* FROM
+		(
+			SELECT
+				pr.id id,
+				pr.openid openId,
+				pr.recordsourcetype recordSourceType,
+				pr.savetime saveTime,
+				pr.num num,
+				pr.flag flag
+			FROM
+				pointrecord pr
+			WHERE
+				pr.openid=#{openId}
+			ORDER BY
+				savetime
+			DESC
+		)
+		AS
+			nowtable
 		<choose>
 			<when test="record_lastId != 0">
 				LIMIT ${record_lastId},10

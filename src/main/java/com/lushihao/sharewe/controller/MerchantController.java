@@ -37,4 +37,19 @@ public class MerchantController {
         return merchantService.getMerchantInfo(merchantCode);
     }
 
+    /**
+     * 获取商家信息（包含劵码）
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getMerchants")
+    public @ResponseBody
+    String getMerchants(HttpServletRequest request, HttpServletResponse response,
+                           @RequestBody String data) {
+        return merchantService.getMerchants();
+    }
+
 }

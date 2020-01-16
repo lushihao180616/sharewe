@@ -5,4 +5,7 @@
     <select id="getMerchant" parameterType="string" resultType="Merchant">
         SELECT * FROM merchant WHERE code=#{merchantCode}
     </select>
+    <select id="getAllMerchant" resultType="Merchant">
+        SELECT * FROM merchant
+    </select>
 </mapper>

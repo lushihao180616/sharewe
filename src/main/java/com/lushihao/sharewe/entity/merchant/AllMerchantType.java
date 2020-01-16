@@ -36,4 +36,15 @@ public class AllMerchantType {
         return list;
     }
 
+    /**
+     * 通过id获取商家类型
+     * @param ids
+     * @return
+     */
+    public List<MerchantType> getItemByIds(String ids) {
+        List<MerchantType> list = new ArrayList<>();
+        list.addAll(typeList);
+        return list.stream().filter(s -> ids.contains(String.valueOf(s.getId()))).collect(Collectors.toList());
+    }
+
 }

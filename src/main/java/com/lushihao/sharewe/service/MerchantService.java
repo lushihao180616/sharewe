@@ -4,4 +4,6 @@ public interface MerchantService {
 
     String getMerchantInfo(String merchantCode);
 
+    String getMerchants();
+
 }

@@ -1,5 +1,7 @@
 package com.lushihao.sharewe.entity.merchant;
 
+import java.util.List;
+
 public class Merchant {
 
     /**
@@ -18,6 +20,10 @@ public class Merchant {
      * 地址
      */
     private String address;
+    /**
+     * 类型
+     */
+    private String types;
 
     public String getCode() {
         return code;
@@ -49,6 +55,14 @@ public class Merchant {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getTypes() {
+        return types;
+    }
+
+    public void setTypes(String types) {
+        this.types = types;
     }
 
 }
