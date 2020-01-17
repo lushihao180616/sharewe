@@ -34,27 +34,6 @@ public class MerchantServiceImpl implements MerchantService {
     private AllMerchantType allMerchantType;
 
     /**
-     * 获取商家信息（包含劵码）
-     *
-     * @param merchantCode
-     * @return
-     */
-    @Override
-    @Transactional
-    public String getMerchantInfo(String merchantCode) {
-        Map<String, Object> map = new HashMap<>();
-
-        Merchant merchant = merchantMapper.getMerchant(merchantCode);
-        List<PointExchange> pointExchangeList = new ArrayList<>();
-        if (merchant != null) {
-            pointExchangeList = pointExchangeMapper.getPointExchangeListByMerchant(merchantCode);
-        }
-        map.put("merchant", merchant);
-        map.put("pointExchange_list", pointExchangeList);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
-    }
-
-    /**
      * 获取所有商家信息（包含劵码）
      *
      * @return
