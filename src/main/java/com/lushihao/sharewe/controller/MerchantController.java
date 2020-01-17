@@ -27,6 +27,24 @@ public class MerchantController {
      * @param data
      * @return
      */
+    @RequestMapping(value = "/getMerchantInfo")
+    public @ResponseBody
+    String getMerchantInfo(HttpServletRequest request, HttpServletResponse response,
+                           @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String merchantCode = wxRequestJson.getString("merchantCode");
+
+        return merchantService.getMerchantInfo(merchantCode);
+    }
+
+    /**
+     * 获取商家信息（包含劵码）
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/getMerchants")
     public @ResponseBody
     String getMerchants(HttpServletRequest request, HttpServletResponse response,

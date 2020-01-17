@@ -34,6 +34,29 @@ public class MerchantServiceImpl implements MerchantService {
     private AllMerchantType allMerchantType;
 
     /**
+     * 获取商家信息（包含劵码）
+     *
+     * @param merchantCode
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getMerchantInfo(String merchantCode) {
+        Map<String, Object> map = new HashMap<>();
+
+        Merchant merchant = merchantMapper.getMerchant(merchantCode);
+        List<PointExchange> pointExchangeList = new ArrayList<>();
+        if (merchant != null) {
+            pointExchangeList = pointExchangeMapper.getPointExchangeListByMerchant(merchantCode);
+        }
+        Map<String, Object> mapItem = LSHMapUtils.entityToMap(merchant);
+        mapItem.put("pointExchange_list", pointExchangeList);
+        mapItem.put("types", allMerchantType.getItemByIds((String) mapItem.get("types")));
+        map.put("merchant", mapItem);
+        return LSHResponseUtils.getResponse(new LSHResponse(map));
+    }
+
+    /**
      * 获取所有商家信息（包含劵码）
      *
      * @return
@@ -47,11 +70,6 @@ public class MerchantServiceImpl implements MerchantService {
         List<Merchant> merchantList = merchantMapper.getAllMerchant();
         for (Merchant merchant : merchantList) {
             Map<String, Object> mapItem = LSHMapUtils.entityToMap(merchant);
-            List<PointExchange> pointExchangeList = new ArrayList<>();
-            if (merchant != null) {
-                pointExchangeList = pointExchangeMapper.getPointExchangeListByMerchant(merchant.getCode());
-            }
-            mapItem.put("pointExchange_list", pointExchangeList);
             mapItem.put("types", allMerchantType.getItemByIds((String) mapItem.get("types")));
             nowMerchantList.add(mapItem);
         }

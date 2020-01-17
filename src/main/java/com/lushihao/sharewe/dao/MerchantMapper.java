@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper
 public interface MerchantMapper {
 
+   Merchant getMerchant(String merchantCode);
+
    List<Merchant> getAllMerchant();
 
 }

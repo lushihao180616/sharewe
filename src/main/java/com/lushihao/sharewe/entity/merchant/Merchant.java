@@ -1,7 +1,5 @@
 package com.lushihao.sharewe.entity.merchant;
 
-import java.util.List;
-
 public class Merchant {
 
     /**
