@@ -24,9 +24,6 @@ public class AllExpressType {
     public List<ExpressType> getItem(ExpressType expressType) {
         List<ExpressType> list = new ArrayList<>();
         list.addAll(typeList);
-        if (expressType.getId() != 0) {
-            list = typeList.stream().filter(s -> s.getId() == expressType.getId()).collect(Collectors.toList());
-        }
         if (expressType.getName() != null) {
             list = typeList.stream().filter(s -> s.getName().equals(expressType.getName())).collect(Collectors.toList());
         }

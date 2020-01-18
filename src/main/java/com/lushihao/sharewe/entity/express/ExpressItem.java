@@ -7,17 +7,9 @@ public class ExpressItem {
      */
     private int id;
     /**
-     * 验证码
+     * 快递位置
      */
-    private String code;
-    /**
-     * 昵称
-     */
-    private String name;
-    /**
-     * 手机尾号
-     */
-    private String number;
+    private String address;
     /**
      * 快递类型
      */
@@ -35,28 +27,12 @@ public class ExpressItem {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getExpressType() {

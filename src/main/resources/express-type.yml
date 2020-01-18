@@ -1,18 +1,14 @@
 expresstype:
   typeList:
-    - id: 1
-      name: "小型件"
+    - name: "小型件"
       code: "S"
       des: "重量≤2公斤"
-    - id: 2
-      name: "中型件"
+    - name: "中型件"
       code: "M"
       des: "2公斤＜重量≤6公斤"
-    - id: 3
-      name: "大型件"
+    - name: "大型件"
       code: "L"
       des: "6公斤＜重量≤20公斤"
-    - id: 4
-      name: "特大型件"
+    - name: "特大型件"
       code: "XL"
       des: "重量＞20公斤"

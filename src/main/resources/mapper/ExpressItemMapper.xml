@@ -5,13 +5,11 @@
     <insert id="batchCreateExpressItems" parameterType="java.util.List" useGeneratedKeys="false">
         INSERT INTO
             expressitem
-            (code,name,number,expresstype,expressid)
+            (address,expresstype,expressid)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
-            #{item.code},
-            #{item.name},
-            #{item.number},
+            #{item.address},
             #{item.expressType},
             #{item.expressId}
             )
