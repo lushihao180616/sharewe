@@ -92,7 +92,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     public String updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
         int sql_back = userInfoMapper.updateUserInfo(userInfo);
         if (deleteAddress) {
-            addressMapper.deleteAllAddress(userInfo.getOpenId());
+            int flag = addressMapper.findByOpenId(userInfo.getOpenId()).size();
+            if (flag != addressMapper.deleteAllAddress(userInfo.getOpenId())) {
+                try {
+                    throw new RuntimeException("异常了");
+                } catch (Exception e) {
+
+                } finally {
+                    return LSHResponseUtils.getResponse(new LSHResponse("有地址正在被使用，无法删除"));
+                }
+            }
         }
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("更新失败，请稍后再试"));

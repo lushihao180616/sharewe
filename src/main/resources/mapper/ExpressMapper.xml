@@ -6,9 +6,9 @@
             useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 			express
-			(addressId,buildingId,statusId,reward,sendUserOpenId,deadTime,sendTime)
+			(addressId,buildingId,statusId,sendUserOpenId,deadTime,sendTime)
 		VALUES
-			(#{addressId},#{buildingId},#{statusId},#{reward},#{sendUserOpenId},#{deadTime},#{sendTime})
+			(#{addressId},#{buildingId},#{statusId},#{sendUserOpenId},#{deadTime},#{sendTime})
 	</insert>
     <update id="updateExpress" parameterType="Express">
 		UPDATE

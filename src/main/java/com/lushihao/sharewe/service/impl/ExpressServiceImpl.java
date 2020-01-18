@@ -52,32 +52,13 @@ public class ExpressServiceImpl implements ExpressService {
     @Override
     @Transactional
     public String sendExpress(Express express) {
-        int sql_back;
+        int sql_back = 0;
         if (express.getId() == 0) {
             //创建快递
             sql_back = expressMapper.createExpress(express);
             if (sql_back > 0) {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
-                //消耗掉应消耗的捎点
-                userInfoService.pointOut(express.getSendUserOpenId(), (int) express.getReward(), PointRecordTypeEnum.TYPE_EXPRESS_SEND.getId());
-            }
-        } else {//更新快递
-            //先判断这个，快递是不是已经被别人接了
-            Express nowExpress = expressMapper.getOneExpress(express.getId());
-            if (nowExpress.getStatusId() == 2) {
-                return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接任务人申请取消吧"));
-            }
-            //执行更新任务
-            sql_back = expressMapper.updateExpress(express);
-            //捎点多退少补
-            int pointjs = (int) (express.getReward() - nowExpress.getReward());
-            if (pointjs > 0) {
-                //补充的捎点
-                userInfoService.pointOut(express.getSendUserOpenId(), pointjs, PointRecordTypeEnum.TYPE_EXPRESS_RESEND.getId());
-            } else if (pointjs < 0) {
-                //退还的捎点
-                userInfoService.pointIn(express.getSendUserOpenId(), -pointjs, PointRecordTypeEnum.TYPE_EXPRESS_RESEND.getId());
             }
         }
         //执行更新、插入成功
@@ -86,15 +67,11 @@ public class ExpressServiceImpl implements ExpressService {
             for (ExpressItem expressItem : express.getExpressItems()) {
                 expressItem.setExpressId(express.getId());
             }
-            //更新快递，先删除快递单元
-            if (express.getId() != 0) {
-                expressItemMapper.batchDeleteExpressItems(express.getId());
-            }
             //创建快递单元
             int batch_sql_back = expressItemMapper.batchCreateExpressItems(express.getExpressItems());
             //执行成功
             if (batch_sql_back == express.getExpressItems().size()) {
-                return userInfoService.findUserInfoByOpenId(express.getSendUserOpenId());
+                return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
             }
         }
         return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));

@@ -35,7 +35,7 @@
         DELETE FROM address WHERE id=#{id}
     </delete>
     <delete id="deleteAllAddress" parameterType="String">
-        DELETE FROM address WHERE openid=#{openId}
+        DELETE FROM address WHERE openid=#{openId} AND usedcount=0
     </delete>
     <update id="updateAddressUsedCount" parameterType="int">
         UPDATE

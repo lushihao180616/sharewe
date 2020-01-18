@@ -11,9 +11,9 @@ public class ExpressItem {
      */
     private String address;
     /**
-     * 快递类型
+     * 快递数量
      */
-    private int expressType;
+    private int count;
     /**
      * 快递
      */
@@ -35,12 +35,12 @@ public class ExpressItem {
         this.address = address;
     }
 
-    public int getExpressType() {
-        return expressType;
+    public int getCount() {
+        return count;
     }
 
-    public void setExpressType(int expressType) {
-        this.expressType = expressType;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public int getExpressId() {
