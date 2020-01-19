@@ -46,6 +46,22 @@ public interface ExpressMapper {
     int getExpress(Express express);
 
     /**
+     * 发送快递者发送快递集合
+     *
+     * @param statusId
+     */
+    List<Express> getSendExpress(@Param("sendUserOpenId") String sendUserOpenId, @Param("statusId") int statusId, @Param("nowDate") Date nowDate);
+
+    /**
+     * 接收快递者接收快递集合
+     *
+     * @param getUserOpenId
+     * @param statusId
+     * @return
+     */
+    List<Express> getGetExpress(@Param("getUserOpenId") String getUserOpenId, @Param("statusId") int statusId, @Param("nowDate") Date nowDate);
+
+    /**
      * 获取一条快递
      *
      * @param id

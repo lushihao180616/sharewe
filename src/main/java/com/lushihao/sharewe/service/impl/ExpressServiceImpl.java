@@ -138,6 +138,36 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
+     * 发送快递者查看快递任务
+     *
+     * @param sendUserOpenId
+     * @param statusId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getSendExpress(String sendUserOpenId, int statusId) {
+        //获取任务是否超时的时间点
+        Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getExpressAdvanceMinute(), LSHDateUtils.MINUTE);
+        List<Express> express_list = expressMapper.getSendExpress(sendUserOpenId, statusId, lastGetDate);
+        return transform(express_list);
+    }
+
+    /**
+     * 接收快递者接收快递集合
+     *
+     * @param getUserOpenId
+     * @param statusId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getGetExpress(String getUserOpenId, int statusId) {
+        List<Express> express_list = expressMapper.getGetExpress(getUserOpenId, statusId, new Date());
+        return transform(express_list);
+    }
+
+    /**
      * 转换
      *
      * @param express_list

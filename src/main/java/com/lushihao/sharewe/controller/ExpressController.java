@@ -103,11 +103,49 @@ public class ExpressController {
     @RequestMapping(value = "/removeExpress")
     public @ResponseBody
     String removeExpress(HttpServletRequest request, HttpServletResponse response,
-                          @RequestBody String data) {
+                         @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int expressId = wxRequestJson.getInteger("expressId");
 
         return expressService.removeExpress(expressId);
+    }
+
+    /**
+     * 发送快递者查看快递任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getSendExpress")
+    public @ResponseBody
+    String getSendExpress(HttpServletRequest request, HttpServletResponse response,
+                          @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String sendUserOpenId = wxRequestJson.getString("sendUserOpenId");
+        int statusId = wxRequestJson.getInteger("statusId");
+
+        return expressService.getSendExpress(sendUserOpenId, statusId);
+    }
+
+    /**
+     * 接收快递者接收快递页面数据
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getGetExpress")
+    public @ResponseBody
+    String getGetExpress(HttpServletRequest request, HttpServletResponse response,
+                         @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String getUserOpenId = wxRequestJson.getString("getUserOpenId");
+        int statusId = wxRequestJson.getInteger("statusId");
+
+        return expressService.getGetExpress(getUserOpenId, statusId);
     }
 
 }

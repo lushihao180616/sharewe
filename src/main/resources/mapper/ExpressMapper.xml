@@ -60,6 +60,55 @@
 		AND
 		    statusid=1
 	</update>
+	<select id="getSendExpress" resultType="Express">
+		SELECT
+			*
+		FROM
+			express
+		WHERE
+			senduseropenid=#{sendUserOpenId}
+		<if test="statusId == 1">
+			AND statusid=1
+			AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+		</if>
+		<if test="statusId == 2">
+			AND statusid=2
+		</if>
+		<if test="statusId == 3">
+			AND statusid=3
+		</if>
+		<if test="statusId == 4">
+			AND statusid=4
+		</if>
+		<if test="statusId == 5">
+			AND statusid=1
+			AND deadtime&lt;#{nowDate}
+		</if>
+		ORDER BY
+			sendtime
+		DESC
+	</select>
+	<select id="getGetExpress" resultType="Express">
+		SELECT
+			*
+		FROM
+			express
+		WHERE
+			getuseropenid=#{getUserOpenId}
+		<if test="statusId == 2">
+			AND statusid=2
+			AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+		</if>
+		<if test="statusId == 3">
+			AND statusid=3
+		</if>
+		<if test="statusId == 4">
+			AND statusid=2 AND deadtime&lt;#{nowDate}
+		</if>
+		ORDER BY
+			gettime
+		DESC
+	</select>
     <select id="getOneExpress" parameterType="int" resultType="Express">
         SELECT
             *

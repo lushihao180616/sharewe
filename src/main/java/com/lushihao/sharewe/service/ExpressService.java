@@ -12,4 +12,8 @@ public interface ExpressService {
 
     String removeExpress(int expressId);
 
+    String getSendExpress(String sendUserOpenId, int statusId);
+
+    String getGetExpress(String getUserOpenId, int statusId);
+
 }
