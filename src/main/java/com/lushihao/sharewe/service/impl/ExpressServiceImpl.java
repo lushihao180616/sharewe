@@ -125,9 +125,9 @@ public class ExpressServiceImpl implements ExpressService {
         if (express.getStatusId() == 2) {
             return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧"));
         }
-        //需要批量删除的任务单元
+        //需要批量删除的快递单元
         expressItemMapper.batchDeleteExpressItems(expressId);
-        //需要删除的任务
+        //需要删除的快递
         int sql_back = expressMapper.deleteExpress(expressId);
         addressMapper.updateAddressUsedCount(express.getAddressId(), 0);
         if (sql_back == 0) {

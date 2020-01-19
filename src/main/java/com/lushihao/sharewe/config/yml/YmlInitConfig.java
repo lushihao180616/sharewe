@@ -7,7 +7,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-public class YmlDataInit {
+public class YmlInitConfig {
 
     /**
      * 配置yml文件
