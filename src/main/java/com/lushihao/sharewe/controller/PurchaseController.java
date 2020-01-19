@@ -114,7 +114,7 @@ public class PurchaseController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int purchaseId = wxRequestJson.getInteger("purchaseId");
 
-        return purchaseService.romovePurchase(purchaseId);
+        return purchaseService.removePurchase(purchaseId);
     }
 
     /**

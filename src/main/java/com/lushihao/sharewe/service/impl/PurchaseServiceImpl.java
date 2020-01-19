@@ -141,7 +141,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String romovePurchase(int purchaseId) {
+    public String removePurchase(int purchaseId) {
         //要被删除的任务
         Purchase purchase = purchaseMapper.getOnePurchase(purchaseId);
         if (purchase.getStatusId() == 2) {

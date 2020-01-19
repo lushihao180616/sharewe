@@ -10,7 +10,7 @@ public interface PurchaseService {
 
     String getPurchase(Purchase purchase);
 
-    String romovePurchase(int purchaseId);
+    String removePurchase(int purchaseId);
 
     String getSendPurchase(String sendUserOpenId, int statusId);
 
