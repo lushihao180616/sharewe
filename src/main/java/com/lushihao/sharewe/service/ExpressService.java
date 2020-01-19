@@ -10,4 +10,6 @@ public interface ExpressService {
 
     String getExpress(Express express);
 
+    String removeExpress(int expressId);
+
 }

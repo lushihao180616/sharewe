@@ -7,9 +7,11 @@ import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.express.AllExpressType;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
+import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.express.ExpressStatusEnum;
+import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.ExpressService;
 import com.lushihao.sharewe.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,6 +106,32 @@ public class ExpressServiceImpl implements ExpressService {
         int sql_back = expressMapper.getExpress(express);
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    /**
+     * 删除快递
+     *
+     * @param expressId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String removeExpress(int expressId) {
+        //要被删除的快递
+        Express express = expressMapper.getOneExpress(expressId);
+        if (express.getStatusId() == 2) {
+            return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧"));
+        }
+        //需要批量删除的任务单元
+        expressItemMapper.batchDeleteExpressItems(expressId);
+        //需要删除的任务
+        int sql_back = expressMapper.deleteExpress(expressId);
+        addressMapper.updateAddressUsedCount(express.getAddressId(), 0);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }

@@ -92,4 +92,22 @@ public class ExpressController {
         return expressService.getExpress(express);
     }
 
+    /**
+     * 删除任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/removeExpress")
+    public @ResponseBody
+    String removeExpress(HttpServletRequest request, HttpServletResponse response,
+                          @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int expressId = wxRequestJson.getInteger("expressId");
+
+        return expressService.removeExpress(expressId);
+    }
+
 }

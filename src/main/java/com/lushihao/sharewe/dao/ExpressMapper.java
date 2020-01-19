@@ -34,7 +34,7 @@ public interface ExpressMapper {
      * @param express_lastId
      * @param nowDate
      * @return
-             */
+     */
     List<Express> filterExpress(@Param("buildingId") int buildingId, @Param("express_lastId") int express_lastId, @Param("nowDate") Date nowDate);
 
     /**
@@ -51,6 +51,14 @@ public interface ExpressMapper {
      * @param id
      * @return
      */
-    Express getOneExpress(@Param("buildingId") int id);
+    Express getOneExpress(int id);
+
+    /**
+     * 删除快递
+     *
+     * @param id
+     * @return
+     */
+    int deleteExpress(int id);
 
 }

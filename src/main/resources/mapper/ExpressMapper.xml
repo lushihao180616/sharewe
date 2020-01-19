@@ -68,4 +68,12 @@
         WHERE
             id=#{id}
     </select>
+	<delete id="deleteExpress" parameterType="int">
+        DELETE FROM
+            express
+        WHERE
+            id=#{value}
+        AND
+            (statusid=1 OR statusid=4)
+    </delete>
 </mapper>
