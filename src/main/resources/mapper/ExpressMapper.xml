@@ -125,6 +125,22 @@
         AND
             (statusid=1 OR statusid=4)
     </delete>
+    <update id="sendCancleExpress">
+		UPDATE
+		    express
+		SET
+		    sendusercancle=#{sendUserCancle}
+		WHERE
+		    id=#{expressId}
+	</update>
+    <update id="getCancleExpress">
+		UPDATE
+		    express
+		SET
+		    statusid=4
+		WHERE
+		    id=#{expressId}
+	</update>
 	<update id="getCompleteExpress">
 		UPDATE
 		    express

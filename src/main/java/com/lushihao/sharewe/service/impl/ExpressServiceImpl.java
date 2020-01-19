@@ -168,6 +168,41 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
+     * 发送快递者点击取消按钮
+     *
+     * @param expressId
+     * @param sendUserCancle
+     * @return
+     */
+    @Override
+    @Transactional
+    public String sendCancleExpress(int expressId, boolean sendUserCancle) {
+        int sql_back = expressMapper.sendCancleExpress(expressId, sendUserCancle);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    /**
+     * 接收快递者点击取消按钮
+     *
+     * @param expressId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getCancleExpress(int expressId, String getUserOpenId) {
+        int sql_back = expressMapper.getCancleExpress(expressId);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
+        } else {
+            return userInfoService.findUserInfoByOpenId(getUserOpenId);
+        }
+    }
+
+    /**
      * 接收快递者点击完成按钮
      *
      * @param expressId

@@ -78,6 +78,23 @@ public interface ExpressMapper {
     int deleteExpress(int id);
 
     /**
+     * 发送快递者点击取消按钮
+     *
+     * @param expressId
+     * @param sendUserCancle
+     * @return
+     */
+    int sendCancleExpress(@Param("expressId") int expressId, @Param("sendUserCancle") boolean sendUserCancle);
+
+    /**
+     * 接收快递者点击取消按钮
+     *
+     * @param expressId
+     * @return
+     */
+    int getCancleExpress(@Param("expressId") int expressId);
+
+    /**
      * 接收快递者点击完成按钮
      *
      * @param expressId

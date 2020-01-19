@@ -149,6 +149,44 @@ public class ExpressController {
     }
 
     /**
+     * 发送快递者点击取消按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/sendCancleExpress")
+    public @ResponseBody
+    String sendCancleExpress(HttpServletRequest request, HttpServletResponse response,
+                              @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int expressId = wxRequestJson.getInteger("expressId");
+        boolean sendUserCancle = wxRequestJson.getBoolean("sendUserCancle");
+
+        return expressService.sendCancleExpress(expressId, sendUserCancle);
+    }
+
+    /**
+     * 接收快递者点击取消按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getCancleExpress")
+    public @ResponseBody
+    String getCancleExpress(HttpServletRequest request, HttpServletResponse response,
+                             @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int expressId = wxRequestJson.getInteger("expressId");
+        String getUserOpenId = wxRequestJson.getString("getUserOpenId");
+
+        return expressService.getCancleExpress(expressId, getUserOpenId);
+    }
+
+    /**
      * 接收快递者点击完成按钮
      *
      * @param request
