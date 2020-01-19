@@ -168,6 +168,43 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
+     * 接收快递者点击完成按钮
+     *
+     * @param expressId
+     * @param getUserComplete
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getCompleteExpress(int expressId, boolean getUserComplete) {
+        int sql_back = expressMapper.getCompleteExpress(expressId, getUserComplete);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    /**
+     * 发送快递者点击完成按钮
+     *
+     * @param expressId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
+        int sql_back = expressMapper.sendCompleteExpress(expressId);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
+        } else {
+            userInfoService.pointIn(getUserOpenId, reward, PointRecordTypeEnum.TYPE_EXPRESS_GET_COMPLETE.getId());
+            addressMapper.updateAddressUsedCount(addressId, 0);
+            return userInfoService.findUserInfoByOpenId(sendUserOpenId);
+        }
+    }
+
+    /**
      * 转换
      *
      * @param express_list

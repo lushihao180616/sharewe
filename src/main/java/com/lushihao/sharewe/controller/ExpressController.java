@@ -148,4 +148,45 @@ public class ExpressController {
         return expressService.getGetExpress(getUserOpenId, statusId);
     }
 
+    /**
+     * 接收快递者点击完成按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/getCompleteExpress")
+    public @ResponseBody
+    String getCompleteExpress(HttpServletRequest request, HttpServletResponse response,
+                              @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int expressId = wxRequestJson.getInteger("expressId");
+        boolean getUserComplete = wxRequestJson.getBoolean("getUserComplete");
+
+        return expressService.getCompleteExpress(expressId, getUserComplete);
+    }
+
+    /**
+     * 发送任务者点击完成按钮
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/sendCompleteExpress")
+    public @ResponseBody
+    String sendCompleteExpress(HttpServletRequest request, HttpServletResponse response,
+                                @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int expressId = wxRequestJson.getInteger("expressId");
+        int reward = wxRequestJson.getInteger("reward");
+        String sendUserOpenId = wxRequestJson.getString("sendUserOpenId");
+        String getUserOpenId = wxRequestJson.getString("getUserOpenId");
+        int addressId = wxRequestJson.getInteger("addressId");
+
+        return expressService.sendCompleteExpress(expressId, reward, sendUserOpenId, getUserOpenId, addressId);
+    }
+
 }

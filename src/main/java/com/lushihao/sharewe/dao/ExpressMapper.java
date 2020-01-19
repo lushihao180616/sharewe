@@ -77,4 +77,21 @@ public interface ExpressMapper {
      */
     int deleteExpress(int id);
 
+    /**
+     * 接收快递者点击完成按钮
+     *
+     * @param expressId
+     * @param getUserComplete
+     * @return
+     */
+    int getCompleteExpress(@Param("expressId") int expressId, @Param("getUserComplete") boolean getUserComplete);
+
+    /**
+     * 发送快递者点击完成按钮
+     *
+     * @param expressId
+     * @return
+     */
+    int sendCompleteExpress(@Param("expressId") int expressId);
+
 }

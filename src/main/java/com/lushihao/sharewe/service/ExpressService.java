@@ -16,4 +16,8 @@ public interface ExpressService {
 
     String getGetExpress(String getUserOpenId, int statusId);
 
+    String getCompleteExpress(int expressId, boolean getUserComplete);
+
+    String sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
+
 }
