@@ -269,6 +269,8 @@ public class ExpressServiceImpl implements ExpressService {
                 item_map.put("getTime", LSHDateUtils.date2String(express.getGetTime(), LSHDateUtils.YYYY_MM_DD_HH_MM_SS1));
             }
             item_map.put("expressItems", express_items);
+            item_map.put("sendUserCancle", express.isSendUserCancle());
+            item_map.put("getUserComplete", express.isGetUserComplete());
             list.add(item_map);
         }
         Map<String, Object> map = new HashMap<>();
