@@ -60,12 +60,24 @@ public class ExpressServiceImpl implements ExpressService {
                 //地址使用数量更新
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
             }
+        } else {//更新快递
+            //先判断这个，任务是不是已经被别人接了
+            Express nowExpress = expressMapper.getOneExpress(express.getId());
+            if (nowExpress.getStatusId() == 2) {
+                return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧"));
+            }
+            //执行更新任务
+            sql_back = expressMapper.updateExpress(express);
         }
         //执行更新、插入成功
         if (sql_back != 0) {
             //快递单元赋值
             for (ExpressItem expressItem : express.getExpressItems()) {
                 expressItem.setExpressId(express.getId());
+            }
+            //更新快递，先删除快递单元
+            if (express.getId() != 0) {
+                expressItemMapper.batchDeleteExpressItems(express.getId());
             }
             //创建快递单元
             int batch_sql_back = expressItemMapper.batchCreateExpressItems(express.getExpressItems());

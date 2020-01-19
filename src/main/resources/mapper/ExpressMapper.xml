@@ -17,18 +17,18 @@
 		    addressid=#{addressId},
 		    buildingid=#{buildingId},
 		    statusid=#{statusId},
-		    reward=#{reward},
 		    senduseropenid=#{sendUserOpenId},
 		    getuseropenid=null,
 		    deadtime=#{deadTime},
 		    sendtime=#{sendTime},
 		    gettime=null,
+		    sendusercancle=null,
 		    getusercomplete=null
 		WHERE
 		    id=#{id}
 	</update>
 	<select id="filterExpress" resultType="Express">
-		SELECT
+		SELECTgetExpress
 			*
 		FROM
 			express
