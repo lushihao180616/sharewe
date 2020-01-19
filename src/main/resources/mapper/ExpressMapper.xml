@@ -125,4 +125,20 @@
         AND
             (statusid=1 OR statusid=4)
     </delete>
+	<update id="getCompleteExpress">
+		UPDATE
+		    express
+		SET
+		    getusercomplete=#{getUserComplete}
+		WHERE
+		    id=#{expressId}
+	</update>
+	<update id="sendCompleteExpress">
+		UPDATE
+		    express
+		SET
+		    statusid=3
+		WHERE
+		    id=#{expressId}
+	</update>
 </mapper>
