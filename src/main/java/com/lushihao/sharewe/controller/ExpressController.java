@@ -24,6 +24,8 @@ public class ExpressController {
     @Resource
     private ExpressService expressService;
 
+    //==================================================发送、接收快递开始==================================================
+
     /**
      * 发送快递
      *
@@ -91,6 +93,9 @@ public class ExpressController {
         Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
         return expressService.getExpress(express);
     }
+
+    //==================================================发送、接收快递结束==================================================
+    //==================================================快递订单管理开始==================================================
 
     /**
      * 删除快递
@@ -226,5 +231,7 @@ public class ExpressController {
 
         return expressService.sendCompleteExpress(expressId, reward, sendUserOpenId, getUserOpenId, addressId);
     }
+
+    //==================================================快递订单管理结束==================================================
 
 }
