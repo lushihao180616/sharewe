@@ -1,5 +1,6 @@
 package com.lushihao.sharewe.service.impl;
 
+import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.myutils.time.LSHDateUtils;
@@ -7,6 +8,7 @@ import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.express.AllExpressType;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
+import com.lushihao.sharewe.entity.express.ExpressType;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.express.ExpressStatusEnum;
@@ -318,7 +320,16 @@ public class ExpressServiceImpl implements ExpressService {
             if (express.getGetTime() != null) {
                 item_map.put("getTime", LSHDateUtils.date2String(express.getGetTime(), LSHDateUtils.YYYY_MM_DD_HH_MM_SS1));
             }
-            item_map.put("expressItems", express_items);
+            for (ExpressItem expressItem : express_items) {
+                Map<String, Object> item_item_map = LSHMapUtils.entityToMap(expressItem);
+                String typeCodes = (String) item_item_map.get("typeCodes");
+                if(typeCodes != null){
+                    item_item_map.remove("typeCodes");
+                    List<ExpressType> typeList = allExpressType.getItemByCodes(typeCodes);
+                    item_item_map.put("typeList", typeList);
+                }
+                item_map.put("expressItems", item_item_map);
+            }
             item_map.put("sendUserCancle", express.isSendUserCancle());
             item_map.put("getUserComplete", express.isGetUserComplete());
             list.add(item_map);

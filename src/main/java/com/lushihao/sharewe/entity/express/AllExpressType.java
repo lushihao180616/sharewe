@@ -21,6 +21,12 @@ public class AllExpressType {
         this.typeList = typeList;
     }
 
+    /**
+     * 获取一条数据
+     *
+     * @param expressType
+     * @return
+     */
     public List<ExpressType> getItem(ExpressType expressType) {
         List<ExpressType> list = new ArrayList<>();
         list.addAll(typeList);
@@ -31,6 +37,18 @@ public class AllExpressType {
             list = typeList.stream().filter(s -> s.getCode().equals(expressType.getCode())).collect(Collectors.toList());
         }
         return list;
+    }
+
+    /**
+     * 通过id获取类型
+     *
+     * @param codes
+     * @return
+     */
+    public List<ExpressType> getItemByCodes(String codes) {
+        List<ExpressType> list = new ArrayList<>();
+        list.addAll(typeList);
+        return list.stream().filter(s -> codes.contains(String.valueOf(s.getCode()))).collect(Collectors.toList());
     }
 
 }
