@@ -64,6 +64,10 @@ public class Express {
     /**
      * 发送快递单元
      */
+    private List<ExpressTypeAndNum> expressTypeAndNums;
+    /**
+     * 发送快递单元
+     */
     private List<ExpressItem> expressItems;
 
     public int getId() {
@@ -176,6 +180,14 @@ public class Express {
 
     public void setGetUserComplete(boolean getUserComplete) {
         this.getUserComplete = getUserComplete;
+    }
+
+    public List<ExpressTypeAndNum> getExpressTypeAndNums() {
+        return expressTypeAndNums;
+    }
+
+    public void setExpressTypeAndNums(List<ExpressTypeAndNum> expressTypeAndNums) {
+        this.expressTypeAndNums = expressTypeAndNums;
     }
 
     public List<ExpressItem> getExpressItems() {
