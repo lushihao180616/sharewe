@@ -7,7 +7,6 @@ import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.express.AllExpressType;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
-import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.express.ExpressStatusEnum;
