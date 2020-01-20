@@ -61,12 +61,12 @@ public class ExpressServiceImpl implements ExpressService {
                 addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
             }
         } else {//更新快递
-            //先判断这个，任务是不是已经被别人接了
+            //先判断这个，快递是不是已经被别人接了
             Express nowExpress = expressMapper.getOneExpress(express.getId());
             if (nowExpress.getStatusId() == 2) {
                 return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧"));
             }
-            //执行更新任务
+            //执行更新快递
             sql_back = expressMapper.updateExpress(express);
         }
         //执行更新、插入成功
@@ -107,7 +107,7 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
-     * 接收任务者接收任务
+     * 接收快递者接收快递
      *
      * @param express
      * @return
@@ -116,6 +116,27 @@ public class ExpressServiceImpl implements ExpressService {
     @Transactional
     public String getExpress(Express express) {
         int sql_back = expressMapper.getExpress(express);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    /**
+     * 发送快递赏金
+     *
+     * @param express
+     * @return
+     */
+    @Override
+    @Transactional
+    public String sendExpressReward(Express express) {
+        int sql_back = expressMapper.sendExpressReward(express);
+        //更新快递，先删除快递单元
+        expressItemMapper.batchDeleteExpressItems(express.getId());
+        //创建快递单元
+        expressItemMapper.batchCreateExpressItems(express.getExpressItems());
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
         } else {
@@ -150,7 +171,7 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
-     * 发送快递者查看快递任务
+     * 发送快递者查看快递快递
      *
      * @param sendUserOpenId
      * @param statusId
@@ -159,7 +180,7 @@ public class ExpressServiceImpl implements ExpressService {
     @Override
     @Transactional
     public String getSendExpress(String sendUserOpenId, int statusId) {
-        //获取任务是否超时的时间点
+        //获取快递是否超时的时间点
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getExpressAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Express> express_list = expressMapper.getSendExpress(sendUserOpenId, statusId, lastGetDate);
         return transform(express_list);

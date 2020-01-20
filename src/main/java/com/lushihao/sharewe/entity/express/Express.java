@@ -50,6 +50,10 @@ public class Express {
      */
     private Date endTime;
     /**
+     * 发送快递用户支付完成
+     */
+    private boolean sendUserPay;
+    /**
      * 发送快递用户点击取消
      */
     private boolean sendUserCancle;
@@ -148,6 +152,14 @@ public class Express {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public boolean isSendUserPay() {
+        return sendUserPay;
+    }
+
+    public void setSendUserPay(boolean sendUserPay) {
+        this.sendUserPay = sendUserPay;
     }
 
     public boolean isSendUserCancle() {

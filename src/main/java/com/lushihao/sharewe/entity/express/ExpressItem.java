@@ -9,11 +9,15 @@ public class ExpressItem {
     /**
      * 快递位置
      */
-    private String address;
-    /**
+     private String address;
+     /**
      * 快递数量
      */
     private int count;
+    /**
+     * 快递类型集合
+     */
+    private String typeCodes;
     /**
      * 快递
      */
@@ -41,6 +45,14 @@ public class ExpressItem {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getTypeCodes() {
+        return typeCodes;
+    }
+
+    public void setTypeCodes(String typeCodes) {
+        this.typeCodes = typeCodes;
     }
 
     public int getExpressId() {

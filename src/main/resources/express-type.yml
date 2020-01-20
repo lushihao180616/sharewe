@@ -2,13 +2,17 @@ expresstype:
   typeList:
     - name: "小型件"
       code: "S"
-      des: "重量≤2公斤"
+      des: "重量≤3公斤"
+      spend: 6
     - name: "中型件"
       code: "M"
-      des: "2公斤＜重量≤6公斤"
+      des: "3公斤＜重量≤7公斤"
+      spend: 12
     - name: "大型件"
       code: "L"
-      des: "6公斤＜重量≤20公斤"
+      des: "7公斤＜重量≤20公斤"
+      spend: 18
     - name: "特大型件"
       code: "XL"
       des: "重量＞20公斤"
+      spend: 30

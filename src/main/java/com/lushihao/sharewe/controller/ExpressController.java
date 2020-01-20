@@ -98,6 +98,27 @@ public class ExpressController {
     //==================================================快递订单管理开始==================================================
 
     /**
+     * 删除任务
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/sendExpressReward")
+    public @ResponseBody
+    String sendExpressReward(HttpServletRequest request, HttpServletResponse response,
+                             @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
+        //处理快递单元信息
+        List<ExpressItem> expressItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("expressItems"), ExpressItem.class);
+        express.setExpressItems(expressItems_list);
+
+        return expressService.sendExpressReward(express);
+    }
+
+    /**
      * 删除快递
      *
      * @param request
@@ -164,7 +185,7 @@ public class ExpressController {
     @RequestMapping(value = "/sendCancleExpress")
     public @ResponseBody
     String sendCancleExpress(HttpServletRequest request, HttpServletResponse response,
-                              @RequestBody String data) {
+                             @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int expressId = wxRequestJson.getInteger("expressId");
         boolean sendUserCancle = wxRequestJson.getBoolean("sendUserCancle");
@@ -183,7 +204,7 @@ public class ExpressController {
     @RequestMapping(value = "/getCancleExpress")
     public @ResponseBody
     String getCancleExpress(HttpServletRequest request, HttpServletResponse response,
-                             @RequestBody String data) {
+                            @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int expressId = wxRequestJson.getInteger("expressId");
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
@@ -221,7 +242,7 @@ public class ExpressController {
     @RequestMapping(value = "/sendCompleteExpress")
     public @ResponseBody
     String sendCompleteExpress(HttpServletRequest request, HttpServletResponse response,
-                                @RequestBody String data) {
+                               @RequestBody String data) {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int expressId = wxRequestJson.getInteger("expressId");
         int reward = wxRequestJson.getInteger("reward");

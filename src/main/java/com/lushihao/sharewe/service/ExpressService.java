@@ -10,6 +10,8 @@ public interface ExpressService {
 
     String getExpress(Express express);
 
+    String sendExpressReward(Express express);
+
     String removeExpress(int expressId);
 
     String getSendExpress(String sendUserOpenId, int statusId);

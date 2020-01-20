@@ -22,33 +22,34 @@
 		    deadtime=#{deadTime},
 		    sendtime=#{sendTime},
 		    gettime=null,
+		    senduserpay=null,
 		    sendusercancle=null,
 		    getusercomplete=null
 		WHERE
 		    id=#{id}
 	</update>
-	<select id="filterExpress" resultType="Express">
-		SELECTgetExpress
-			*
-		FROM
-			express
-		WHERE
-			statusid=1
-		AND
-			deadtime&gt;#{nowDate}
-		<if test="buildingId != 0">
-			AND buildingid=#{buildingId}
-		</if>
-		<choose>
-			<when test="express_lastId != 0">
-				LIMIT ${express_lastId},10
-			</when>
-			<otherwise>
-				LIMIT 0,10
-			</otherwise>
-		</choose>
-	</select>
-	<update id="getExpress" parameterType="Express">
+    <select id="filterExpress" resultType="Express">
+        SELECT
+        *
+        FROM
+        express
+        WHERE
+        statusid=1
+        AND
+        deadtime&gt;#{nowDate}
+        <if test="buildingId != 0">
+            AND buildingid=#{buildingId}
+        </if>
+        <choose>
+            <when test="express_lastId != 0">
+                LIMIT ${express_lastId},10
+            </when>
+            <otherwise>
+                LIMIT 0,10
+            </otherwise>
+        </choose>
+    </select>
+    <update id="getExpress" parameterType="Express">
 		UPDATE
 		    express
 		SET
@@ -60,55 +61,55 @@
 		AND
 		    statusid=1
 	</update>
-	<select id="getSendExpress" resultType="Express">
-		SELECT
-			*
-		FROM
-			express
-		WHERE
-			senduseropenid=#{sendUserOpenId}
-		<if test="statusId == 1">
-			AND statusid=1
-			AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
-		</if>
-		<if test="statusId == 2">
-			AND statusid=2
-		</if>
-		<if test="statusId == 3">
-			AND statusid=3
-		</if>
-		<if test="statusId == 4">
-			AND statusid=4
-		</if>
-		<if test="statusId == 5">
-			AND statusid=1
-			AND deadtime&lt;#{nowDate}
-		</if>
-		ORDER BY
-			sendtime
-		DESC
-	</select>
-	<select id="getGetExpress" resultType="Express">
-		SELECT
-			*
-		FROM
-			express
-		WHERE
-			getuseropenid=#{getUserOpenId}
-		<if test="statusId == 2">
-			AND statusid=2
-			AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
-		</if>
-		<if test="statusId == 3">
-			AND statusid=3
-		</if>
-		<if test="statusId == 4">
-			AND statusid=2 AND deadtime&lt;#{nowDate}
-		</if>
-		ORDER BY
-			gettime
-		DESC
-	</select>
+    <select id="getSendExpress" resultType="Express">
+        SELECT
+        *
+        FROM
+        express
+        WHERE
+        senduseropenid=#{sendUserOpenId}
+        <if test="statusId == 1">
+            AND statusid=1
+            AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+        </if>
+        <if test="statusId == 2">
+            AND statusid=2
+        </if>
+        <if test="statusId == 3">
+            AND statusid=3
+        </if>
+        <if test="statusId == 4">
+            AND statusid=4
+        </if>
+        <if test="statusId == 5">
+            AND statusid=1
+            AND deadtime&lt;#{nowDate}
+        </if>
+        ORDER BY
+        sendtime
+        DESC
+    </select>
+    <select id="getGetExpress" resultType="Express">
+        SELECT
+        *
+        FROM
+        express
+        WHERE
+        getuseropenid=#{getUserOpenId}
+        <if test="statusId == 2">
+            AND statusid=2
+            AND (deadtime&gt;#{nowDate} OR deadtime=#{nowDate})
+        </if>
+        <if test="statusId == 3">
+            AND statusid=3
+        </if>
+        <if test="statusId == 4">
+            AND statusid=2 AND deadtime&lt;#{nowDate}
+        </if>
+        ORDER BY
+        gettime
+        DESC
+    </select>
     <select id="getOneExpress" parameterType="int" resultType="Express">
         SELECT
             *
@@ -117,7 +118,7 @@
         WHERE
             id=#{id}
     </select>
-	<delete id="deleteExpress" parameterType="int">
+    <delete id="deleteExpress" parameterType="int">
         DELETE FROM
             express
         WHERE
@@ -125,6 +126,14 @@
         AND
             (statusid=1 OR statusid=4)
     </delete>
+    <update id="sendExpressReward">
+		UPDATE
+		    express
+		SET
+		    reward=#{reward}
+		WHERE
+		    id=#{id}
+	</update>
     <update id="sendCancleExpress">
 		UPDATE
 		    express
@@ -141,7 +150,7 @@
 		WHERE
 		    id=#{expressId}
 	</update>
-	<update id="getCompleteExpress">
+    <update id="getCompleteExpress">
 		UPDATE
 		    express
 		SET
@@ -149,7 +158,7 @@
 		WHERE
 		    id=#{expressId}
 	</update>
-	<update id="sendCompleteExpress">
+    <update id="sendCompleteExpress">
 		UPDATE
 		    express
 		SET
