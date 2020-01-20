@@ -9,7 +9,7 @@ public class ExpressTypeAndNum {
     /**
      * 快递类型标识
      */
-    private int typeId;
+    private String typeCode;
     /**
      * 快递数量
      */
@@ -23,12 +23,12 @@ public class ExpressTypeAndNum {
         this.expressId = expressId;
     }
 
-    public int getTypeId() {
-        return typeId;
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
     }
 
     public int getNum() {
