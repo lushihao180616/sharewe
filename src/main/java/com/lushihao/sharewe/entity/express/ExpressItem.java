@@ -15,10 +15,6 @@ public class ExpressItem {
      */
     private int count;
     /**
-     * 快递类型集合
-     */
-    private String typeCode;
-    /**
      * 快递
      */
     private int expressId;
@@ -45,14 +41,6 @@ public class ExpressItem {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String getTypeCode() {
-        return typeCode;
-    }
-
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
     }
 
     public int getExpressId() {

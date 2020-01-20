@@ -320,18 +320,7 @@ public class ExpressServiceImpl implements ExpressService {
             if (express.getGetTime() != null) {
                 item_map.put("getTime", LSHDateUtils.date2String(express.getGetTime(), LSHDateUtils.YYYY_MM_DD_HH_MM_SS1));
             }
-            List<Map<String, Object>> list_express = new ArrayList<>();
-            for (ExpressItem expressItem : express_items) {
-                Map<String, Object> item_item_map = LSHMapUtils.entityToMap(expressItem);
-                String typeCodes = (String) item_item_map.get("typeCodes");
-                if (typeCodes != null) {
-                    item_item_map.remove("typeCodes");
-                    List<ExpressType> typeList = allExpressType.getItemByCodes(typeCodes);
-                    item_item_map.put("typeList", typeList);
-                }
-                list_express.add(item_item_map);
-            }
-            item_map.put("expressItems", list_express);
+            item_map.put("expressItems", express_items);
             item_map.put("sendUserCancle", express.isSendUserCancle());
             item_map.put("getUserComplete", express.isGetUserComplete());
             list.add(item_map);
