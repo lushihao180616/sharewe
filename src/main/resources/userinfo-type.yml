@@ -4,5 +4,8 @@ userinfotype:
       name: "普通用户"
       code: "ordinary"
     - id: 2
+      name: "商家"
+      code: "merchant"
+    - id: 3
       name: "vip用户"
       code: "vip"

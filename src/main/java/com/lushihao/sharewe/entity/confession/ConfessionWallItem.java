@@ -11,7 +11,7 @@ public class ConfessionWallItem {
     /**
      * 需要信息
      */
-    private ConfessionWallItemInfoEnum info;
+    private int infoId;
     /**
      * 捎点
      */
@@ -25,12 +25,12 @@ public class ConfessionWallItem {
         this.id = id;
     }
 
-    public ConfessionWallItemInfoEnum getInfo() {
-        return info;
+    public int getInfoId() {
+        return infoId;
     }
 
-    public void setInfo(ConfessionWallItemInfoEnum info) {
-        this.info = info;
+    public void setInfoId(int infoId) {
+        this.infoId = infoId;
     }
 
     public int getPoint() {

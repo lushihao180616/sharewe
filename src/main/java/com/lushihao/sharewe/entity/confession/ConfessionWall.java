@@ -1,5 +1,7 @@
 package com.lushihao.sharewe.entity.confession;
 
+import com.lushihao.sharewe.entity.common.Image;
+
 import java.util.List;
 
 public class ConfessionWall {
@@ -19,7 +21,7 @@ public class ConfessionWall {
     /**
      * 图片地址
      */
-    private List<String> imgSrc;
+    private List<Image> imgSrcs;
     /**
      * 需要的信息
      */
@@ -49,12 +51,12 @@ public class ConfessionWall {
         this.content = content;
     }
 
-    public List<String> getImgSrc() {
-        return imgSrc;
+    public List<Image> getImgSrcs() {
+        return imgSrcs;
     }
 
-    public void setImgSrc(List<String> imgSrc) {
-        this.imgSrc = imgSrc;
+    public void setImgSrcs(List<Image> imgSrcs) {
+        this.imgSrcs = imgSrcs;
     }
 
     public List<ConfessionWallItem> getNeedInfoList() {
