@@ -11,7 +11,7 @@
             (
             #{item.address},
             #{item.count},
-            #{item.typecodes},
+            #{item.typeCodes},
             #{item.expressId}
             )
         </foreach>
@@ -23,6 +23,11 @@
             expressid=#{expressId}
     </delete>
     <select id="findExpressItemsByExpressId" parameterType="int" resultType="ExpressItem">
-        SELECT * FROM expressitem where expressid = #{expressId}
+        SELECT
+            *
+        FROM
+            expressitem
+        WHERE
+            expressid=#{expressId}
     </select>
 </mapper>
