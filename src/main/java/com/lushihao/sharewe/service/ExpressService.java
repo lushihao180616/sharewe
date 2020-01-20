@@ -12,6 +12,8 @@ public interface ExpressService {
 
     String sendExpressReward(Express express);
 
+    String payExpressReward(Express express);
+
     String removeExpress(int expressId);
 
     String getSendExpress(String sendUserOpenId, int statusId);

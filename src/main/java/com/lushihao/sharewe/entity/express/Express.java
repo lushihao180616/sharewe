@@ -24,7 +24,7 @@ public class Express {
     /**
      * 赏金
      */
-    private double reward;
+    private int reward;
     /**
      * 发送快递者
      */
@@ -98,11 +98,11 @@ public class Express {
         this.statusId = statusId;
     }
 
-    public double getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public void setReward(double reward) {
+    public void setReward(int reward) {
         this.reward = reward;
     }
 

@@ -78,12 +78,20 @@ public interface ExpressMapper {
     int deleteExpress(int id);
 
     /**
-     * 更新快递奖金
+     * 更新快递赏金
      *
      * @param express
      * @return
      */
     int sendExpressReward(Express express);
+
+    /**
+     * 支付快递赏金
+     *
+     * @param express
+     * @return
+     */
+    int payExpressReward(Express express);
 
     /**
      * 发送快递者点击取消按钮

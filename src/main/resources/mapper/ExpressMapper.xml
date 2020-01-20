@@ -134,6 +134,14 @@
 		WHERE
 		    id=#{id}
 	</update>
+    <update id="payExpressReward">
+		UPDATE
+		    express
+		SET
+		    senduserpay=#{sendUserPay},
+		WHERE
+		    id=#{id}
+	</update>
     <update id="sendCancleExpress">
 		UPDATE
 		    express

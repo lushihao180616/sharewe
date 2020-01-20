@@ -98,7 +98,7 @@ public class ExpressController {
     //==================================================快递订单管理开始==================================================
 
     /**
-     * 删除任务
+     * 快递员发送需要支付的赏金
      *
      * @param request
      * @param response
@@ -116,6 +116,24 @@ public class ExpressController {
         express.setExpressItems(expressItems_list);
 
         return expressService.sendExpressReward(express);
+    }
+
+    /**
+     * 发快递人支付赏金
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/payExpressReward")
+    public @ResponseBody
+    String payExpressReward(HttpServletRequest request, HttpServletResponse response,
+                            @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
+
+        return expressService.payExpressReward(express);
     }
 
     /**

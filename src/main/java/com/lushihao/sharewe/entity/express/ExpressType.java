@@ -14,6 +14,10 @@ public class ExpressType {
      * 类型代号
      */
     private String des;
+    /**
+     * 花费捎点
+     */
+    private String spend;
 
     public String getName() {
         return name;
@@ -39,13 +43,22 @@ public class ExpressType {
         this.des = des;
     }
 
+    public String getSpend() {
+        return spend;
+    }
+
+    public void setSpend(String spend) {
+        this.spend = spend;
+    }
+
     public ExpressType() {
     }
 
-    public ExpressType(String name, String code, String des) {
+    public ExpressType(String name, String code, String des, String spend) {
         this.name = name;
         this.code = code;
         this.des = des;
+        this.spend = spend;
     }
 
 }

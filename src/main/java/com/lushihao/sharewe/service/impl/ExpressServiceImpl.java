@@ -124,7 +124,7 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
-     * 发送快递赏金
+     * 快递员发送需要支付的赏金
      *
      * @param express
      * @return
@@ -139,6 +139,24 @@ public class ExpressServiceImpl implements ExpressService {
         expressItemMapper.batchCreateExpressItems(express.getExpressItems());
         if (sql_back == 0) {
             return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
+        } else {
+            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+        }
+    }
+
+    /**
+     * 发快递人支付赏金
+     *
+     * @param express
+     * @return
+     */
+    @Override
+    @Transactional
+    public String payExpressReward(Express express) {
+        userInfoService.pointOut(express.getSendUserOpenId(), express.getReward(), PointRecordTypeEnum.TYPE_EXPRESS_SEND_PAY.getId());
+        int sql_back = expressMapper.payExpressReward(express);
+        if (sql_back == 0) {
+            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
