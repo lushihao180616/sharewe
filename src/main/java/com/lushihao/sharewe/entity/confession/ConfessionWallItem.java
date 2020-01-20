@@ -1,7 +1,5 @@
 package com.lushihao.sharewe.entity.confession;
 
-import com.lushihao.sharewe.enums.confessionwall.ConfessionWallItemInfoEnum;
-
 public class ConfessionWallItem {
 
     /**
