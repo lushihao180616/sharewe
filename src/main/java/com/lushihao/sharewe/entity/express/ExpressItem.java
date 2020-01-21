@@ -9,8 +9,8 @@ public class ExpressItem {
     /**
      * 快递位置
      */
-     private String address;
-     /**
+    private String address;
+    /**
      * 快递数量
      */
     private int count;
