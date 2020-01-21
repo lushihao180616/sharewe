@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lushihao.sharewe.dao.ExpressTypeAndNumMapper">
+    <insert id="batchCreateExpressTypeAndNums" parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO
+            expresstypeandnum
+            (expressid,typecode,num)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.expressId},
+            #{item.typeCode},
+            #{item.num}
+            )
+        </foreach>
+    </insert>
+    <delete id="batchDeleteExpressTypeAndNums" parameterType="int">
+        DELETE FROM
+            expresstypeandnum
+        WHERE
+            expressid=#{expressId}
+    </delete>
     <select id="findExpressTypeAndNumByExpressId" parameterType="int" resultType="ExpressTypeAndNum">
         SELECT
             *

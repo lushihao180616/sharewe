@@ -5,6 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
+import com.lushihao.sharewe.entity.express.ExpressTypeAndNum;
 import com.lushihao.sharewe.service.ExpressService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,8 +113,8 @@ public class ExpressController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
         //处理快递单元信息
-        List<ExpressItem> expressItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("expressItems"), ExpressItem.class);
-        express.setExpressItems(expressItems_list);
+        List<ExpressTypeAndNum> expressTypeAndNums_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("expressTypeAndNums"), ExpressTypeAndNum.class);
+        express.setExpressTypeAndNums(expressTypeAndNums_list);
 
         return expressService.sendExpressReward(express);
     }

@@ -133,12 +133,12 @@ public class ExpressServiceImpl implements ExpressService {
     @Transactional
     public String sendExpressReward(Express express) {
         int sql_back = expressMapper.sendExpressReward(express);
-        //更新快递，先删除快递单元
-        expressItemMapper.batchDeleteExpressItems(express.getId());
-        //创建快递单元
-        expressItemMapper.batchCreateExpressItems(express.getExpressItems());
+        //更新快递类型，先删除快递类型单元
+        expressTypeAndNumMapper.batchDeleteExpressTypeAndNums(express.getId());
+        //创建快递类型单元
+        expressTypeAndNumMapper.batchCreateExpressTypeAndNums(express.getExpressTypeAndNums());
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
+            return LSHResponseUtils.getResponse(new LSHResponse("快递类型修改失败，请稍后再试"));
         } else {
             return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
         }
