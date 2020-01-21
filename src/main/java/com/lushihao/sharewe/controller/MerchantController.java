@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.sharewe.service.MerchantService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class MerchantController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String merchantCode = wxRequestJson.getString("merchantCode");
 
-        return merchantService.getMerchantInfo(merchantCode);
+        return LSHResponseUtils.getResponse(merchantService.getMerchantInfo(merchantCode));
     }
 
     /**
@@ -49,7 +50,7 @@ public class MerchantController {
     public @ResponseBody
     String getMerchants(HttpServletRequest request, HttpServletResponse response,
                            @RequestBody String data) {
-        return merchantService.getMerchants();
+        return LSHResponseUtils.getResponse(merchantService.getMerchants());
     }
 
 }

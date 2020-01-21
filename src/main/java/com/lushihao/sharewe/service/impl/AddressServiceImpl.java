@@ -1,6 +1,5 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.AddressMapper;
 import com.lushihao.sharewe.entity.userinfo.Address;
@@ -29,15 +28,15 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     @Transactional
-    public String createAddress(Address address) {
+    public LSHResponse createAddress(Address address) {
         Map<String, Object> map = new HashMap<>();
 
         int sql_back = addressMapper.createAddress(address);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("创建失败"));
+            return new LSHResponse("创建失败");
         } else {
             map.put("address_list", findByOpenId(address.getOpenId()));
-            return LSHResponseUtils.getResponse(new LSHResponse(map));
+            return new LSHResponse(map);
         }
     }
 
@@ -49,15 +48,15 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     @Transactional
-    public String updateAddress(Address address) {
+    public LSHResponse updateAddress(Address address) {
         Map<String, Object> map = new HashMap<>();
 
         int sql_back = addressMapper.updateAddress(address);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("更新失败"));
+            return new LSHResponse("更新失败");
         } else {
             map.put("address_list", findByOpenId(address.getOpenId()));
-            return LSHResponseUtils.getResponse(new LSHResponse(map));
+            return new LSHResponse(map);
         }
     }
 
@@ -69,15 +68,15 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     @Transactional
-    public String deleteAddress(Address address) {
+    public LSHResponse deleteAddress(Address address) {
         Map<String, Object> map = new HashMap<>();
 
         int sql_back = addressMapper.deleteAddress(address);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("删除失败"));
+            return new LSHResponse("删除失败");
         } else {
             map.put("address_list", findByOpenId(address.getOpenId()));
-            return LSHResponseUtils.getResponse(new LSHResponse(map));
+            return new LSHResponse(map);
         }
     }
 

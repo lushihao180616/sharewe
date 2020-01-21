@@ -1,6 +1,5 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.BuildingMapper;
 import com.lushihao.sharewe.entity.userinfo.Building;
@@ -28,12 +27,12 @@ public class BuildingServiceImpl implements BuildingService {
      */
     @Override
     @Transactional
-    public String findDormitoryBySchoolId(int schoolId) {
+    public LSHResponse findDormitoryBySchoolId(int schoolId) {
         Map<String, Object> map = new HashMap<>();
 
         List<Building> list = buildingMapper.findDormitoryBySchoolId(schoolId);
         map.put("dormitory_list", list);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.ImageMapper;
 import com.lushihao.sharewe.entity.common.Image;
@@ -23,15 +22,16 @@ public class ImageServiceImpl implements ImageService {
      * 添加一条图片记录
      *
      * @param image
+     * @return
      */
     @Override
     @Transactional
-    public String addImage(Image image) {
+    public LSHResponse addImage(Image image) {
         int sql_back = imageMapper.addImage(image);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("添加失败，请稍后再试"));
+            return new LSHResponse("添加失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 

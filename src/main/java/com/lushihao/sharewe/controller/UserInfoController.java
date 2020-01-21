@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
 import com.lushihao.sharewe.service.AddressService;
@@ -127,7 +128,7 @@ public class UserInfoController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int schoolId = wxRequestJson.getInteger("schoolId");
 
-        return buildingService.findDormitoryBySchoolId(schoolId);
+        return LSHResponseUtils.getResponse(buildingService.findDormitoryBySchoolId(schoolId));
     }
 
     //==================================================建筑结束==================================================
@@ -147,7 +148,7 @@ public class UserInfoController {
                        @RequestBody String data) {
         Address address = LSHJsonUtils.json2Bean(data, Address.class);
 
-        return addressService.createAddress(address);
+        return LSHResponseUtils.getResponse(addressService.createAddress(address));
     }
 
     /**
@@ -164,7 +165,7 @@ public class UserInfoController {
                          @RequestBody String data) {
         Address address = LSHJsonUtils.json2Bean(data, Address.class);
 
-        return addressService.updateAddress(address);
+        return LSHResponseUtils.getResponse(addressService.updateAddress(address));
     }
 
     /**
@@ -181,7 +182,7 @@ public class UserInfoController {
                          @RequestBody String data) {
         Address address = LSHJsonUtils.json2Bean(data, Address.class);
 
-        return addressService.deleteAddress(address);
+        return LSHResponseUtils.getResponse(addressService.deleteAddress(address));
     }
 
     //==================================================地址结束==================================================

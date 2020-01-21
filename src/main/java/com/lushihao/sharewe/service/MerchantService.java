@@ -1,9 +1,11 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
+
 public interface MerchantService {
 
-    String getMerchantInfo(String merchantCode);
+    LSHResponse getMerchantInfo(String merchantCode);
 
-    String getMerchants();
+    LSHResponse getMerchants();
 
 }

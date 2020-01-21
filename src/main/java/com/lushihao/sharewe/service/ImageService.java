@@ -1,9 +1,10 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.common.Image;
 
 public interface ImageService {
 
-    String addImage(Image image);
+    LSHResponse addImage(Image image);
 
 }

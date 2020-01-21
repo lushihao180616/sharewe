@@ -7,10 +7,7 @@ import com.lushihao.sharewe.dao.MerchantMapper;
 import com.lushihao.sharewe.dao.PointExchangeMapper;
 import com.lushihao.sharewe.entity.merchant.AllMerchantType;
 import com.lushihao.sharewe.entity.merchant.Merchant;
-import com.lushihao.sharewe.entity.merchant.MerchantType;
-import com.lushihao.sharewe.entity.userinfo.Building;
 import com.lushihao.sharewe.entity.userinfo.PointExchange;
-import com.lushihao.sharewe.entity.userinfo.School;
 import com.lushihao.sharewe.service.MerchantService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -41,7 +38,7 @@ public class MerchantServiceImpl implements MerchantService {
      */
     @Override
     @Transactional
-    public String getMerchantInfo(String merchantCode) {
+    public LSHResponse getMerchantInfo(String merchantCode) {
         Map<String, Object> map = new HashMap<>();
 
         Merchant merchant = merchantMapper.getMerchant(merchantCode);
@@ -53,7 +50,7 @@ public class MerchantServiceImpl implements MerchantService {
         mapItem.put("pointExchange_list", pointExchangeList);
         mapItem.put("types", allMerchantType.getItemByIds((String) mapItem.get("types")));
         map.put("merchant", mapItem);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
     /**
@@ -63,7 +60,7 @@ public class MerchantServiceImpl implements MerchantService {
      */
     @Override
     @Transactional
-    public String getMerchants() {
+    public LSHResponse getMerchants() {
         Map<String, Object> map = new HashMap<>();
 
         List<Map<String, Object>> nowMerchantList = new ArrayList<>();
@@ -74,7 +71,7 @@ public class MerchantServiceImpl implements MerchantService {
             nowMerchantList.add(mapItem);
         }
         map.put("merchant_list", nowMerchantList);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

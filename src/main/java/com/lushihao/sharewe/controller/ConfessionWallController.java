@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.sharewe.entity.confession.ConfessionWall;
 import com.lushihao.sharewe.entity.confession.ConfessionWallItem;
 import com.lushihao.sharewe.service.ConfessionWallService;
@@ -43,7 +44,7 @@ public class ConfessionWallController {
         List<ConfessionWallItem> needInfoList = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("confessionWallItems"), ConfessionWallItem.class);
         confessionWall.setNeedInfoList(needInfoList);
         //发送告白墙
-        return confessionWallService.sendWall(confessionWall);
+        return LSHResponseUtils.getResponse(confessionWallService.sendWall(confessionWall));
     }
 
 }

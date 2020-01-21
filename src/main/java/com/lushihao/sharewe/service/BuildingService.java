@@ -1,7 +1,9 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
+
 public interface BuildingService {
 
-	String findDormitoryBySchoolId(int schoolId);
+	LSHResponse findDormitoryBySchoolId(int schoolId);
 
 }

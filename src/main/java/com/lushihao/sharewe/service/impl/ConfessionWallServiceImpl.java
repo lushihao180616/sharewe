@@ -1,6 +1,5 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.ConfessionWallItemMapper;
 import com.lushihao.sharewe.dao.ConfessionWallMapper;
@@ -30,13 +29,13 @@ public class ConfessionWallServiceImpl implements ConfessionWallService {
      */
     @Override
     @Transactional
-    public String sendWall(ConfessionWall confessionWall) {
+    public LSHResponse sendWall(ConfessionWall confessionWall) {
         int sql_back = confessionWallMapper.createConfessionWall(confessionWall);
         confessionWallItemMapper.batchCreateConfessionWallItem(confessionWall.getNeedInfoList());
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("告白墙发送失败，请稍后再试"));
+            return new LSHResponse("告白墙发送失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 

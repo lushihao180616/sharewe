@@ -1,13 +1,14 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.userinfo.Address;
 
 public interface AddressService {
 
-	String createAddress(Address address);
+	LSHResponse createAddress(Address address);
 
-	String updateAddress(Address address);
+	LSHResponse updateAddress(Address address);
 
-	String deleteAddress(Address address);
+	LSHResponse deleteAddress(Address address);
 	
 }
