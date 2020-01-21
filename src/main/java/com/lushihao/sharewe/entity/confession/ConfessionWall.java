@@ -21,7 +21,7 @@ public class ConfessionWall {
     /**
      * 图片地址
      */
-    private List<Image> imgSrcs;
+    private List<Image> images;
     /**
      * 需要的信息
      */
@@ -51,12 +51,12 @@ public class ConfessionWall {
         this.content = content;
     }
 
-    public List<Image> getImgSrcs() {
-        return imgSrcs;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImgSrcs(List<Image> imgSrcs) {
-        this.imgSrcs = imgSrcs;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public List<ConfessionWallItem> getNeedInfoList() {

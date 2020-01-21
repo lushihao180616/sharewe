@@ -14,6 +14,10 @@ public class ConfessionWallItem {
      * 捎点
      */
     private int point;
+    /**
+     * 告白墙标识
+     */
+    private int wallId;
 
     public int getId() {
         return id;
@@ -37,6 +41,14 @@ public class ConfessionWallItem {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public int getWallId() {
+        return wallId;
+    }
+
+    public void setWallId(int wallId) {
+        this.wallId = wallId;
     }
 
 }
