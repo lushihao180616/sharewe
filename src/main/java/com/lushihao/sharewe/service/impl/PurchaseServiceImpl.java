@@ -50,7 +50,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public LSHResponse sendPurchase(Purchase purchase) {
+    public LSHResponse sendPurchase(Purchase purchase, int originalAddressId) {
         int sql_back;
         if (purchase.getId() == 0) {
             //创建任务
@@ -66,6 +66,11 @@ public class PurchaseServiceImpl implements PurchaseService {
             Purchase nowPurchase = purchaseMapper.getOnePurchase(purchase.getId());
             if (nowPurchase.getStatusId() == 2) {
                 return new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧");
+            }
+            //地址有修改
+            if (originalAddressId != purchase.getAddressId()) {
+                addressMapper.updateAddressUsedCount(originalAddressId, 0);
+                addressMapper.updateAddressUsedCount(purchase.getAddressId(), 1);
             }
             //执行更新任务
             sql_back = purchaseMapper.updatePurchase(purchase);

@@ -50,8 +50,10 @@ public class PurchaseController {
         //处理任务单元信息
         List<PurchaseItem> purchaseItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("purchaseItems"), PurchaseItem.class);
         purchase.setPurchaseItems(purchaseItems_list);
+        //用于更新时，修改地址使用数量
+        int originalAddressId = wxRequestJson.getInteger("originalAddressId");
         //发送任务
-        return LSHResponseUtils.getResponse(purchaseService.sendPurchase(purchase));
+        return LSHResponseUtils.getResponse(purchaseService.sendPurchase(purchase, originalAddressId));
     }
 
     /**

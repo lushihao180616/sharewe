@@ -50,7 +50,7 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public LSHResponse sendExpress(Express express) {
+    public LSHResponse sendExpress(Express express, int originalAddressId) {
         int sql_back = 0;
         if (express.getId() == 0) {
             //创建快递
@@ -64,6 +64,11 @@ public class ExpressServiceImpl implements ExpressService {
             Express nowExpress = expressMapper.getOneExpress(express.getId());
             if (nowExpress.getStatusId() == 2) {
                 return new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧");
+            }
+            //地址有修改
+            if (originalAddressId != express.getAddressId()) {
+                addressMapper.updateAddressUsedCount(originalAddressId, 0);
+                addressMapper.updateAddressUsedCount(express.getAddressId(), 1);
             }
             //执行更新快递
             sql_back = expressMapper.updateExpress(express);

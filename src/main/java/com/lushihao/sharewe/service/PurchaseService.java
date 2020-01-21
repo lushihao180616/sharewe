@@ -5,7 +5,7 @@ import com.lushihao.sharewe.entity.purchase.Purchase;
 
 public interface PurchaseService {
 
-    LSHResponse sendPurchase(Purchase purchase);
+    LSHResponse sendPurchase(Purchase purchase, int originalAddressId);
 
     LSHResponse getPurchases(int buildingId, int typeId, int purchase_lastId);
 

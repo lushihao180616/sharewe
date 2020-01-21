@@ -50,8 +50,10 @@ public class ExpressController {
         //处理快递单元信息
         List<ExpressItem> expressItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("expressItems"), ExpressItem.class);
         express.setExpressItems(expressItems_list);
+        //用于更新时，修改地址使用数量
+        int originalAddressId = wxRequestJson.getInteger("originalAddressId");
         //发送快递
-        return LSHResponseUtils.getResponse(expressService.sendExpress(express));
+        return LSHResponseUtils.getResponse(expressService.sendExpress(express, originalAddressId));
     }
 
     /**

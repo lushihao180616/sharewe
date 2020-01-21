@@ -5,7 +5,7 @@ import com.lushihao.sharewe.entity.express.Express;
 
 public interface ExpressService {
 
-    LSHResponse sendExpress(Express express);
+    LSHResponse sendExpress(Express express, int originalAddressId);
 
     LSHResponse getExpresses(int buildingId, int express_lastId);
 

@@ -29,10 +29,10 @@
 		INSERT INTO address (building_id,roomcode,name,phonenumber,openid) VALUES (#{building_id},#{roomcode},#{name},#{phoneNumber},#{openId})
 	</insert>
     <update id="updateAddress" parameterType="Address">
-        UPDATE address SET building_id=#{building_id},roomcode=#{roomcode},name=#{name},phonenumber=#{phoneNumber},openid=#{openId} WHERE id=#{id}
+        UPDATE address SET building_id=#{building_id},roomcode=#{roomcode},name=#{name},phonenumber=#{phoneNumber},openid=#{openId} WHERE id=#{id} AND usedcount=0
 	</update>
     <delete id="deleteAddress" parameterType="Address">
-        DELETE FROM address WHERE id=#{id}
+        DELETE FROM address WHERE id=#{id} AND usedcount=0
     </delete>
     <delete id="deleteAllAddress" parameterType="String">
         DELETE FROM address WHERE openid=#{openId} AND usedcount=0
