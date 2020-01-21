@@ -5,15 +5,11 @@ import java.util.Date;
 public class Image {
 
     /**
-     * 标识（可能是用户标识也可能是商家标识，即userOpenId或merchantCode）
+     * 用户类型_标识（用户、商家）
      */
-    private String id;
+    private String userInfoId;
     /**
-     * 用户类型（用户、商家）
-     */
-    private int userInfoTypeId;
-    /**
-     * 是属于哪个类型的哪条数据的标识（例如：confessionWall_1）
+     * 类型_标识（例如：confessionWall_1）
      */
     private String typeId;
     /**
@@ -29,20 +25,12 @@ public class Image {
      */
     private Date saveTime;
 
-    public String getId() {
-        return id;
+    public String getUserInfoId() {
+        return userInfoId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getUserInfoTypeId() {
-        return userInfoTypeId;
-    }
-
-    public void setUserInfoTypeId(int userInfoTypeId) {
-        this.userInfoTypeId = userInfoTypeId;
+    public void setUserInfoId(String userInfoId) {
+        this.userInfoId = userInfoId;
     }
 
     public String getTypeId() {

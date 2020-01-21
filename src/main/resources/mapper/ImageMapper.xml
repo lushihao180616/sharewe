@@ -5,8 +5,8 @@
     <insert id="addImage" parameterType="Image">
 		INSERT INTO
 		    image
-		    (id,userinfotypeid,typeid,name,src,savetime)
+		    (userinfoid,typeid,name,src,savetime)
 		VALUES
-		    (#{id},#{userInfoTypeId},#{typeId},#{name},#{src},#{saveTime})
+		    (#{userInfoId},#{typeId},#{name},#{src},#{saveTime})
 	</insert>
 </mapper>
