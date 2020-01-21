@@ -3,7 +3,7 @@ package com.lushihao.sharewe.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
-import com.lushihao.sharewe.service.MerchantService;
+import com.lushihao.sharewe.service.merchant.MerchantService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

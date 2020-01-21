@@ -5,7 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.sharewe.entity.confession.ConfessionWall;
 import com.lushihao.sharewe.entity.confession.ConfessionWallItem;
-import com.lushihao.sharewe.service.ConfessionWallService;
+import com.lushihao.sharewe.service.confession.ConfessionWallService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

@@ -7,7 +7,7 @@ import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
 import com.lushihao.sharewe.entity.express.ExpressTypeAndNum;
-import com.lushihao.sharewe.service.ExpressService;
+import com.lushihao.sharewe.service.express.ExpressService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
