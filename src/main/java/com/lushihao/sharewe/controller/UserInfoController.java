@@ -50,7 +50,7 @@ public class UserInfoController {
         String encryptedData = wxRequestJson.getString("encryptedData");
         String iv = wxRequestJson.getString("iv");
 
-        return userInfoService.handleGetUserInfo(code, encryptedData, iv);
+        return LSHResponseUtils.getResponse(userInfoService.handleGetUserInfo(code, encryptedData, iv));
     }
 
     /**
@@ -69,7 +69,7 @@ public class UserInfoController {
         UserInfo userInfo = LSHJsonUtils.json2Bean(data, UserInfo.class);
         boolean deleteAddress = wxRequestJson.getBoolean("deleteAddress");//是否删除地址
 
-        return userInfoService.updateUserInfo(userInfo, deleteAddress);
+        return LSHResponseUtils.getResponse(userInfoService.updateUserInfo(userInfo, deleteAddress));
     }
 
     /**
@@ -87,7 +87,7 @@ public class UserInfoController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String openId = wxRequestJson.getString("openId");
 
-        return userInfoService.findByOpenId(openId);
+        return LSHResponseUtils.getResponse(userInfoService.findByOpenId(openId));
     }
 
     //==================================================用户结束==================================================
@@ -107,7 +107,7 @@ public class UserInfoController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int provinceId = wxRequestJson.getInteger("provinceId");
 
-        return schoolService.findSchoolByProvinceId(provinceId);
+        return LSHResponseUtils.getResponse(schoolService.findSchoolByProvinceId(provinceId));
     }
 
     //==================================================学校结束==================================================

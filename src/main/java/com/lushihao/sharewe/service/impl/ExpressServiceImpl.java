@@ -1,7 +1,6 @@
 package com.lushihao.sharewe.service.impl;
 
 import com.lushihao.myutils.collection.LSHMapUtils;
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.dao.*;
@@ -51,7 +50,7 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String sendExpress(Express express) {
+    public LSHResponse sendExpress(Express express) {
         int sql_back = 0;
         if (express.getId() == 0) {
             //创建快递
@@ -64,7 +63,7 @@ public class ExpressServiceImpl implements ExpressService {
             //先判断这个，快递是不是已经被别人接了
             Express nowExpress = expressMapper.getOneExpress(express.getId());
             if (nowExpress.getStatusId() == 2) {
-                return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧"));
+                return new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧");
             }
             //执行更新快递
             sql_back = expressMapper.updateExpress(express);
@@ -83,10 +82,10 @@ public class ExpressServiceImpl implements ExpressService {
             int batch_sql_back = expressItemMapper.batchCreateExpressItems(express.getExpressItems());
             //执行成功
             if (batch_sql_back == express.getExpressItems().size()) {
-                return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+                return new LSHResponse((Map<String, Object>) null);
             }
         }
-        return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));
+        return new LSHResponse("调用失败，请稍后再试");
     }
 
     /**
@@ -98,7 +97,7 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getExpresses(int buildingId, int express_lastId) {
+    public LSHResponse getExpresses(int buildingId, int express_lastId) {
         //最晚接收几分钟马上要超期的快递
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getExpressAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Express> express_list = expressMapper.filterExpress(buildingId, express_lastId, lastGetDate);
@@ -114,12 +113,12 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getExpress(Express express) {
+    public LSHResponse getExpress(Express express) {
         int sql_back = expressMapper.getExpress(express);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("快递已经被别人抢走了"));
+            return new LSHResponse("快递已经被别人抢走了");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -131,16 +130,16 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String sendExpressReward(Express express) {
+    public LSHResponse sendExpressReward(Express express) {
         int sql_back = expressMapper.sendExpressReward(express);
         //更新快递类型，先删除快递类型单元
         expressTypeAndNumMapper.batchDeleteExpressTypeAndNums(express.getId());
         //创建快递类型单元
         expressTypeAndNumMapper.batchCreateExpressTypeAndNums(express.getExpressTypeAndNums());
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("快递类型修改失败，请稍后再试"));
+            return new LSHResponse("快递类型修改失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -152,13 +151,13 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String payExpressReward(Express express) {
+    public LSHResponse payExpressReward(Express express) {
         userInfoService.pointOut(express.getSendUserOpenId(), express.getReward(), PointRecordTypeEnum.TYPE_EXPRESS_SEND_PAY.getId());
         int sql_back = expressMapper.payExpressReward(express);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
+            return new LSHResponse("请求失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -170,11 +169,11 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String removeExpress(int expressId) {
+    public LSHResponse removeExpress(int expressId) {
         //要被删除的快递
         Express express = expressMapper.getOneExpress(expressId);
         if (express.getStatusId() == 2) {
-            return LSHResponseUtils.getResponse(new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧"));
+            return new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧");
         }
         //需要批量删除的快递单元
         expressItemMapper.batchDeleteExpressItems(expressId);
@@ -182,9 +181,9 @@ public class ExpressServiceImpl implements ExpressService {
         int sql_back = expressMapper.deleteExpress(expressId);
         addressMapper.updateAddressUsedCount(express.getAddressId(), 0);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
+            return new LSHResponse("删除失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -197,7 +196,7 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getSendExpress(String sendUserOpenId, int statusId) {
+    public LSHResponse getSendExpress(String sendUserOpenId, int statusId) {
         //获取快递是否超时的时间点
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getExpressAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Express> express_list = expressMapper.getSendExpress(sendUserOpenId, statusId, lastGetDate);
@@ -213,7 +212,7 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getGetExpress(String getUserOpenId, int statusId) {
+    public LSHResponse getGetExpress(String getUserOpenId, int statusId) {
         List<Express> express_list = expressMapper.getGetExpress(getUserOpenId, statusId, new Date());
         return transform(express_list);
     }
@@ -227,12 +226,12 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String sendCancleExpress(int expressId, boolean sendUserCancle) {
+    public LSHResponse sendCancleExpress(int expressId, boolean sendUserCancle) {
         int sql_back = expressMapper.sendCancleExpress(expressId, sendUserCancle);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
+            return new LSHResponse("取消失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -244,10 +243,10 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getCancleExpress(int expressId, String getUserOpenId) {
+    public LSHResponse getCancleExpress(int expressId, String getUserOpenId) {
         int sql_back = expressMapper.getCancleExpress(expressId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
+            return new LSHResponse("取消失败，请稍后再试");
         } else {
             return userInfoService.findUserInfoByOpenId(getUserOpenId);
         }
@@ -262,12 +261,12 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String getCompleteExpress(int expressId, boolean getUserComplete) {
+    public LSHResponse getCompleteExpress(int expressId, boolean getUserComplete) {
         int sql_back = expressMapper.getCompleteExpress(expressId, getUserComplete);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
+            return new LSHResponse("请求失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -279,10 +278,10 @@ public class ExpressServiceImpl implements ExpressService {
      */
     @Override
     @Transactional
-    public String sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
+    public LSHResponse sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
         int sql_back = expressMapper.sendCompleteExpress(expressId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("请求失败，请稍后再试"));
+            return new LSHResponse("请求失败，请稍后再试");
         } else {
             userInfoService.pointIn(getUserOpenId, reward, PointRecordTypeEnum.TYPE_EXPRESS_GET_COMPLETE.getId());
             addressMapper.updateAddressUsedCount(addressId, 0);
@@ -297,7 +296,7 @@ public class ExpressServiceImpl implements ExpressService {
      * @return
      */
     @Transactional
-    public String transform(List<Express> express_list) {
+    public LSHResponse transform(List<Express> express_list) {
         List<Object> list = new ArrayList<>();
         Map<String, Object> item_map;
         for (Express express : express_list) {
@@ -336,7 +335,7 @@ public class ExpressServiceImpl implements ExpressService {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("express_list", list);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

@@ -1,31 +1,32 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.express.Express;
 
 public interface ExpressService {
 
-    String sendExpress(Express express);
+    LSHResponse sendExpress(Express express);
 
-    String getExpresses(int buildingId, int express_lastId);
+    LSHResponse getExpresses(int buildingId, int express_lastId);
 
-    String getExpress(Express express);
+    LSHResponse getExpress(Express express);
 
-    String sendExpressReward(Express express);
+    LSHResponse sendExpressReward(Express express);
 
-    String payExpressReward(Express express);
+    LSHResponse payExpressReward(Express express);
 
-    String removeExpress(int expressId);
+    LSHResponse removeExpress(int expressId);
 
-    String getSendExpress(String sendUserOpenId, int statusId);
+    LSHResponse getSendExpress(String sendUserOpenId, int statusId);
 
-    String getGetExpress(String getUserOpenId, int statusId);
+    LSHResponse getGetExpress(String getUserOpenId, int statusId);
 
-    String sendCancleExpress(int expressId, boolean sendUserCancle);
+    LSHResponse sendCancleExpress(int expressId, boolean sendUserCancle);
 
-    String getCancleExpress(int expressId, String getUserOpenId);
+    LSHResponse getCancleExpress(int expressId, String getUserOpenId);
 
-    String getCompleteExpress(int expressId, boolean getUserComplete);
+    LSHResponse getCompleteExpress(int expressId, boolean getUserComplete);
 
-    String sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
+    LSHResponse sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
 
 }

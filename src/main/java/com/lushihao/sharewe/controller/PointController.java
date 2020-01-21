@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.PointExchangeService;
@@ -45,7 +46,7 @@ public class PointController {
         String openId = wxRequestJson.getString("openId");
         int needPoint = wxRequestJson.getInteger("needPoint");
 
-        return userInfoService.pointIn(openId, needPoint, PointRecordTypeEnum.TYPE_MONEY_IN.getId());
+        return LSHResponseUtils.getResponse(userInfoService.pointIn(openId, needPoint, PointRecordTypeEnum.TYPE_MONEY_IN.getId()));
     }
 
     /**
@@ -64,7 +65,7 @@ public class PointController {
         String openId = wxRequestJson.getString("openId");
         int needPoint = wxRequestJson.getInteger("needPoint");
 
-        return userInfoService.pointOut(openId, needPoint, PointRecordTypeEnum.TYPE_MONEY_OUT.getId());
+        return LSHResponseUtils.getResponse(userInfoService.pointOut(openId, needPoint, PointRecordTypeEnum.TYPE_MONEY_OUT.getId()));
     }
 
     //==================================================捎点加减结束==================================================
@@ -82,7 +83,7 @@ public class PointController {
     public @ResponseBody
     String pointExchangeList(HttpServletRequest request, HttpServletResponse response,
                              @RequestBody String data) {
-        return pointExchangeService.getPointExchangeList();
+        return LSHResponseUtils.getResponse(pointExchangeService.getPointExchangeList());
     }
 
     /**
@@ -102,7 +103,7 @@ public class PointController {
                 PointExchangeRecord.class);
         int point = jsonObject.getInteger("point");
 
-        return pointExchangeService.createPointExchangeRecord(pointExchangeRecord, point);
+        return LSHResponseUtils.getResponse(pointExchangeService.createPointExchangeRecord(pointExchangeRecord, point));
     }
 
     /**
@@ -120,7 +121,7 @@ public class PointController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         String openId = wxRequestJson.getString("openId");
 
-        return pointExchangeService.selectPointExchangeRecord(openId);
+        return LSHResponseUtils.getResponse(pointExchangeService.selectPointExchangeRecord(openId));
     }
 
     //==================================================劵码相关结束==================================================
@@ -142,7 +143,7 @@ public class PointController {
         int record_lastId = wxRequestJson.getInteger("record_lastId");
         String openId = wxRequestJson.getString("openId");
 
-        return pointRecordService.getRecords(openId, record_lastId);
+        return LSHResponseUtils.getResponse(pointRecordService.getRecords(openId, record_lastId));
     }
 
     //==================================================捎点记录结束==================================================

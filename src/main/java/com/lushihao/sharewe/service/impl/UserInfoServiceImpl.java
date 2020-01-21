@@ -3,7 +3,6 @@ package com.lushihao.sharewe.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.http.LSHHttpUtils;
 import com.lushihao.myutils.json.LSHJsonUtils;
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.AddressMapper;
 import com.lushihao.sharewe.dao.PointRecordMapper;
@@ -45,7 +44,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String handleGetUserInfo(String code, String encryptedData, String iv) {
+    public LSHResponse handleGetUserInfo(String code, String encryptedData, String iv) {
         // 微信小程序appid和秘钥，用来获取或解析用户信息
         final String APPID = "wx15c0ebc110fd5eb5";
         final String SECRET = "5a1a14595cad33adb86caa3af477653a";
@@ -77,7 +76,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 }
             }
         }
-        return LSHResponseUtils.getResponse(new LSHResponse("登录失败，请稍后再试"));
+        return new LSHResponse("登录失败，请稍后再试");
     }
 
     /**
@@ -89,7 +88,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
+    public LSHResponse updateUserInfo(UserInfo userInfo, boolean deleteAddress) {
         int sql_back = userInfoMapper.updateUserInfo(userInfo);
         if (deleteAddress) {
             int flag = addressMapper.findByOpenId(userInfo.getOpenId()).size();
@@ -99,12 +98,12 @@ public class UserInfoServiceImpl implements UserInfoService {
                 } catch (Exception e) {
 
                 } finally {
-                    return LSHResponseUtils.getResponse(new LSHResponse("有地址正在被使用，无法删除"));
+                    return new LSHResponse("有地址正在被使用，无法删除");
                 }
             }
         }
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("更新失败，请稍后再试"));
+            return new LSHResponse("更新失败，请稍后再试");
         } else {
             return findByOpenId(userInfo.getOpenId());
         }
@@ -118,7 +117,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String findByOpenId(String openId) {
+    public LSHResponse findByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 
         // 获取基本信息
@@ -130,7 +129,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         map.put("building_list", allUserInfo.getBuildingList());
         map.put("dormitory_list", allUserInfo.getDormitoryList());
         map.put("address_list", allUserInfo.getAddressList());
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
     /**
@@ -142,11 +141,11 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String pointIn(String openId, int needPoint, int recordSourceType) {
+    public LSHResponse pointIn(String openId, int needPoint, int recordSourceType) {
         int sql_back = userInfoMapper.pointIn(openId, needPoint);
         pointRecordMapper.createPointRecord(new PointRecord(openId, recordSourceType, needPoint, 1));
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("充值失败，请稍后再试"));
+            return new LSHResponse("充值失败，请稍后再试");
         } else {
             return findUserInfoByOpenId(openId);
         }
@@ -161,11 +160,11 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String pointOut(String openId, int needPoint, int recordSourceType) {
+    public LSHResponse pointOut(String openId, int needPoint, int recordSourceType) {
         int sql_back = userInfoMapper.pointOut(openId, needPoint);
         pointRecordMapper.createPointRecord(new PointRecord(openId, recordSourceType, needPoint, 2));
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("提现失败，请稍后再试"));
+            return new LSHResponse("提现失败，请稍后再试");
         } else {
             return findUserInfoByOpenId(openId);
         }
@@ -179,14 +178,14 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     @Transactional
-    public String findUserInfoByOpenId(String openId) {
+    public LSHResponse findUserInfoByOpenId(String openId) {
         Map<String, Object> map = new HashMap<>();
 
         // 获取基本信息
         AllUserInfo allUserInfo = userInfoMapper.findByOpenId(openId);
 
         map.put("userinfo", allUserInfo.getUserinfo());
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

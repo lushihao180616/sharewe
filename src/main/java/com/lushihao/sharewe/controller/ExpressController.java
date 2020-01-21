@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.express.Express;
 import com.lushihao.sharewe.entity.express.ExpressItem;
@@ -50,7 +51,7 @@ public class ExpressController {
         List<ExpressItem> expressItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("expressItems"), ExpressItem.class);
         express.setExpressItems(expressItems_list);
         //发送快递
-        return expressService.sendExpress(express);
+        return LSHResponseUtils.getResponse(expressService.sendExpress(express));
     }
 
     /**
@@ -69,7 +70,7 @@ public class ExpressController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int buildingId = wxRequestJson.getInteger("buildingId");
         int express_lastId = wxRequestJson.getInteger("express_lastId");
-        return expressService.getExpresses(buildingId, express_lastId);
+        return LSHResponseUtils.getResponse(expressService.getExpresses(buildingId, express_lastId));
     }
 
     /**
@@ -92,7 +93,7 @@ public class ExpressController {
             e.printStackTrace();
         }
         Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
-        return expressService.getExpress(express);
+        return LSHResponseUtils.getResponse(expressService.getExpress(express));
     }
 
     //==================================================发送、接收快递结束==================================================
@@ -116,7 +117,7 @@ public class ExpressController {
         List<ExpressTypeAndNum> expressTypeAndNums_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("expressTypeAndNums"), ExpressTypeAndNum.class);
         express.setExpressTypeAndNums(expressTypeAndNums_list);
 
-        return expressService.sendExpressReward(express);
+        return LSHResponseUtils.getResponse(expressService.sendExpressReward(express));
     }
 
     /**
@@ -134,7 +135,7 @@ public class ExpressController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         Express express = LSHJsonUtils.json2Bean(wxRequestJson, Express.class);
 
-        return expressService.payExpressReward(express);
+        return LSHResponseUtils.getResponse(expressService.payExpressReward(express));
     }
 
     /**
@@ -152,7 +153,7 @@ public class ExpressController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int expressId = wxRequestJson.getInteger("expressId");
 
-        return expressService.removeExpress(expressId);
+        return LSHResponseUtils.getResponse(expressService.removeExpress(expressId));
     }
 
     /**
@@ -171,7 +172,7 @@ public class ExpressController {
         String sendUserOpenId = wxRequestJson.getString("sendUserOpenId");
         int statusId = wxRequestJson.getInteger("statusId");
 
-        return expressService.getSendExpress(sendUserOpenId, statusId);
+        return LSHResponseUtils.getResponse(expressService.getSendExpress(sendUserOpenId, statusId));
     }
 
     /**
@@ -190,7 +191,7 @@ public class ExpressController {
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
         int statusId = wxRequestJson.getInteger("statusId");
 
-        return expressService.getGetExpress(getUserOpenId, statusId);
+        return LSHResponseUtils.getResponse(expressService.getGetExpress(getUserOpenId, statusId));
     }
 
     /**
@@ -209,7 +210,7 @@ public class ExpressController {
         int expressId = wxRequestJson.getInteger("expressId");
         boolean sendUserCancle = wxRequestJson.getBoolean("sendUserCancle");
 
-        return expressService.sendCancleExpress(expressId, sendUserCancle);
+        return LSHResponseUtils.getResponse(expressService.sendCancleExpress(expressId, sendUserCancle));
     }
 
     /**
@@ -228,7 +229,7 @@ public class ExpressController {
         int expressId = wxRequestJson.getInteger("expressId");
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
 
-        return expressService.getCancleExpress(expressId, getUserOpenId);
+        return LSHResponseUtils.getResponse(expressService.getCancleExpress(expressId, getUserOpenId));
     }
 
     /**
@@ -247,7 +248,7 @@ public class ExpressController {
         int expressId = wxRequestJson.getInteger("expressId");
         boolean getUserComplete = wxRequestJson.getBoolean("getUserComplete");
 
-        return expressService.getCompleteExpress(expressId, getUserComplete);
+        return LSHResponseUtils.getResponse(expressService.getCompleteExpress(expressId, getUserComplete));
     }
 
     /**
@@ -269,7 +270,7 @@ public class ExpressController {
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
         int addressId = wxRequestJson.getInteger("addressId");
 
-        return expressService.sendCompleteExpress(expressId, reward, sendUserOpenId, getUserOpenId, addressId);
+        return LSHResponseUtils.getResponse(expressService.sendCompleteExpress(expressId, reward, sendUserOpenId, getUserOpenId, addressId));
     }
 
     //==================================================快递订单管理结束==================================================

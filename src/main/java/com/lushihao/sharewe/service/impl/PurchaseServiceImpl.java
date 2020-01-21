@@ -1,15 +1,14 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.dao.*;
 import com.lushihao.sharewe.entity.purchase.AllPurchaseType;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
-import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.entity.purchase.PurchaseType;
 import com.lushihao.sharewe.entity.userinfo.Address;
+import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
 import com.lushihao.sharewe.enums.purchase.PurchaseStatusEnum;
 import com.lushihao.sharewe.service.PurchaseService;
@@ -51,7 +50,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String sendPurchase(Purchase purchase) {
+    public LSHResponse sendPurchase(Purchase purchase) {
         int sql_back;
         if (purchase.getId() == 0) {
             //创建任务
@@ -66,7 +65,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             //先判断这个，任务是不是已经被别人接了
             Purchase nowPurchase = purchaseMapper.getOnePurchase(purchase.getId());
             if (nowPurchase.getStatusId() == 2) {
-                return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
+                return new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧");
             }
             //执行更新任务
             sql_back = purchaseMapper.updatePurchase(purchase);
@@ -97,7 +96,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 return userInfoService.findUserInfoByOpenId(purchase.getSendUserOpenId());
             }
         }
-        return LSHResponseUtils.getResponse(new LSHResponse("调用失败，请稍后再试"));
+        return new LSHResponse("调用失败，请稍后再试");
     }
 
     /**
@@ -107,7 +106,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getPurchases(int buildingId, int typeId, int purchase_lastId) {
+    public LSHResponse getPurchases(int buildingId, int typeId, int purchase_lastId) {
         //最晚接收几分钟马上要超期的任务
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getPurchaseAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Purchase> purchase_list = purchaseMapper.filterPurchases(buildingId, typeId, purchase_lastId, lastGetDate);
@@ -123,10 +122,10 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getPurchase(Purchase purchase) {
+    public LSHResponse getPurchase(Purchase purchase) {
         int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("任务已经被别人抢走了"));
+            return new LSHResponse("任务已经被别人抢走了");
         } else {
             userInfoService.pointOut(purchase.getGetUserOpenId(), (int) purchase.getGuarantee(), PointRecordTypeEnum.TYPE_PURCHASE_GET.getId());
             return userInfoService.findUserInfoByOpenId(purchase.getGetUserOpenId());
@@ -141,11 +140,11 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String removePurchase(int purchaseId) {
+    public LSHResponse removePurchase(int purchaseId) {
         //要被删除的任务
         Purchase purchase = purchaseMapper.getOnePurchase(purchaseId);
         if (purchase.getStatusId() == 2) {
-            return LSHResponseUtils.getResponse(new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧"));
+            return new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧");
         }
         //需要批量删除的任务单元
         purchaseItemMapper.batchDeletePurchaseItems(purchaseId);
@@ -155,9 +154,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         //需要返还的捎点
         userInfoService.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()), PointRecordTypeEnum.TYPE_PURCHASE_REMOVE.getId());
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("删除失败，请稍后再试"));
+            return new LSHResponse("删除失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -170,7 +169,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getSendPurchase(String sendUserOpenId, int statusId) {
+    public LSHResponse getSendPurchase(String sendUserOpenId, int statusId) {
         //获取任务是否超时的时间点
         Date lastGetDate = LSHDateUtils.dateAdd(new Date(), projectBasicInfo.getPurchaseAdvanceMinute(), LSHDateUtils.MINUTE);
         List<Purchase> purchase_list = purchaseMapper.getSendPurchase(sendUserOpenId, statusId, lastGetDate);
@@ -186,7 +185,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getGetPurchase(String getUserOpenId, int statusId) {
+    public LSHResponse getGetPurchase(String getUserOpenId, int statusId) {
         List<Purchase> purchase_list = purchaseMapper.getGetPurchase(getUserOpenId, statusId, new Date());
         return transform(purchase_list);
     }
@@ -200,12 +199,12 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
+    public LSHResponse sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
         int sql_back = purchaseMapper.sendCanclePurchase(purchaseId, sendUserCancle);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
+            return new LSHResponse("取消失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -217,10 +216,10 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getCanclePurchase(int purchaseId, int guarantee, String getUserOpenId) {
+    public LSHResponse getCanclePurchase(int purchaseId, int guarantee, String getUserOpenId) {
         int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("取消失败，请稍后再试"));
+            return new LSHResponse("取消失败，请稍后再试");
         } else {
             userInfoService.pointIn(getUserOpenId, guarantee, PointRecordTypeEnum.TYPE_PURCHASE_CANCLE.getId());
             return userInfoService.findUserInfoByOpenId(getUserOpenId);
@@ -236,12 +235,12 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String getCompletePurchase(int purchaseId, boolean getUserComplete) {
+    public LSHResponse getCompletePurchase(int purchaseId, boolean getUserComplete) {
         int sql_back = purchaseMapper.getCompletePurchase(purchaseId, getUserComplete);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("完成失败，请稍后再试"));
+            return new LSHResponse("完成失败，请稍后再试");
         } else {
-            return LSHResponseUtils.getResponse(new LSHResponse((Map<String, Object>) null));
+            return new LSHResponse((Map<String, Object>) null);
         }
     }
 
@@ -253,10 +252,10 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     @Transactional
-    public String sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
+    public LSHResponse sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse("完成失败，请稍后再试"));
+            return new LSHResponse("完成失败，请稍后再试");
         } else {
             userInfoService.pointIn(sendUserOpenId, guarantee, PointRecordTypeEnum.TYPE_PURCHASE_SEND_COMPLETE.getId());
             userInfoService.pointIn(getUserOpenId, guarantee + reward, PointRecordTypeEnum.TYPE_PURCHASE_GET_COMPLETE.getId());
@@ -272,7 +271,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      * @return
      */
     @Transactional
-    public String transform(List<Purchase> purchase_list) {
+    public LSHResponse transform(List<Purchase> purchase_list) {
         List<Object> list = new ArrayList<>();
         Map<String, Object> item_map;
         for (Purchase purchase : purchase_list) {
@@ -303,7 +302,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("purchase_list", list);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

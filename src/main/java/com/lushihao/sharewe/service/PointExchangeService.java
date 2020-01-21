@@ -1,13 +1,14 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.userinfo.PointExchangeRecord;
 
 public interface PointExchangeService {
 
-	String getPointExchangeList();
+	LSHResponse getPointExchangeList();
 
-	String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point);
+	LSHResponse createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point);
 
-	String selectPointExchangeRecord(String openId);
+	LSHResponse selectPointExchangeRecord(String openId);
 
 }

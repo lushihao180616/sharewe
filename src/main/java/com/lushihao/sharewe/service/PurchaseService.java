@@ -1,27 +1,28 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 
 public interface PurchaseService {
 
-    String sendPurchase(Purchase purchase);
+    LSHResponse sendPurchase(Purchase purchase);
 
-    String getPurchases(int buildingId, int typeId, int purchase_lastId);
+    LSHResponse getPurchases(int buildingId, int typeId, int purchase_lastId);
 
-    String getPurchase(Purchase purchase);
+    LSHResponse getPurchase(Purchase purchase);
 
-    String removePurchase(int purchaseId);
+    LSHResponse removePurchase(int purchaseId);
 
-    String getSendPurchase(String sendUserOpenId, int statusId);
+    LSHResponse getSendPurchase(String sendUserOpenId, int statusId);
 
-    String getGetPurchase(String getUserOpenId, int statusId);
+    LSHResponse getGetPurchase(String getUserOpenId, int statusId);
 
-    String sendCanclePurchase(int purchaseId, boolean sendUserCancle);
+    LSHResponse sendCanclePurchase(int purchaseId, boolean sendUserCancle);
 
-    String getCanclePurchase(int purchaseId, int guarantee, String getUserOpenId);
+    LSHResponse getCanclePurchase(int purchaseId, int guarantee, String getUserOpenId);
 
-    String getCompletePurchase(int purchaseId, boolean getUserComplete);
+    LSHResponse getCompletePurchase(int purchaseId, boolean getUserComplete);
 
-    String sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
+    LSHResponse sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
 
 }

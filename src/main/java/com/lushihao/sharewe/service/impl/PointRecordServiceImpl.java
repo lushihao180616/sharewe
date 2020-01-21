@@ -31,7 +31,7 @@ public class PointRecordServiceImpl implements PointRecordService {
      */
     @Override
     @Transactional
-    public String getRecords(String openId, int record_lastId) {
+    public LSHResponse getRecords(String openId, int record_lastId) {
         List<PointRecord> list = pointRecordMapper.getRecords(openId, record_lastId);
         return transform(list);
     }
@@ -42,7 +42,7 @@ public class PointRecordServiceImpl implements PointRecordService {
      * @param recordList
      * @return
      */
-    private String transform(List<PointRecord> recordList) {
+    private LSHResponse transform(List<PointRecord> recordList) {
         List<Object> list = new ArrayList<>();
         for (PointRecord pointRecord : recordList) {
             Map<String, Object> item_map = LSHMapUtils.entityToMap(pointRecord);
@@ -54,7 +54,7 @@ public class PointRecordServiceImpl implements PointRecordService {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("record_list", list);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

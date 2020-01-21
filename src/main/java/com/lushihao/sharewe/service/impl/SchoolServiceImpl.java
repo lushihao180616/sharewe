@@ -1,6 +1,5 @@
 package com.lushihao.sharewe.service.impl;
 
-import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.BuildingMapper;
 import com.lushihao.sharewe.dao.SchoolMapper;
@@ -33,7 +32,7 @@ public class SchoolServiceImpl implements SchoolService {
      */
     @Override
     @Transactional
-    public String findSchoolByProvinceId(int provinceId) {
+    public LSHResponse findSchoolByProvinceId(int provinceId) {
         Map<String, Object> map = new HashMap<>();
 
         List<School> list = schoolMapper.findByProvinceId(provinceId);
@@ -43,7 +42,7 @@ public class SchoolServiceImpl implements SchoolService {
         }
         map.put("school_list", list);
         map.put("dormitory_list", dormitoryList);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

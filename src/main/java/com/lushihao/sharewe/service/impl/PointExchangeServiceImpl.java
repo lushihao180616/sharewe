@@ -37,12 +37,12 @@ public class PointExchangeServiceImpl implements PointExchangeService {
      */
     @Override
     @Transactional
-    public String getPointExchangeList() {
+    public LSHResponse getPointExchangeList() {
         List<Map<String, Object>> pointExchangeList = pointExchangeMapper.getPointExchangeList();
 
         Map<String, Object> map = new HashMap<>();
         map.put("pointExchange_list", pointExchangeList);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
     /**
@@ -54,7 +54,7 @@ public class PointExchangeServiceImpl implements PointExchangeService {
      */
     @Override
     @Transactional
-    public String createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point) {
+    public LSHResponse createPointExchangeRecord(PointExchangeRecord pointExchangeRecord, int point) {
         Map<String, Object> map = new HashMap<>();
 
         pointExchangeRecord.setVerificationCode(UUID.randomUUID().toString().substring(0, 6));
@@ -62,10 +62,10 @@ public class PointExchangeServiceImpl implements PointExchangeService {
         param.put("point", point);
         int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(param);
         if (sql_back == 0) {
-            return LSHResponseUtils.getResponse(new LSHResponse((String) null));
+            return new LSHResponse((String) null);
         } else {
             userInfoService.pointOut(pointExchangeRecord.getOpenId(), point, PointRecordTypeEnum.TYPE_POINTEXCHANGE_EXCHANGE.getId());
-            return LSHResponseUtils.getResponse(new LSHResponse(map));
+            return new LSHResponse(map);
         }
     }
 
@@ -77,12 +77,12 @@ public class PointExchangeServiceImpl implements PointExchangeService {
      */
     @Override
     @Transactional
-    public String selectPointExchangeRecord(String openId) {
+    public LSHResponse selectPointExchangeRecord(String openId) {
         Map<String, Object> map = new HashMap<>();
 
         List<Map<String, Object>> list = pointExchangeRecordMapper.selectPointExchangeRecord(openId);
         map.put("record_list", list);
-        return LSHResponseUtils.getResponse(new LSHResponse(map));
+        return new LSHResponse(map);
     }
 
 }

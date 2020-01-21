@@ -2,6 +2,7 @@ package com.lushihao.sharewe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lushihao.myutils.json.LSHJsonUtils;
+import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.purchase.Purchase;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
@@ -50,7 +51,7 @@ public class PurchaseController {
         List<PurchaseItem> purchaseItems_list = LSHJsonUtils.json2List(wxRequestJson.getJSONArray("purchaseItems"), PurchaseItem.class);
         purchase.setPurchaseItems(purchaseItems_list);
         //发送任务
-        return purchaseService.sendPurchase(purchase);
+        return LSHResponseUtils.getResponse(purchaseService.sendPurchase(purchase));
     }
 
     /**
@@ -70,7 +71,7 @@ public class PurchaseController {
         int buildingId = wxRequestJson.getInteger("buildingId");
         int typeId = wxRequestJson.getInteger("typeId");
         int purchase_lastId = wxRequestJson.getInteger("purchase_lastId");
-        return purchaseService.getPurchases(buildingId, typeId, purchase_lastId);
+        return LSHResponseUtils.getResponse(purchaseService.getPurchases(buildingId, typeId, purchase_lastId));
     }
 
     /**
@@ -93,7 +94,7 @@ public class PurchaseController {
             e.printStackTrace();
         }
         Purchase purchase = LSHJsonUtils.json2Bean(wxRequestJson, Purchase.class);
-        return purchaseService.getPurchase(purchase);
+        return LSHResponseUtils.getResponse(purchaseService.getPurchase(purchase));
     }
 
     //==================================================发送、接收任务结束==================================================
@@ -114,7 +115,7 @@ public class PurchaseController {
         JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
         int purchaseId = wxRequestJson.getInteger("purchaseId");
 
-        return purchaseService.removePurchase(purchaseId);
+        return LSHResponseUtils.getResponse(purchaseService.removePurchase(purchaseId));
     }
 
     /**
@@ -133,7 +134,7 @@ public class PurchaseController {
         String sendUserOpenId = wxRequestJson.getString("sendUserOpenId");
         int statusId = wxRequestJson.getInteger("statusId");
 
-        return purchaseService.getSendPurchase(sendUserOpenId, statusId);
+        return LSHResponseUtils.getResponse(purchaseService.getSendPurchase(sendUserOpenId, statusId));
     }
 
     /**
@@ -152,7 +153,7 @@ public class PurchaseController {
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
         int statusId = wxRequestJson.getInteger("statusId");
 
-        return purchaseService.getGetPurchase(getUserOpenId, statusId);
+        return LSHResponseUtils.getResponse(purchaseService.getGetPurchase(getUserOpenId, statusId));
     }
 
     /**
@@ -171,7 +172,7 @@ public class PurchaseController {
         int purchaseId = wxRequestJson.getInteger("purchaseId");
         boolean sendUserCancle = wxRequestJson.getBoolean("sendUserCancle");
 
-        return purchaseService.sendCanclePurchase(purchaseId, sendUserCancle);
+        return LSHResponseUtils.getResponse(purchaseService.sendCanclePurchase(purchaseId, sendUserCancle));
     }
 
     /**
@@ -191,7 +192,7 @@ public class PurchaseController {
         int guarantee = wxRequestJson.getInteger("guarantee");
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
 
-        return purchaseService.getCanclePurchase(purchaseId, guarantee, getUserOpenId);
+        return LSHResponseUtils.getResponse(purchaseService.getCanclePurchase(purchaseId, guarantee, getUserOpenId));
     }
 
     /**
@@ -210,7 +211,7 @@ public class PurchaseController {
         int purchaseId = wxRequestJson.getInteger("purchaseId");
         boolean getUserComplete = wxRequestJson.getBoolean("getUserComplete");
 
-        return purchaseService.getCompletePurchase(purchaseId, getUserComplete);
+        return LSHResponseUtils.getResponse(purchaseService.getCompletePurchase(purchaseId, getUserComplete));
     }
 
     /**
@@ -233,7 +234,7 @@ public class PurchaseController {
         String getUserOpenId = wxRequestJson.getString("getUserOpenId");
         int addressId = wxRequestJson.getInteger("addressId");
 
-        return purchaseService.sendCompletePurchase(purchaseId, guarantee, reward, sendUserOpenId, getUserOpenId, addressId);
+        return LSHResponseUtils.getResponse(purchaseService.sendCompletePurchase(purchaseId, guarantee, reward, sendUserOpenId, getUserOpenId, addressId));
     }
 
     //==================================================任务订单管理结束==================================================

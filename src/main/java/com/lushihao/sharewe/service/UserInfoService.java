@@ -1,19 +1,20 @@
 package com.lushihao.sharewe.service;
 
+import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
 
 public interface UserInfoService {
 
-    String handleGetUserInfo(String code, String encryptedData, String iv);
+    LSHResponse handleGetUserInfo(String code, String encryptedData, String iv);
 
-    String findByOpenId(String openId);
+    LSHResponse findByOpenId(String openId);
 
-    String updateUserInfo(UserInfo userInfo, boolean deleteAddress);
+    LSHResponse updateUserInfo(UserInfo userInfo, boolean deleteAddress);
 
-    String pointIn(String openId, int needPoint, int recordSourceType);
+    LSHResponse pointIn(String openId, int needPoint, int recordSourceType);
 
-    String pointOut(String openId, int needPoint, int recordSourceType);
+    LSHResponse pointOut(String openId, int needPoint, int recordSourceType);
 
-    String findUserInfoByOpenId(String openId);
+    LSHResponse findUserInfoByOpenId(String openId);
 
 }
