@@ -3,6 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lushihao.sharewe.dao.ImageMapper">
     <insert id="addImage" parameterType="Image">
-		INSERT INTO image (id,userinfotypeid,name,src,savetime) VALUES (#{id},#{userInfoTypeId},#{name},#{src},#{saveTime})
+		INSERT INTO
+		    image
+		    (id,userinfotypeid,typeid,name,src,savetime)
+		VALUES
+		    (#{id},#{userInfoTypeId},#{typeId},#{name},#{src},#{saveTime})
 	</insert>
 </mapper>
