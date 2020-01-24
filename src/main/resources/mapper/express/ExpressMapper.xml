@@ -138,7 +138,7 @@
 		UPDATE
 		    express
 		SET
-		    senduserpay=#{sendUserPay},
+		    senduserpay=#{sendUserPay}
 		WHERE
 		    id=#{id}
 	</update>

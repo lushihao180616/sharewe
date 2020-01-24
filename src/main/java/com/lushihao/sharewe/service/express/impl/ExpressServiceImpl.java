@@ -144,6 +144,9 @@ public class ExpressServiceImpl implements ExpressService {
         int sql_back = expressMapper.sendExpressReward(express);
         //更新快递类型，先删除快递类型单元
         expressTypeAndNumMapper.batchDeleteExpressTypeAndNums(express.getId());
+        for (ExpressTypeAndNum expressTypeAndNum : express.getExpressTypeAndNums()) {
+            expressTypeAndNum.setExpressId(express.getId());
+        }
         //创建快递类型单元
         expressTypeAndNumMapper.batchCreateExpressTypeAndNums(express.getExpressTypeAndNums());
         if (sql_back == 0) {
@@ -341,6 +344,7 @@ public class ExpressServiceImpl implements ExpressService {
             }
             item_map.put("sendUserCancle", express.isSendUserCancle());
             item_map.put("getUserComplete", express.isGetUserComplete());
+            item_map.put("sendUserPay", express.isSendUserPay());
             list.add(item_map);
         }
         Map<String, Object> map = new HashMap<>();
