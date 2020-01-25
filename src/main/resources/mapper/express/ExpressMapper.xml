@@ -134,7 +134,7 @@
 		WHERE
 		    id=#{id}
 		AND
-		    senduserpay=false
+		    senduserpay=0
 	</update>
     <update id="payExpressReward">
 		UPDATE

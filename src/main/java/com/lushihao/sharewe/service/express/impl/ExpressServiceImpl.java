@@ -176,7 +176,7 @@ public class ExpressServiceImpl implements ExpressService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("请求失败，请稍后再试");
         } else {
-            return new LSHResponse((Map<String, Object>) null);
+            return userInfoService.findUserInfoByOpenId(express.getSendUserOpenId());
         }
     }
 
