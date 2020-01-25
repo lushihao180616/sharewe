@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -105,6 +106,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 return userInfoService.findUserInfoByOpenId(purchase.getSendUserOpenId());
             }
         }
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return new LSHResponse("调用失败，请稍后再试");
     }
 
@@ -134,6 +136,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public LSHResponse getPurchase(Purchase purchase) {
         int sql_back = purchaseMapper.getPurchase(purchase);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("任务已经被别人抢走了");
         } else {
             userInfoService.pointOut(purchase.getGetUserOpenId(), (int) purchase.getGuarantee(), PointRecordTypeEnum.TYPE_PURCHASE_GET.getId());
@@ -153,6 +156,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         //要被删除的任务
         Purchase purchase = purchaseMapper.getOnePurchase(purchaseId);
         if (purchase.getStatusId() == 2) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("任务已经被接收了，请联系接任务人申请取消吧");
         }
         //需要批量删除的任务单元
@@ -163,6 +167,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         //需要返还的捎点
         userInfoService.pointIn(purchase.getSendUserOpenId(), (int) (purchase.getReward() + purchase.getGuarantee()), PointRecordTypeEnum.TYPE_PURCHASE_REMOVE.getId());
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("删除失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -211,6 +216,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public LSHResponse sendCanclePurchase(int purchaseId, boolean sendUserCancle) {
         int sql_back = purchaseMapper.sendCanclePurchase(purchaseId, sendUserCancle);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("取消失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -228,6 +234,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public LSHResponse getCanclePurchase(int purchaseId, int guarantee, String getUserOpenId) {
         int sql_back = purchaseMapper.getCanclePurchase(purchaseId);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("取消失败，请稍后再试");
         } else {
             userInfoService.pointIn(getUserOpenId, guarantee, PointRecordTypeEnum.TYPE_PURCHASE_CANCLE.getId());
@@ -247,6 +254,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public LSHResponse getCompletePurchase(int purchaseId, boolean getUserComplete) {
         int sql_back = purchaseMapper.getCompletePurchase(purchaseId, getUserComplete);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("完成失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -264,6 +272,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public LSHResponse sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
         int sql_back = purchaseMapper.sendCompletePurchase(purchaseId);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("完成失败，请稍后再试");
         } else {
             userInfoService.pointIn(sendUserOpenId, guarantee, PointRecordTypeEnum.TYPE_PURCHASE_SEND_COMPLETE.getId());

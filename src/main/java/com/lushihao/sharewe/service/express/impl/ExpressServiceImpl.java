@@ -69,6 +69,7 @@ public class ExpressServiceImpl implements ExpressService {
             //先判断这个，快递是不是已经被别人接了
             Express nowExpress = expressMapper.getOneExpress(express.getId());
             if (nowExpress.getStatusId() == 2) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return new LSHResponse("快递已经被接收了，请联系接快递人申请取消吧");
             }
             //地址有修改
@@ -96,6 +97,7 @@ public class ExpressServiceImpl implements ExpressService {
                 return new LSHResponse((Map<String, Object>) null);
             }
         }
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return new LSHResponse("调用失败，请稍后再试");
     }
 
@@ -127,6 +129,7 @@ public class ExpressServiceImpl implements ExpressService {
     public LSHResponse getExpress(Express express) {
         int sql_back = expressMapper.getExpress(express);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("快递已经被别人抢走了");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -170,6 +173,7 @@ public class ExpressServiceImpl implements ExpressService {
         userInfoService.pointOut(express.getSendUserOpenId(), express.getReward(), PointRecordTypeEnum.TYPE_EXPRESS_SEND_PAY.getId());
         int sql_back = expressMapper.payExpressReward(express);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("请求失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -196,6 +200,7 @@ public class ExpressServiceImpl implements ExpressService {
         int sql_back = expressMapper.deleteExpress(expressId);
         addressMapper.updateAddressUsedCount(express.getAddressId(), 0);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("删除失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -244,6 +249,7 @@ public class ExpressServiceImpl implements ExpressService {
     public LSHResponse sendCancleExpress(int expressId, boolean sendUserCancle) {
         int sql_back = expressMapper.sendCancleExpress(expressId, sendUserCancle);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("取消失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -261,6 +267,7 @@ public class ExpressServiceImpl implements ExpressService {
     public LSHResponse getCancleExpress(int expressId, String getUserOpenId) {
         int sql_back = expressMapper.getCancleExpress(expressId);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("取消失败，请稍后再试");
         } else {
             return userInfoService.findUserInfoByOpenId(getUserOpenId);
@@ -279,6 +286,7 @@ public class ExpressServiceImpl implements ExpressService {
     public LSHResponse getCompleteExpress(int expressId, boolean getUserComplete) {
         int sql_back = expressMapper.getCompleteExpress(expressId, getUserComplete);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("请求失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);
@@ -296,6 +304,7 @@ public class ExpressServiceImpl implements ExpressService {
     public LSHResponse sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId) {
         int sql_back = expressMapper.sendCompleteExpress(expressId);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("请求失败，请稍后再试");
         } else {
             userInfoService.pointIn(getUserOpenId, reward, PointRecordTypeEnum.TYPE_EXPRESS_GET_COMPLETE.getId());

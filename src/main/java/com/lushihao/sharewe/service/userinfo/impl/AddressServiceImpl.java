@@ -7,6 +7,7 @@ import com.lushihao.sharewe.service.userinfo.AddressService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public class AddressServiceImpl implements AddressService {
 
         int sql_back = addressMapper.createAddress(address);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("创建失败");
         } else {
             map.put("address_list", findByOpenId(address.getOpenId()));
@@ -53,6 +55,7 @@ public class AddressServiceImpl implements AddressService {
 
         int sql_back = addressMapper.updateAddress(address);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("更新失败");
         } else {
             map.put("address_list", findByOpenId(address.getOpenId()));
@@ -73,6 +76,7 @@ public class AddressServiceImpl implements AddressService {
 
         int sql_back = addressMapper.deleteAddress(address);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("删除失败");
         } else {
             map.put("address_list", findByOpenId(address.getOpenId()));

@@ -7,6 +7,7 @@ import com.lushihao.sharewe.service.common.ImageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class ImageServiceImpl implements ImageService {
     public LSHResponse addImage(Image image) {
         int sql_back = imageMapper.addImage(image);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("添加失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);

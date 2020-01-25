@@ -11,6 +11,7 @@ import com.lushihao.sharewe.service.userinfo.UserInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class PointExchangeServiceImpl implements PointExchangeService {
         param.put("point", point);
         int sql_back = pointExchangeRecordMapper.createPointExchangeRecord(param);
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse((String) null);
         } else {
             userInfoService.pointOut(pointExchangeRecord.getOpenId(), point, PointRecordTypeEnum.TYPE_POINTEXCHANGE_EXCHANGE.getId());

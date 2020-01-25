@@ -31,8 +31,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private AddressMapper addressMapper;
     @Resource
-    private PointRecordService pointRecordService;
-    @Resource
     private PointRecordMapper pointRecordMapper;
 
     /**
@@ -98,6 +96,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             }
         }
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("更新失败，请稍后再试");
         } else {
             return findByOpenId(userInfo.getOpenId());
@@ -140,6 +139,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         int sql_back = userInfoMapper.pointIn(openId, needPoint);
         pointRecordMapper.createPointRecord(new PointRecord(openId, recordSourceType, needPoint, 1));
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("充值失败，请稍后再试");
         } else {
             return findUserInfoByOpenId(openId);
@@ -159,6 +159,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         int sql_back = userInfoMapper.pointOut(openId, needPoint);
         pointRecordMapper.createPointRecord(new PointRecord(openId, recordSourceType, needPoint, 2));
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("提现失败，请稍后再试");
         } else {
             return findUserInfoByOpenId(openId);
