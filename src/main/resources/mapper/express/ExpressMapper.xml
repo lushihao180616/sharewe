@@ -133,6 +133,8 @@
 		    reward=#{reward}
 		WHERE
 		    id=#{id}
+		AND
+		    senduserpay=false
 	</update>
     <update id="payExpressReward">
 		UPDATE

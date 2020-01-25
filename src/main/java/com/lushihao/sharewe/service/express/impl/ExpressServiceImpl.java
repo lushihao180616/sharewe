@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -150,6 +151,7 @@ public class ExpressServiceImpl implements ExpressService {
         //创建快递类型单元
         expressTypeAndNumMapper.batchCreateExpressTypeAndNums(express.getExpressTypeAndNums());
         if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("快递类型修改失败，请稍后再试");
         } else {
             return new LSHResponse((Map<String, Object>) null);

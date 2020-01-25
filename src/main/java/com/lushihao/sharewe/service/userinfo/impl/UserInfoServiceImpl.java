@@ -16,6 +16,7 @@ import com.lushihao.sharewe.util.LSHUserInfoUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -93,13 +94,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (deleteAddress) {
             int flag = addressMapper.findByOpenId(userInfo.getOpenId()).size();
             if (flag != addressMapper.deleteAllAddress(userInfo.getOpenId())) {
-                try {
-                    throw new RuntimeException("异常了");
-                } catch (Exception e) {
-
-                } finally {
-                    return new LSHResponse("有地址正在被使用，无法删除");
-                }
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
         }
         if (sql_back == 0) {
