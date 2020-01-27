@@ -2,6 +2,7 @@ package com.lushihao.sharewe.service.express;
 
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.express.Express;
+import com.lushihao.sharewe.entity.express.ExpressEvaluate;
 
 public interface ExpressService {
 
@@ -29,4 +30,5 @@ public interface ExpressService {
 
     LSHResponse sendCompleteExpress(int expressId, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
 
+    LSHResponse sendExpressEvaluate(ExpressEvaluate expressEvaluate, int expressId);
 }

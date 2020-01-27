@@ -62,6 +62,10 @@ public class Express {
      */
     private boolean getUserComplete;
     /**
+     * 评价
+     */
+    private boolean sendUserEvaluate;
+    /**
      * 发送快递单元
      */
     private List<ExpressTypeAndNum> expressTypeAndNums;
@@ -180,6 +184,14 @@ public class Express {
 
     public void setGetUserComplete(boolean getUserComplete) {
         this.getUserComplete = getUserComplete;
+    }
+
+    public boolean isSendUserEvaluate() {
+        return sendUserEvaluate;
+    }
+
+    public void setSendUserEvaluate(boolean sendUserEvaluate) {
+        this.sendUserEvaluate = sendUserEvaluate;
     }
 
     public List<ExpressTypeAndNum> getExpressTypeAndNums() {

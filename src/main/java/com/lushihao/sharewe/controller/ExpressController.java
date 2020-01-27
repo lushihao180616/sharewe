@@ -5,6 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.express.Express;
+import com.lushihao.sharewe.entity.express.ExpressEvaluate;
 import com.lushihao.sharewe.entity.express.ExpressItem;
 import com.lushihao.sharewe.entity.express.ExpressTypeAndNum;
 import com.lushihao.sharewe.service.express.ExpressService;
@@ -273,6 +274,24 @@ public class ExpressController {
         int addressId = wxRequestJson.getInteger("addressId");
 
         return LSHResponseUtils.getResponse(expressService.sendCompleteExpress(expressId, reward, sendUserOpenId, getUserOpenId, addressId));
+    }
+
+    /**
+     * 评价
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/sendExpressEvaluate")
+    public @ResponseBody
+    String sendExpressEvaluate(HttpServletRequest request, HttpServletResponse response,
+                               @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        ExpressEvaluate expressEvaluate = LSHJsonUtils.json2Bean(wxRequestJson, ExpressEvaluate.class);
+        int expressId = wxRequestJson.getInteger("expressId");
+        return LSHResponseUtils.getResponse(expressService.sendExpressEvaluate(expressEvaluate, expressId));
     }
 
     //==================================================快递订单管理结束==================================================

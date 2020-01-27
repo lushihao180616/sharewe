@@ -127,4 +127,10 @@ public interface ExpressMapper {
      */
     int sendCompleteExpress(@Param("expressId") int expressId);
 
+    /**
+     * 添加评价
+     * @param expressId
+     * @return
+     */
+    int sendExpressEvaluate(@Param("expressId") int expressId);
 }

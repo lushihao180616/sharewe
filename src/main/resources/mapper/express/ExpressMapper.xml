@@ -8,7 +8,7 @@
 			express
 			(addressId,buildingId,statusId,sendUserOpenId,deadTime,sendTime,sendUserPay)
 		VALUES
-			(#{addressId},#{buildingId},#{statusId},#{sendUserOpenId},#{deadTime},#{sendTime},#{sendUserPay})
+			(#{addressId},#{buildingId},#{statusId},#{sendUserOpenId},#{deadTime},#{sendTime},0)
 	</insert>
     <update id="updateExpress" parameterType="Express">
 		UPDATE
@@ -22,9 +22,9 @@
 		    deadtime=#{deadTime},
 		    sendtime=#{sendTime},
 		    gettime=null,
-		    senduserpay=null,
-		    sendusercancle=null,
-		    getusercomplete=null
+		    senduserpay=0,
+		    sendusercancle=0,
+		    getusercomplete=0
 		WHERE
 		    id=#{id}
 	</update>
@@ -173,6 +173,14 @@
 		    express
 		SET
 		    statusid=3
+		WHERE
+		    id=#{expressId}
+	</update>
+    <update id="sendExpressEvaluate">
+		UPDATE
+		    express
+		SET
+		    sendUserEvaluate=1
 		WHERE
 		    id=#{expressId}
 	</update>

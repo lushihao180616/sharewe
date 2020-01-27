@@ -3,6 +3,7 @@ package com.lushihao.sharewe.service.express.impl;
 import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.myutils.time.LSHDateUtils;
+import com.lushihao.sharewe.dao.express.ExpressEvaluateMapper;
 import com.lushihao.sharewe.dao.express.ExpressItemMapper;
 import com.lushihao.sharewe.dao.express.ExpressMapper;
 import com.lushihao.sharewe.dao.express.ExpressTypeAndNumMapper;
@@ -47,6 +48,8 @@ public class ExpressServiceImpl implements ExpressService {
     private ProjectBasicInfo projectBasicInfo;
     @Resource
     private UserInfoService userInfoService;
+    @Resource
+    private ExpressEvaluateMapper expressEvaluateMapper;
 
     /**
      * 发送快递
@@ -314,6 +317,25 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     /**
+     * 发一个评价
+     *
+     * @param expressEvaluate
+     * @return
+     */
+    @Override
+    @Transactional
+    public LSHResponse sendExpressEvaluate(ExpressEvaluate expressEvaluate, int expressId) {
+        int sql_back = expressMapper.sendExpressEvaluate(expressId);
+        if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new LSHResponse("请求失败，请稍后再试");
+        } else {
+            expressEvaluateMapper.sendExpressEvaluate(expressEvaluate);
+            return new LSHResponse((Map<String, Object>) null);
+        }
+    }
+
+    /**
      * 转换
      *
      * @param express_list
@@ -356,6 +378,7 @@ public class ExpressServiceImpl implements ExpressService {
             item_map.put("sendUserCancle", express.isSendUserCancle());
             item_map.put("getUserComplete", express.isGetUserComplete());
             item_map.put("sendUserPay", express.isSendUserPay());
+            item_map.put("sendUserEvaluate", express.isSendUserEvaluate());
             list.add(item_map);
         }
         Map<String, Object> map = new HashMap<>();
