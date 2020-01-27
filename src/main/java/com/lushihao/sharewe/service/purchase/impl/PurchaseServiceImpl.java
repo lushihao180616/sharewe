@@ -2,15 +2,13 @@ package com.lushihao.sharewe.service.purchase.impl;
 
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.myutils.time.LSHDateUtils;
+import com.lushihao.sharewe.dao.purchase.PurchaseEvaluateMapper;
 import com.lushihao.sharewe.dao.purchase.PurchaseItemMapper;
 import com.lushihao.sharewe.dao.purchase.PurchaseMapper;
 import com.lushihao.sharewe.dao.userinfo.AddressMapper;
 import com.lushihao.sharewe.dao.userinfo.BuildingMapper;
 import com.lushihao.sharewe.dao.userinfo.UserInfoMapper;
-import com.lushihao.sharewe.entity.purchase.AllPurchaseType;
-import com.lushihao.sharewe.entity.purchase.Purchase;
-import com.lushihao.sharewe.entity.purchase.PurchaseItem;
-import com.lushihao.sharewe.entity.purchase.PurchaseType;
+import com.lushihao.sharewe.entity.purchase.*;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.yml.ProjectBasicInfo;
 import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
@@ -46,6 +44,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     private ProjectBasicInfo projectBasicInfo;
     @Resource
     private UserInfoService userInfoService;
+    @Resource
+    private PurchaseEvaluateMapper purchaseEvaluateMapper;
 
     /**
      * 发送任务这发送任务（或更新任务）
@@ -283,6 +283,26 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     /**
+     * 评价
+     *
+     * @param purchaseEvaluate
+     * @param purchaseId
+     * @return
+     */
+    @Override
+    @Transactional
+    public LSHResponse sendPurchaseEvaluate(PurchaseEvaluate purchaseEvaluate, int purchaseId) {
+        int sql_back = purchaseMapper.sendPurchaseEvaluate(purchaseId);
+        if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new LSHResponse("请求失败，请稍后再试");
+        } else {
+            purchaseEvaluateMapper.sendPurchaseEvaluate(purchaseEvaluate);
+            return new LSHResponse((Map<String, Object>) null);
+        }
+    }
+
+    /**
      * 转换
      *
      * @param purchase_list
@@ -316,6 +336,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             item_map.put("purchaseItems", purchase_items);
             item_map.put("sendUserCancle", purchase.isSendUserCancle());
             item_map.put("getUserComplete", purchase.isGetUserComplete());
+            item_map.put("sendUserEvaluate", purchase.isSendUserEvaluate());
             list.add(item_map);
         }
         Map<String, Object> map = new HashMap<>();

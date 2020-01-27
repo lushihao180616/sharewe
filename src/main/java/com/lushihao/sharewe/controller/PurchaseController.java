@@ -5,6 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.myutils.time.LSHDateUtils;
 import com.lushihao.sharewe.entity.purchase.Purchase;
+import com.lushihao.sharewe.entity.purchase.PurchaseEvaluate;
 import com.lushihao.sharewe.entity.purchase.PurchaseItem;
 import com.lushihao.sharewe.service.purchase.PurchaseService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -237,6 +238,24 @@ public class PurchaseController {
         int addressId = wxRequestJson.getInteger("addressId");
 
         return LSHResponseUtils.getResponse(purchaseService.sendCompletePurchase(purchaseId, guarantee, reward, sendUserOpenId, getUserOpenId, addressId));
+    }
+
+    /**
+     * 评价
+     *
+     * @param request
+     * @param response
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/sendPurchaseEvaluate")
+    public @ResponseBody
+    String sendPurchaseEvaluate(HttpServletRequest request, HttpServletResponse response,
+                                @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        PurchaseEvaluate purchaseEvaluate = LSHJsonUtils.json2Bean(wxRequestJson, PurchaseEvaluate.class);
+        int purchaseId = wxRequestJson.getInteger("purchaseId");
+        return LSHResponseUtils.getResponse(purchaseService.sendPurchaseEvaluate(purchaseEvaluate, purchaseId));
     }
 
     //==================================================任务订单管理结束==================================================

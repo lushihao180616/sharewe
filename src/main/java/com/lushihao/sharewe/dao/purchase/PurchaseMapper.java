@@ -111,4 +111,12 @@ public interface PurchaseMapper {
      */
     int sendCompletePurchase(@Param("purchaseId") int purchaseId);
 
+    /**
+     * 评价
+     *
+     * @param purchaseId
+     * @return
+     */
+    int sendPurchaseEvaluate(@Param("purchaseId") int purchaseId);
+
 }

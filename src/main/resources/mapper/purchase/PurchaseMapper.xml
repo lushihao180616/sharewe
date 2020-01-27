@@ -163,4 +163,12 @@
 		WHERE
 		    id=#{purchaseId}
 	</update>
+    <update id="sendPurchaseEvaluate">
+		UPDATE
+		    purchase
+		SET
+		    sendUserEvaluate=1
+		WHERE
+		    id=#{purchaseId}
+	</update>
 </mapper>

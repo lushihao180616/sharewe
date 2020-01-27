@@ -66,6 +66,10 @@ public class Purchase {
 	 */
 	private boolean getUserComplete;
 	/**
+	 * 评价
+	 */
+	private boolean sendUserEvaluate;
+	/**
 	 * 任务单元
 	 */
 	private List<PurchaseItem> purchaseItems;
@@ -188,6 +192,14 @@ public class Purchase {
 
 	public void setGetUserComplete(boolean getUserComplete) {
 		this.getUserComplete = getUserComplete;
+	}
+
+	public boolean isSendUserEvaluate() {
+		return sendUserEvaluate;
+	}
+
+	public void setSendUserEvaluate(boolean sendUserEvaluate) {
+		this.sendUserEvaluate = sendUserEvaluate;
 	}
 
 	public List<PurchaseItem> getPurchaseItems() {

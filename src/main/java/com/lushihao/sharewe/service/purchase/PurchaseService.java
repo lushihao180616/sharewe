@@ -2,6 +2,7 @@ package com.lushihao.sharewe.service.purchase;
 
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.purchase.Purchase;
+import com.lushihao.sharewe.entity.purchase.PurchaseEvaluate;
 
 public interface PurchaseService {
 
@@ -25,4 +26,5 @@ public interface PurchaseService {
 
     LSHResponse sendCompletePurchase(int purchaseId, int guarantee, int reward, String sendUserOpenId, String getUserOpenId, int addressId);
 
+    LSHResponse sendPurchaseEvaluate(PurchaseEvaluate purchaseEvaluate, int purchaseId);
 }
