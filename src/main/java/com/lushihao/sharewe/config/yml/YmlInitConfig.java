@@ -24,7 +24,8 @@ public class YmlInitConfig {
                 new ClassPathResource("purchase-type.yml"),
                 new ClassPathResource("merchant-type.yml"),
                 new ClassPathResource("express-type.yml"),
-                new ClassPathResource("userinfo-type.yml")
+                new ClassPathResource("userinfo-type.yml"),
+                new ClassPathResource("user-profession-type.yml")
         );
         configurer.setProperties(yaml.getObject());
         return configurer;

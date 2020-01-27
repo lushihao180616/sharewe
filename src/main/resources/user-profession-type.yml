@@ -1,0 +1,11 @@
+userprofessiontype:
+  typeList:
+    - name: "任务专家"
+      des: "可以接收任务"
+      code: "purchase"
+    - name: "快递员"
+      des: "可以接收快递（为避免恶意接快递，此项需要押金）"
+      code: "express"
+    - name: "知情者"
+      des: "可以回答告白墙（为保护个人隐私，此项需要押金）"
+      code: "confession"
