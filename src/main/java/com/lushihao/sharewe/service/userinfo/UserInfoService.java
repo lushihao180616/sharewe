@@ -2,6 +2,7 @@ package com.lushihao.sharewe.service.userinfo;
 
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
+import com.lushihao.sharewe.entity.userinfo.UserProfessionTypeRecord;
 
 public interface UserInfoService {
 
@@ -17,4 +18,7 @@ public interface UserInfoService {
 
     LSHResponse findUserInfoByOpenId(String openId);
 
+    LSHResponse getAllProfession(String openId);
+
+    LSHResponse changeTypeOpen(UserProfessionTypeRecord userProfessionTypeRecord, int point);
 }

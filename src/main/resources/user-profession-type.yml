@@ -3,9 +3,12 @@ userprofessiontype:
     - name: "任务专家"
       des: "可以接收任务"
       code: "purchase"
+      point: 0
     - name: "快递员"
       des: "可以接收快递"
       code: "express"
+      point: 1000
     - name: "知情者"
       des: "可以回答告白墙"
       code: "confession"
+      point: 0

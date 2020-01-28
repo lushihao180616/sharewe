@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lushihao.sharewe.dao.userinfo.UserProfessionTypeRecordMapper">
+    <insert id="batchCreateRecord" parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO
+            userprofessiontyperecord
+            (openid,typecode,ifopen)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.openId},
+            #{item.typeCode},
+            #{item.ifOpen}
+            )
+        </foreach>
+    </insert>
+    <delete id="batchDeleteRecord" parameterType="java.util.List">
+        DELETE FROM
+            userprofessiontyperecord
+        WHERE
+            openid=#{openId}
+        AND
+            typecode IN (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item.typeCode}
+        </foreach>
+            )
+    </delete>
+    <update id="updateUserProfessionTypeRecord" parameterType="UserProfessionTypeRecord">
+		UPDATE
+			userprofessiontyperecord
+		SET
+			ifopen=#{ifOpen}
+		WHERE
+            openId=#{openId}
+        AND
+            typeCode=#{typeCode}
+	</update>
+    <select id="getAllProfession" parameterType="string" resultType="UserProfessionTypeRecord">
+        SELECT
+        	*
+        FROM
+        	userprofessiontyperecord
+        WHERE
+            openid=#{openId}
+    </select>
+</mapper>

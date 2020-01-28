@@ -5,6 +5,7 @@ import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.LSHResponseUtils;
 import com.lushihao.sharewe.entity.userinfo.Address;
 import com.lushihao.sharewe.entity.userinfo.UserInfo;
+import com.lushihao.sharewe.entity.userinfo.UserProfessionTypeRecord;
 import com.lushihao.sharewe.service.userinfo.AddressService;
 import com.lushihao.sharewe.service.userinfo.BuildingService;
 import com.lushihao.sharewe.service.userinfo.SchoolService;
@@ -186,5 +187,29 @@ public class UserInfoController {
     }
 
     //==================================================地址结束==================================================
+    //==================================================职业开始==================================================
+
+    @RequestMapping(value = "/getAllProfession")
+    public @ResponseBody
+    String getAllProfession(HttpServletRequest request, HttpServletResponse response,
+                            @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        String openId = wxRequestJson.getString("openId");
+
+        return LSHResponseUtils.getResponse(userInfoService.getAllProfession(openId));
+    }
+
+    @RequestMapping(value = "/changeTypeOpen")
+    public @ResponseBody
+    String changeTypeOpen(HttpServletRequest request, HttpServletResponse response,
+                          @RequestBody String data) {
+        JSONObject wxRequestJson = LSHJsonUtils.string2JsonObj(data);
+        int point = wxRequestJson.getInteger("point");
+        UserProfessionTypeRecord userProfessionTypeRecord = LSHJsonUtils.json2Bean(data, UserProfessionTypeRecord.class);
+
+        return LSHResponseUtils.getResponse(userInfoService.changeTypeOpen(userProfessionTypeRecord, point));
+    }
+
+    //==================================================职业结束==================================================
 
 }

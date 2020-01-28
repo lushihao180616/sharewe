@@ -1,16 +1,16 @@
 package com.lushihao.sharewe.service.userinfo.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lushihao.myutils.collection.LSHMapUtils;
 import com.lushihao.myutils.http.LSHHttpUtils;
 import com.lushihao.myutils.json.LSHJsonUtils;
 import com.lushihao.myutils.response.vo.LSHResponse;
 import com.lushihao.sharewe.dao.userinfo.AddressMapper;
 import com.lushihao.sharewe.dao.userinfo.PointRecordMapper;
 import com.lushihao.sharewe.dao.userinfo.UserInfoMapper;
-import com.lushihao.sharewe.entity.userinfo.AllUserInfo;
-import com.lushihao.sharewe.entity.userinfo.PointRecord;
-import com.lushihao.sharewe.entity.userinfo.UserInfo;
-import com.lushihao.sharewe.service.userinfo.PointRecordService;
+import com.lushihao.sharewe.dao.userinfo.UserProfessionTypeRecordMapper;
+import com.lushihao.sharewe.entity.userinfo.*;
+import com.lushihao.sharewe.enums.point.PointRecordTypeEnum;
 import com.lushihao.sharewe.service.userinfo.UserInfoService;
 import com.lushihao.sharewe.util.LSHUserInfoUtils;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,6 +34,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     private AddressMapper addressMapper;
     @Resource
     private PointRecordMapper pointRecordMapper;
+    @Resource
+    private AllUserProfessionType allUserProfessionType;
+    @Resource
+    private UserProfessionTypeRecordMapper userProfessionTypeRecordMapper;
 
     /**
      * 处理获取用户信息方法
@@ -70,6 +76,16 @@ public class UserInfoServiceImpl implements UserInfoService {
                 userInfo.setAvatarUrl(userInfoJson.getString("avatarUrl"));
 
                 int sql_back = userInfoMapper.createUserInfo(userInfo);
+                List<UserProfessionType> type_list = allUserProfessionType.getTypeList();
+                List<UserProfessionTypeRecord> record_list = new ArrayList<>();
+                for (UserProfessionType userProfessionType : type_list) {
+                    UserProfessionTypeRecord record = new UserProfessionTypeRecord();
+                    record.setIfOpen(false);
+                    record.setOpenId(userInfo.getOpenId());
+                    record.setTypeCode(userProfessionType.getCode());
+                    record_list.add(record);
+                }
+                userProfessionTypeRecordMapper.batchCreateRecord(record_list);
                 if (sql_back > 0) {
                     return findByOpenId(openId);
                 }
@@ -182,6 +198,96 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         map.put("userinfo", allUserInfo.getUserinfo());
         return new LSHResponse(map);
+    }
+
+    /**
+     * 获得所有职业
+     *
+     * @param openId
+     * @return
+     */
+    @Override
+    @Transactional
+    public LSHResponse getAllProfession(String openId) {
+        Map<String, Object> map = new HashMap<>();
+        // 共有两步：1.同步现有工作和原有工作，对比删除原有现在没有的工作，对比加入现有原来没有的工作
+        // 获取基本信息
+        List<UserProfessionTypeRecord> nowUserTypeList = userProfessionTypeRecordMapper.getAllProfession(openId);
+        // 判断是否有数据
+        List<UserProfessionType> userTypeList = allUserProfessionType.getTypeList();
+        // 当前用户的类型
+        List<String> nowUserTypeCode = new ArrayList<>();
+        // 所有的类型
+        List<String> userTypeCode = new ArrayList<>();
+        for (UserProfessionTypeRecord record : nowUserTypeList) {
+            nowUserTypeCode.add(record.getTypeCode());
+        }
+        for (UserProfessionType type : userTypeList) {
+            userTypeCode.add(type.getCode());
+        }
+
+        List<UserProfessionTypeRecord> needCreateList = new ArrayList<>();
+        List<UserProfessionTypeRecord> needDeleteList = new ArrayList<>();
+        for (int i = 0; i < nowUserTypeCode.size(); i++) {
+            String nowUserType = nowUserTypeCode.get(i);
+            if (!userTypeCode.contains(nowUserType)) {
+                needDeleteList.add(nowUserTypeList.get(i));
+            }
+        }
+        for (int i = 0; i < userTypeCode.size(); i++) {
+            String userType = userTypeCode.get(i);
+            if (!nowUserTypeCode.contains(userType)) {
+                UserProfessionTypeRecord userProfessionTypeRecord = new UserProfessionTypeRecord();
+                userProfessionTypeRecord.setTypeCode(userType);
+                userProfessionTypeRecord.setOpenId(openId);
+                userProfessionTypeRecord.setIfOpen(false);
+                needCreateList.add(userProfessionTypeRecord);
+            }
+        }
+        if (needCreateList.size() > 0) {
+            userProfessionTypeRecordMapper.batchCreateRecord(needCreateList);
+        }
+        if (needDeleteList.size() > 0) {
+            userProfessionTypeRecordMapper.batchDeleteRecord(openId, needDeleteList);
+        }
+
+        List<UserProfessionTypeRecord> record_list = userProfessionTypeRecordMapper.getAllProfession(openId);
+        List<Map<String, Object>> return_list = new ArrayList<>();
+        for (UserProfessionTypeRecord backRecord : record_list) {
+            Map<String, Object> returnRecord = LSHMapUtils.entityToMap(backRecord);
+            String typeCode = (String) returnRecord.get("typeCode");
+            returnRecord.remove("typeCode");
+            returnRecord.put("type", allUserProfessionType.getItem(new UserProfessionType(null, typeCode, null)).get(0));
+            return_list.add(returnRecord);
+        }
+
+        map.put("record_list", return_list);
+        return new LSHResponse(map);
+    }
+
+    /**
+     * 修改类型是否开启
+     *
+     * @param userProfessionTypeRecord
+     * @return
+     */
+    @Override
+    @Transactional
+    public LSHResponse changeTypeOpen(UserProfessionTypeRecord userProfessionTypeRecord, int point) {
+        int sql_back = userProfessionTypeRecordMapper.updateUserProfessionTypeRecord(userProfessionTypeRecord);
+        if (point != 0) {
+            if (userProfessionTypeRecord.isIfOpen()) {// 开启此职业
+                pointOut(userProfessionTypeRecord.getOpenId(), point, PointRecordTypeEnum.TYPE_PROFESSIONCHANGE_EXPRESS_OPEN.getId());
+            } else {
+                pointIn(userProfessionTypeRecord.getOpenId(), point, PointRecordTypeEnum.TYPE_PROFESSIONCHANGE_EXPRESS_CLOSE.getId());
+            }
+        }
+        if (sql_back == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new LSHResponse("提现失败，请稍后再试");
+        } else {
+            return getAllProfession(userProfessionTypeRecord.getOpenId());
+        }
     }
 
 }
