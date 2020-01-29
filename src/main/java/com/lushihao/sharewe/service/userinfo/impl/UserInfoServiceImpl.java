@@ -38,6 +38,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private AllUserProfessionType allUserProfessionType;
     @Resource
     private UserProfessionTypeRecordMapper userProfessionTypeRecordMapper;
+    @Resource
+    private AllUserInfoType allUserInfoType;
 
     /**
      * 处理获取用户信息方法
@@ -123,13 +125,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         // 获取基本信息
         AllUserInfo allUserInfo = userInfoMapper.findByOpenId(openId);
 
-        map.put("userinfo", allUserInfo.getUserinfo());
+        Map<String, Object> userinfo = LSHMapUtils.entityToMap(allUserInfo.getUserinfo());
+        userinfo.put("userType", allUserInfoType.getItem(allUserInfo.getUserinfo().getUserTypeCode()).get(0));
+        userinfo.remove("userTypeCode");
+        map.put("userinfo", userinfo);
         map.put("province_list", allUserInfo.getProvinceList());
         map.put("school_list", allUserInfo.getSchoolList());
         map.put("building_list", allUserInfo.getBuildingList());
         map.put("dormitory_list", allUserInfo.getDormitoryList());
         map.put("address_list", allUserInfo.getAddressList());
-        map.put("profession_list", getAllProfession(allUserInfo.getUserinfo().getOpenId()));
+        map.put("profession_list", getAllProfession(allUserInfo.getUserinfo().getOpenId()).getBean().get("record_list"));
         return new LSHResponse(map);
     }
 
@@ -186,8 +191,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         // 获取基本信息
         AllUserInfo allUserInfo = userInfoMapper.findByOpenId(openId);
-
-        map.put("userinfo", allUserInfo.getUserinfo());
+        Map<String, Object> userinfo = LSHMapUtils.entityToMap(allUserInfo.getUserinfo());
+        userinfo.put("userType", allUserInfoType.getItem(allUserInfo.getUserinfo().getUserTypeCode()).get(0));
+        userinfo.remove("userTypeCode");
+        map.put("userinfo", userinfo);
         return new LSHResponse(map);
     }
 

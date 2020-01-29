@@ -38,6 +38,10 @@ public class UserInfo {
      * 捎点
      */
     private int point;
+    /**
+     * 用户类型
+     */
+    private String userTypeCode;
 
     public String getOpenId() {
         return openId;
@@ -109,6 +113,14 @@ public class UserInfo {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public String getUserTypeCode() {
+        return userTypeCode;
+    }
+
+    public void setUserTypeCode(String userTypeCode) {
+        this.userTypeCode = userTypeCode;
     }
 
 }

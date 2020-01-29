@@ -3,10 +3,6 @@ package com.lushihao.sharewe.entity.userinfo;
 public class UserInfoType {
 
     /**
-     * 标识
-     */
-    private int id;
-    /**
      * 名称
      */
     private String name;
@@ -14,14 +10,6 @@ public class UserInfoType {
      * 类型代号
      */
     private String code;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -42,8 +30,7 @@ public class UserInfoType {
     public UserInfoType() {
     }
 
-    public UserInfoType(int id, String name, String code) {
-        this.id = id;
+    public UserInfoType(String name, String code) {
         this.name = name;
         this.code = code;
     }

@@ -12,7 +12,8 @@
         	ui.building_id,
         	ui.phonenumber,
         	ui.avatarurl,
-        	ui.point
+        	ui.point,
+        	ui.usertypecode
         FROM 
         	userinfo ui
         WHERE 
@@ -29,6 +30,7 @@
 			<result property="phoneNumber" column="phonenumber" />
 			<result property="avatarUrl" column="avatarurl" />
 			<result property="point" column="point" />
+			<result property="userTypeCode" column="usertypecode" />
 		</association>
 
 		<collection property="provinceList" ofType="Province" select="getProvince" column="{id=province_id}" />
@@ -121,14 +123,26 @@
         	ad.openId=#{openid}
     </select>
     <insert id="createUserInfo" parameterType="UserInfo">
-        INSERT INTO
-        	userinfo(openid,nickname,gender,avatarurl)
-        VALUES
-        	(#{openId},#{nickName},#{gender},#{avatarUrl})
-        ON DUPLICATE KEY UPDATE
-	        nickname = #{nickName},
-	        gender = #{gender},
-	        avatarurl = #{avatarUrl}
+		<if test="userTypeCode == null">
+			INSERT INTO
+				userinfo(openid,nickname,gender,avatarurl,usertypecode)
+			VALUES
+				(#{openId},#{nickName},#{gender},#{avatarUrl},"ordinary")
+			ON DUPLICATE KEY UPDATE
+				nickname = #{nickName},
+				gender = #{gender},
+				avatarurl = #{avatarUrl}
+		</if>
+		<if test="userTypeCode != null">
+			INSERT INTO
+				userinfo(openid,nickname,gender,avatarurl)
+			VALUES
+				(#{openId},#{nickName},#{gender},#{avatarUrl})
+			ON DUPLICATE KEY UPDATE
+				nickname = #{nickName},
+				gender = #{gender},
+				avatarurl = #{avatarUrl}
+		</if>
 	</insert>
 	<update id="updateUserInfo" parameterType="UserInfo">
         update userinfo set nickname=#{nickName},gender=#{gender},province_id=#{province_id},school_id=#{school_id},building_id=#{building_id},phonenumber=#{phoneNumber},avatarurl=#{avatarUrl} where openid=#{openId}

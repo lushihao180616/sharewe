@@ -21,17 +21,11 @@ public class AllUserInfoType {
         this.typeList = typeList;
     }
 
-    public List<UserInfoType> getItem(UserInfoType userInfoType) {
+    public List<UserInfoType> getItem(String code) {
         List<UserInfoType> list = new ArrayList<>();
         list.addAll(typeList);
-        if (userInfoType.getId() != 0) {
-            list = typeList.stream().filter(s -> s.getId() == userInfoType.getId()).collect(Collectors.toList());
-        }
-        if (userInfoType.getName() != null) {
-            list = typeList.stream().filter(s -> s.getName().equals(userInfoType.getName())).collect(Collectors.toList());
-        }
-        if (userInfoType.getCode() != null) {
-            list = typeList.stream().filter(s -> s.getCode().equals(userInfoType.getCode())).collect(Collectors.toList());
+        if (code != null) {
+            list = typeList.stream().filter(s -> s.getCode().equals(code)).collect(Collectors.toList());
         }
         return list;
     }
