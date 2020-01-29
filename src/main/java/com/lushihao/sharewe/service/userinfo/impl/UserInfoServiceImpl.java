@@ -76,16 +76,6 @@ public class UserInfoServiceImpl implements UserInfoService {
                 userInfo.setAvatarUrl(userInfoJson.getString("avatarUrl"));
 
                 int sql_back = userInfoMapper.createUserInfo(userInfo);
-                List<UserProfessionType> type_list = allUserProfessionType.getTypeList();
-                List<UserProfessionTypeRecord> record_list = new ArrayList<>();
-                for (UserProfessionType userProfessionType : type_list) {
-                    UserProfessionTypeRecord record = new UserProfessionTypeRecord();
-                    record.setIfOpen(false);
-                    record.setOpenId(userInfo.getOpenId());
-                    record.setTypeCode(userProfessionType.getCode());
-                    record_list.add(record);
-                }
-                userProfessionTypeRecordMapper.batchCreateRecord(record_list);
                 if (sql_back > 0) {
                     return findByOpenId(openId);
                 }
@@ -202,16 +192,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     /**
-     * 获得所有职业
+     * 检察职业
      *
      * @param openId
-     * @return
      */
-    @Override
     @Transactional
-    public LSHResponse getAllProfession(String openId) {
-        Map<String, Object> map = new HashMap<>();
-        // 共有两步：1.同步现有工作和原有工作，对比删除原有现在没有的工作，对比加入现有原来没有的工作
+    void checkPrefession(String openId) {
         // 获取基本信息
         List<UserProfessionTypeRecord> nowUserTypeList = userProfessionTypeRecordMapper.getAllProfession(openId);
         // 判断是否有数据
@@ -251,6 +237,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (needDeleteList.size() > 0) {
             userProfessionTypeRecordMapper.batchDeleteRecord(openId, needDeleteList);
         }
+    }
+
+    /**
+     * 获得所有职业
+     *
+     * @param openId
+     * @return
+     */
+    @Override
+    @Transactional
+    public LSHResponse getAllProfession(String openId) {
+        Map<String, Object> map = new HashMap<>();
+        // 共有两步：1.同步现有工作和原有工作，对比删除原有现在没有的工作，对比加入现有原来没有的工作
+        checkPrefession(openId);
 
         List<UserProfessionTypeRecord> record_list = userProfessionTypeRecordMapper.getAllProfession(openId);
         List<Map<String, Object>> return_list = new ArrayList<>();
@@ -287,7 +287,9 @@ public class UserInfoServiceImpl implements UserInfoService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new LSHResponse("提现失败，请稍后再试");
         } else {
-            return getAllProfession(userProfessionTypeRecord.getOpenId());
+            Map<String, Object> map = findUserInfoByOpenId(userProfessionTypeRecord.getOpenId()).getBean();
+            map.put("record_list", getAllProfession(userProfessionTypeRecord.getOpenId()).getBean().get("record_list"));
+            return new LSHResponse(map);
         }
     }
 
