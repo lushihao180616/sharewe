@@ -139,6 +139,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         map.put("building_list", allUserInfo.getBuildingList());
         map.put("dormitory_list", allUserInfo.getDormitoryList());
         map.put("address_list", allUserInfo.getAddressList());
+        map.put("profession_list", getAllProfession(allUserInfo.getUserinfo().getOpenId()));
         return new LSHResponse(map);
     }
 
