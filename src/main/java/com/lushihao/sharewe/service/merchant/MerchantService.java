@@ -8,4 +8,5 @@ public interface MerchantService {
 
     LSHResponse getMerchants();
 
+    LSHResponse createUserToMerchant(String openId) throws Exception;
 }

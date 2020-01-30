@@ -23,6 +23,10 @@ public class ProjectBasicInfo {
      * 快递提前几分钟被认为超时
      */
     private int expressAdvanceMinute;
+    /**
+     * 二维码地址
+     */
+    private String qrCodePath;
 
     public String getChineseName() {
         return chineseName;
@@ -54,6 +58,14 @@ public class ProjectBasicInfo {
 
     public void setExpressAdvanceMinute(int expressAdvanceMinute) {
         this.expressAdvanceMinute = expressAdvanceMinute;
+    }
+
+    public String getQrCodePath() {
+        return qrCodePath;
+    }
+
+    public void setQrCodePath(String qrCodePath) {
+        this.qrCodePath = qrCodePath;
     }
 
 }

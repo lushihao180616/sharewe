@@ -1,7 +1,6 @@
 package com.lushihao.sharewe.dao.express;
 
 import com.lushihao.sharewe.entity.express.Express;
-import com.lushihao.sharewe.entity.purchase.Purchase;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
